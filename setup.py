@@ -5,30 +5,12 @@ version = '0.0.1'
 
 requires = [
     'setuptools',
-]
-
-test_requires = requires + [
-    'webtest',
-    'python-coveralls',
-    'openprocurement.tender.belowthreshold',
-]
-
-docs_requires = requires + [
-    'sphinxcontrib-httpdomain',
-]
-
-databridge_requires = requires + [
     'PyYAML',
     'gevent',
     'redis',
     'LazyDB',
     'ExtendedJournalHandler',
     'openprocurement_client>=1.0b2'
-]
-
-api_requires = requires + [
-    'openprocurement.api',  # XXX TODO: set required version
-    'openprocurement.tender.core',
 ]
 
 entry_points = {
@@ -58,8 +40,5 @@ setup(name='openprocurement.bridge.contracting',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
-      tests_require=test_requires,
-      extras_require={'api': api_requires, 'databridge': databridge_requires,
-                      'test': test_requires, 'docs': docs_requires},
       entry_points=entry_points,
       )
