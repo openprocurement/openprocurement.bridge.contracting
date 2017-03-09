@@ -15,7 +15,7 @@ requires = [
 
 entry_points = {
     'console_scripts': [
-        'contracting_data_bridge = openprocurement.contracting.api.databridge:main'
+        'contracting_data_bridge = openprocurement.bridge.contracting.databridge:main'
     ],
 }
 
