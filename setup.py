@@ -14,6 +14,15 @@ requires = [
     'openprocurement.contracting.api',
 ]
 
+test_requires = requires + [
+    'webtest',
+    'python-coveralls',
+]
+
+docs_requires = requires + [
+    'sphinxcontrib-httpdomain',
+]
+
 entry_points = {
     'console_scripts': [
         'contracting_data_bridge = openprocurement.bridge.contracting.databridge:main'
@@ -41,5 +50,6 @@ setup(name='openprocurement.bridge.contracting',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
+      test_suite="openprocurement.bridge.contracting.tests.main.suite",
       entry_points=entry_points,
       )
