@@ -34,7 +34,7 @@ from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_SYNC_SLEEP, DATABRIDGE_SYNC_RESUME, DATABRIDGE_CACHED)
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
 
 class Db(object):
     """ Database proxy """
