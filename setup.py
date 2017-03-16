@@ -50,6 +50,7 @@ setup(name='openprocurement.bridge.contracting',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
+      extras_require={'test': test_requires, 'docs': docs_requires},
       test_suite="openprocurement.bridge.contracting.tests.main.suite",
       entry_points=entry_points,
       )
