@@ -11,7 +11,6 @@ requires = [
     'LazyDB',
     'ExtendedJournalHandler',
     'openprocurement_client>=1.0b2',
-    'openprocurement.contracting.api',
 ]
 
 test_requires = requires + [
