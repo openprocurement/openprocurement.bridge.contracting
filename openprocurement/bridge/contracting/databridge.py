@@ -522,9 +522,21 @@ class ContractingDataBridge(object):
                 gevent.sleep(self.jobs_watcher_delay)
                 if counter == 20:
                     logger.info(
-                        'Current state: Tenders to process {}; Unhandled contracts {}; Contracts to create {}; Retrying to create {}'.format(
-                        self.tenders_queue.qsize(), self.handicap_contracts_queue.qsize(), self.contracts_put_queue.qsize(),
-                        self.contracts_retry_put_queue.qsize()))
+                        'Current state: Tenders to process {}; Unhandled '
+                        'contracts {}; Contracts to create {}; Retrying to '
+                        'create {}'.format(
+                            self.tenders_queue.qsize(),
+                            self.handicap_contracts_queue.qsize(),
+                            self.contracts_put_queue.qsize(),
+                            self.contracts_retry_put_queue.qsize()),
+                        extra={
+                            'tenders_queue_size': self.tenders_queue.qsize()
+                            'handicap_contracts_queue_size':
+                                self.handicap_contracts_queue.qsize()
+                            'contracts_queue_size':
+                                self.contracts_put_queue.qsize()
+                            'contracts_retry_queue':
+                                self.contracts_retry_put_queue.qsize()})
                     counter = 0
                 counter += 1
                 if forward_worker.dead or (backward_worker.dead and not backward_worker.successful()):
