@@ -530,11 +530,11 @@ class ContractingDataBridge(object):
                             self.contracts_put_queue.qsize(),
                             self.contracts_retry_put_queue.qsize()),
                         extra={
-                            'tenders_queue_size': self.tenders_queue.qsize()
+                            'tenders_queue_size': self.tenders_queue.qsize(),
                             'handicap_contracts_queue_size':
-                                self.handicap_contracts_queue.qsize()
+                                self.handicap_contracts_queue.qsize(),
                             'contracts_queue_size':
-                                self.contracts_put_queue.qsize()
+                                self.contracts_put_queue.qsize(),
                             'contracts_retry_queue':
                                 self.contracts_retry_put_queue.qsize()})
                     counter = 0
