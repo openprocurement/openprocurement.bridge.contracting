@@ -282,6 +282,11 @@ class ContractingDataBridge(object):
                     if tender.get('mode'):
                         contract['mode'] = tender['mode']
 
+                    # esco-specific attributes
+                    if tender.get('procurementMethodType') == 'esco.EU':
+                        contract['NBUdiscountRate'] = tender['NBUdiscountRate']
+
+
                     if not contract.get('items'):
                         logger.info('Copying contract {} items'.format(contract['id']), extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
                                                                                                               {"CONTRACT_ID": contract['id'], "TENDER_ID": tender_to_sync['id']}))
