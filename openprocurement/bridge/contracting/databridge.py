@@ -285,6 +285,8 @@ class ContractingDataBridge(object):
                     # esco-specific attributes
                     if tender.get('procurementMethodType') == 'esco.EU':
                         contract['NBUdiscountRate'] = tender['NBUdiscountRate']
+                        # TODO: fundingKind, minimalYearlyPaymentsPercentage,
+                        # contractType
 
 
                     if not contract.get('items'):
