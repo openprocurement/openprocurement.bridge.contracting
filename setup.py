@@ -10,7 +10,7 @@ requires = [
     'redis',
     'LazyDB',
     'ExtendedJournalHandler',
-    'openprocurement_client>=1.0b2',
+    'openprocurement_client==1.0b2',
 ]
 
 test_requires = requires + [
