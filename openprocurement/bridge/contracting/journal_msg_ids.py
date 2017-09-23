@@ -1,5 +1,6 @@
 DATABRIDGE_START = "c_bridge_start"
 DATABRIDGE_RESTART = "c_bridge_restart"
+DATABRIDGE_RECONNECT = "c_bridge_reconnect"
 DATABRIDGE_GET_CREDENTIALS = "c_bridge_get_tender_credentials"
 DATABRIDGE_GOT_CREDENTIALS = "c_bridge_got_tender_credentials"
 DATABRIDGE_FOUND_MULTILOT_COMPLETE = "c_bridge_found_multilot"
