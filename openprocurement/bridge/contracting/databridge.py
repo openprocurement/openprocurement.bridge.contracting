@@ -202,7 +202,7 @@ class ContractingDataBridge(object):
                 delay = self.full_stack_sync_delay
                 logger.info("Client {} params: {}".format(direction, params))
             for tender in tenders_list:
-                if tender.get('procurementMethodType') in ['competitiveDialogueUA', 'competitiveDialogueEU']:
+                if tender.get('procurementMethodType') in ['competitiveDialogueUA', 'competitiveDialogueEU', 'esco']:
                     logger.info('Skipping {} tender {}'.format(tender['procurementMethodType'], tender['id']),
                                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_INFO}, params={"TENDER_ID": tender['id']}))
                     continue
