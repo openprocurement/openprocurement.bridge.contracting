@@ -36,6 +36,8 @@ from openprocurement.bridge.contracting.journal_msg_ids import (
 
 
 logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
+INFINITY_LOOP = True
+
 
 class Db(object):
     """ Database proxy """
@@ -574,7 +576,7 @@ class ContractingDataBridge(object):
         counter = 0
 
         try:
-            while True:
+            while INFINITY_LOOP:
                 gevent.sleep(self.jobs_watcher_delay)
                 if counter == 20:
                     logger.info(
