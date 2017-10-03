@@ -103,6 +103,24 @@ class TestDatabridge(unittest.TestCase):
             self._get_calls_count(warn_calls, restart_prepare_data_retry), 21)
         # TODO: calculate spawn calls with different args
 
+        spawn_calls = mocked_gevent.spawn.call_args_list
+
+        self.assertEqual(len(spawn_calls), 154)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.get_tender_contracts)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.prepare_contract_data)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.prepare_contract_data_retry)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.put_contracts)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.retry_put_contracts)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.get_tender_contracts_backward)), 22)
+        self.assertEqual(
+            self._get_calls_count(spawn_calls, call(cb.get_tender_contracts_forward)), 22)
+
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
