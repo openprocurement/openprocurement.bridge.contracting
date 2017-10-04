@@ -116,7 +116,63 @@ class TestDatabridge(unittest.TestCase):
             self, mocked_loop, mocked_contract_client, mocked_tender_client,
             mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
         cb = ContractingDataBridge({'main': {}})
-        # TODO: test when all jobs and workers run successful
+
+        true_list = [True, False]
+        mocked_loop.__nonzero__.side_effect = true_list
+        mocked_db()._backend = 'redis'
+        mocked_db()._db_name = 'cache_db_name'
+        mocked_db()._port = 6379
+        mocked_db()._host = 'localhost'
+
+        def _start_conrtact_sculptors(cb):
+            get_tender_contracts = MagicMock()
+            prepare_contract_data = MagicMock()
+            prepare_contract_data_retry = MagicMock()
+            put_contracts = MagicMock()
+            retry_put_contracts = MagicMock()
+
+            get_tender_contracts.dead = False
+            prepare_contract_data.dead = False
+            prepare_contract_data_retry.dead = False
+            put_contracts.dead = False
+            retry_put_contracts.dead = False
+
+            cb.immortal_jobs = {
+                'get_tender_contracts': get_tender_contracts,
+                'prepare_contract_data': prepare_contract_data,
+                'prepare_contract_data_retry': prepare_contract_data_retry,
+                'put_contracts': put_contracts,
+                'retry_put_contracts': retry_put_contracts,
+            }
+
+        def _start_synchronization_workers(cb):
+            get_tender_contracts_backward = MagicMock()
+            get_tender_contracts_forward = MagicMock()
+            get_tender_contracts_backward.dead = False
+            get_tender_contracts_forward.dead = False
+            cb.jobs = [get_tender_contracts_backward, get_tender_contracts_forward]
+
+        cb._start_contract_sculptors = MagicMock(
+            side_effect=_start_conrtact_sculptors(cb)
+        )
+
+        cb._start_synchronization_workers = MagicMock(
+            side_effect=_start_synchronization_workers(cb)
+        )
+        _restart_synchronization_workers = MagicMock()
+        cb._restart_synchronization_workers = _restart_synchronization_workers
+        cb.run()
+
+        logger_calls = mocked_logger.info.call_args_list
+        warn_calls = mocked_logger.warn.call_args_list
+        spawn_calls = mocked_gevent.spawn.call_args_list
+        restart_sync = cb._restart_synchronization_workers.call_args_list
+
+        self.assertEqual(len(logger_calls), 3)
+        self.assertEqual(len(warn_calls), 0)
+        self.assertEqual(len(spawn_calls), 0)
+        self.assertEqual(len(restart_sync), 0)
+
 
 def suite():
     suite = unittest.TestSuite()
