@@ -7,9 +7,6 @@ requires = [
     'setuptools',
     'PyYAML',
     'gevent',
-    'redis',
-    'LazyDB',
-    'ExtendedJournalHandler',
     'openprocurement_client==1.0b2',
 ]
 
