@@ -118,6 +118,86 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         # TODO: test when all jobs and workers run successful
 
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    def test_get_tender_credentials(
+            self, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db):
+
+        cb = ContractingDataBridge({'main': {}})
+        cb.client = MagicMock()
+        tender_id = '42'
+        cb.client.extract_credentials.side_effect = (Exception('Boom!'),
+                                                     Exception('Boom!'),
+                                                     Exception('Boom!'),
+                                                     Exception('Boom!'))
+        try:
+            data = cb.get_tender_credentials(tender_id)
+        except Exception:
+            cb.client.extract_credentials.assert_has_calls(
+                [call(tender_id), call(tender_id), call(tender_id)])
+
+        cb.client = MagicMock()
+        cb.client.extract_credentials.return_value = tender_id
+        data = cb.get_tender_credentials(tender_id)
+        self.assertEqual(data, tender_id)
+        cb.client.extract_credentials.assert_called_once_with(tender_id)
+        cb.client = MagicMock()
+        cb.client.extract_credentials.side_effect = (Exception('Boom!'),
+                                                     Exception('Boom!'),
+                                                     tender_id)
+        data = cb.get_tender_credentials(tender_id)
+        cb.client.extract_credentials.assert_has_calls(
+            [call(tender_id), call(tender_id), call(tender_id)])
+        self.assertEqual(data, tender_id)
+
+
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    def test_put_tender_in_cache_by_contract(self, mocked_contract_client,
+                                             mocked_tender_client,
+                                             mocked_sync_client, mocked_db):
+        cb = ContractingDataBridge({'main': {}})
+        tender_id = '2001'
+        cb.basket = {'1': 'one', '2': 'two', '42': 'why'}
+        cb.cache_db = MagicMock()
+
+        cb._put_tender_in_cache_by_contract({'id': '1984'}, tender_id)
+        self.assertEqual(cb.basket.get('42', None), 'why')
+        self.assertEqual(cb.cache_db.put.called, False)
+
+        cb._put_tender_in_cache_by_contract({'id': '42'}, tender_id)
+        self.assertEqual(cb.basket.get('42', None), None)
+        cb.cache_db.put.assert_called_once_with('2001', 'why')
+
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    def test_restart_synchronization_workers(self, mocked_logger,
+                                             mocked_contract_client,
+                                             mocked_tender_client,
+                                             mocked_sync_client, mocked_db):
+
+        cb = ContractingDataBridge({'main': {}})
+        cb.clients_initialize = MagicMock()
+        cb.jobs = MagicMock(return_value=('forward_worker', 'backward_worker'))
+        cb._start_synchronization_workers = MagicMock()
+        cb.clients_initialize = MagicMock()
+
+        cb._restart_synchronization_workers()
+
+        cb._start_synchronization_workers.assert_called_once_with()
+        cb.clients_initialize.assert_called_once_with()
+        mocked_logger.warn.assert_called_once_with('Restarting synchronization',
+                                                   extra={'MESSAGE_ID': 'c_bridge_restart'})
+
+
 def suite():
     suite = unittest.TestSuite()
     # TODO -add tests
