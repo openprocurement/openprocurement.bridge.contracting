@@ -129,30 +129,36 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         cb.client = MagicMock()
         tender_id = '42'
-        cb.client.extract_credentials.side_effect = (Exception('Boom!'),
-                                                     Exception('Boom!'),
-                                                     Exception('Boom!'),
-                                                     Exception('Boom!'))
-        try:
-            data = cb.get_tender_credentials(tender_id)
-        except Exception:
-            cb.client.extract_credentials.assert_has_calls(
-                [call(tender_id), call(tender_id), call(tender_id)])
+        cb.client.extract_credentials.side_effect = (Exception(),
+                                                     Exception(),
+                                                     Exception(),
+                                                     tender_id)
+        with self.assertRaises(Exception):
+            cb.get_tender_credentials(tender_id)
+
+        extract_credentials_calls = cb.client.extract_credentials.call_args_list
+        self.assertEqual(
+            self._get_calls_count(extract_credentials_calls, call(tender_id)), 3)
+        self.assertEqual(len(extract_credentials_calls), 3)
 
         cb.client = MagicMock()
         cb.client.extract_credentials.return_value = tender_id
+
         data = cb.get_tender_credentials(tender_id)
         self.assertEqual(data, tender_id)
         cb.client.extract_credentials.assert_called_once_with(tender_id)
+
         cb.client = MagicMock()
         cb.client.extract_credentials.side_effect = (Exception('Boom!'),
                                                      Exception('Boom!'),
                                                      tender_id)
         data = cb.get_tender_credentials(tender_id)
-        cb.client.extract_credentials.assert_has_calls(
-            [call(tender_id), call(tender_id), call(tender_id)])
-        self.assertEqual(data, tender_id)
 
+        extract_credentials_calls = cb.client.extract_credentials.call_args_list
+        self.assertEqual(
+            self._get_calls_count(extract_credentials_calls, call(tender_id)), 3)
+        self.assertEqual(len(extract_credentials_calls), 3)
+        self.assertEqual(data, tender_id)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
@@ -186,12 +192,16 @@ class TestDatabridge(unittest.TestCase):
 
         cb = ContractingDataBridge({'main': {}})
         cb.clients_initialize = MagicMock()
-        cb.jobs = MagicMock(return_value=('forward_worker', 'backward_worker'))
+        job_1 = MagicMock()
+        job_2 = MagicMock()
+        jobs_list = [job_1, job_2]
+        cb.jobs = jobs_list
         cb._start_synchronization_workers = MagicMock()
-        cb.clients_initialize = MagicMock()
 
         cb._restart_synchronization_workers()
 
+        self.assertEqual(job_1.kill.call_count, 1)
+        self.assertEqual(job_2.kill.call_count, 1)
         cb._start_synchronization_workers.assert_called_once_with()
         cb.clients_initialize.assert_called_once_with()
         mocked_logger.warn.assert_called_once_with('Restarting synchronization',
