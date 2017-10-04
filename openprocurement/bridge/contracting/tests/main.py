@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
+
+import exceptions
 from mock import patch, call, MagicMock
 # from time import sleep
 from openprocurement.bridge.contracting.databridge import ContractingDataBridge
@@ -155,6 +157,7 @@ class TestDatabridge(unittest.TestCase):
         cb._start_contract_sculptors = MagicMock(side_effect=KeyboardInterrupt)
         with self.assertRaises(KeyboardInterrupt) as e:
             cb.run()
+        isinstance(e.exception, exceptions.KeyboardInterrupt)
 
 
 def suite():
