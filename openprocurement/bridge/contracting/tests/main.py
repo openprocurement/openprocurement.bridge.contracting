@@ -4,7 +4,7 @@ from mock import patch, call, MagicMock
 # from time import sleep
 from openprocurement.bridge.contracting.databridge import ContractingDataBridge
 from openprocurement.bridge.contracting.journal_msg_ids import (
-    DATABRIDGE_INFO
+    DATABRIDGE_INFO, DATABRIDGE_START
 )
 
 
@@ -119,10 +119,6 @@ class TestDatabridge(unittest.TestCase):
 
         true_list = [True, False]
         mocked_loop.__nonzero__.side_effect = true_list
-        mocked_db()._backend = 'redis'
-        mocked_db()._db_name = 'cache_db_name'
-        mocked_db()._port = 6379
-        mocked_db()._host = 'localhost'
 
         def _start_conrtact_sculptors(cb):
             get_tender_contracts = MagicMock()
@@ -164,14 +160,22 @@ class TestDatabridge(unittest.TestCase):
         cb.run()
 
         logger_calls = mocked_logger.info.call_args_list
-        warn_calls = mocked_logger.warn.call_args_list
-        spawn_calls = mocked_gevent.spawn.call_args_list
-        restart_sync = cb._restart_synchronization_workers.call_args_list
 
-        self.assertEqual(len(logger_calls), 3)
-        self.assertEqual(len(warn_calls), 0)
-        self.assertEqual(len(spawn_calls), 0)
-        self.assertEqual(len(restart_sync), 0)
+        first_log = call("Caching backend: '{}', db name: '{}', host: '{}', port: '{}'".format(cb.cache_db._backend,
+                                                                                               cb.cache_db._db_name,
+                                                                                               cb.cache_db._host,
+                                                                                               cb.cache_db._port),
+                         extra={"MESSAGE_ID": DATABRIDGE_INFO})
+        second_log = call('Initialization contracting clients.', extra={"MESSAGE_ID": DATABRIDGE_INFO})
+        thread_log = call('Start Contracting Data Bridge', extra=({'MESSAGE_ID': DATABRIDGE_START}))
+
+        self.assertEqual(mocked_logger.info.call_count, 3)
+        self.assertEqual(self._get_calls_count(logger_calls, first_log), 1)
+        self.assertEqual(self._get_calls_count(logger_calls, second_log), 1)
+        self.assertEqual(self._get_calls_count(logger_calls, thread_log), 1)
+        self.assertEqual(mocked_logger.warn.call_count, 0)
+        self.assertEqual(mocked_gevent.spawn.call_count, 0)
+        self.assertEqual(cb._restart_synchronization_workers.call_count, 0)
 
 
 def suite():
