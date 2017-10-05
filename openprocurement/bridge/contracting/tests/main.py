@@ -133,16 +133,11 @@ class TestDatabridge(unittest.TestCase):
         true_list.append(False)
         mocked_loop.__nonzero__.side_effect = true_list
 
-        def _start_synchronization_workers(cb):
-            cb.jobs = [False, False]
-
-        cb._start_synchronization_workers = MagicMock(side_effect=_start_synchronization_workers(cb))
+        e = Exception('Error!')
+        cb._restart_synchronization_workers = MagicMock(side_effect=e)
         cb.run()
 
-        logger_calls = mocked_logger.exception.call_args_list
-        error = 'call(AttributeError("\'bool\' object has no attribute \'dead\'",))'
-
-        self.assertEqual(logger_calls[0].__repr__(), error)
+        mocked_logger.exception.assert_called_once_with(e)
 
 
 def suite():
