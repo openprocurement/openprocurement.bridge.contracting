@@ -118,6 +118,33 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         # TODO: test when all jobs and workers run successful
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_run_with_Exception(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        cb = ContractingDataBridge({'main': {}})
+        true_list = [True for i in xrange(0, 21)]
+        true_list.append(False)
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        def _start_synchronization_workers(cb):
+            cb.jobs = [False, False]
+
+        cb._start_synchronization_workers = MagicMock(side_effect=_start_synchronization_workers(cb))
+        cb.run()
+
+        logger_calls = mocked_logger.exception.call_args_list
+        error = 'call(AttributeError("\'bool\' object has no attribute \'dead\'",))'
+
+        self.assertEqual(logger_calls[0].__repr__(), error)
+
+
 def suite():
     suite = unittest.TestSuite()
     # TODO -add tests
