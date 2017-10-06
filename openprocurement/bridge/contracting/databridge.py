@@ -387,7 +387,7 @@ class ContractingDataBridge(object):
         return tender_data
 
     def prepare_contract_data_retry(self):
-        while True:
+        while INFINITY_LOOP:
             contract = self.handicap_contracts_queue_retry.get()
             try:
                 tender_data = self.get_tender_data_with_retry(contract)

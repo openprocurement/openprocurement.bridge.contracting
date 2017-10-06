@@ -118,6 +118,55 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         # TODO: test when all jobs and workers run successful
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_prepare_contract_data_retry(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        true_list = [True, False]
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        cb = ContractingDataBridge({'main': {}})
+        contract = {'id': 0, 'tender_id': 1111}
+        tender_data = MagicMock()
+        tender_data.data = {'owner': 'owner', 'tender_token': 'tender_token'}
+        cb.handicap_contracts_queue_retry.get = MagicMock(return_value=contract)
+        cb.get_tender_data_with_retry = MagicMock(return_value=tender_data)
+        cb.prepare_contract_data_retry()
+        self.assertEquals(cb.contracts_put_queue.qsize(), 1)
+        self.assertEquals(cb.contracts_put_queue.get(), contract)
+
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_prepare_contract_data_retry_with_exception(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        true_list = [True, False]
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        cb = ContractingDataBridge({'main': {}})
+        contract = {'id': 0, 'tender_id': 1111}
+        cb.handicap_contracts_queue_retry.get = MagicMock(return_value=contract)
+        e = Exception("Error!!! prepare_contract_data_retry")
+        cb.get_tender_data_with_retry = MagicMock(side_effect=e)
+        cb.prepare_contract_data_retry()
+        mocked_logger.exception.assert_called_with(e)
+
+
 def suite():
     suite = unittest.TestSuite()
     # TODO -add tests
