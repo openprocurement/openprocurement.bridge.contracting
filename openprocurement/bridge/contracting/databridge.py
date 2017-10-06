@@ -342,7 +342,7 @@ class ContractingDataBridge(object):
     def prepare_contract_data(self):
         unsuccessful_contracts = set()
         unsuccessful_contracts_limit = 10
-        while True:
+        while INFINITY_LOOP:
             contract = self.handicap_contracts_queue.get()
             try:
                 logger.info("Getting extra info for tender {}".format(contract['tender_id']),

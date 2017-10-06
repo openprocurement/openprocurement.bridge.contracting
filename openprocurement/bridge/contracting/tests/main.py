@@ -118,6 +118,73 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         # TODO: test when all jobs and workers run successful
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_prepare_contract_data(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        true_list = [True, False]
+        mocked_loop.__nonzero__.side_effect = true_list
+        cb = ContractingDataBridge({'main': {}})
+        contract = {'id': 0, 'tender_id': 1111}
+
+        class tender_data():
+            data = {'owner': 'owner', 'tender_token': 'tender_token'}
+        cb.handicap_contracts_queue.get = MagicMock(
+            return_value=contract)
+        cb.get_tender_credentials = MagicMock(
+            return_value=tender_data)
+        cb.prepare_contract_data()
+        self.assertEquals(cb.contracts_put_queue.qsize(), 1)
+        self.assertEquals(cb.contracts_put_queue.get(), contract)
+
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_prepare_contract_data_with_exception(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+
+        static_number = 12
+        true_list = [True for i in xrange(0, static_number)]
+        true_list.append(False)
+        mocked_loop.__nonzero__.side_effect = true_list
+        cb = ContractingDataBridge({'main': {}})
+
+        for i in range(static_number):
+            cb.handicap_contracts_queue.put({'id': i, 'tender_id': i+1111})
+
+        class tender_data():
+            data = {'no_owner': '', 'no_tender_token': ''}
+
+        cb.get_tender_credentials = MagicMock(
+            return_value=tender_data)
+
+        cb.prepare_contract_data()
+        list_calls = mocked_gevent.sleep.call_args_list
+        calls_logs = mocked_logger.info.call_args_list
+
+        calls_with_error_delay = call(cb.on_error_delay)
+        self.assertEqual(self._get_calls_count(list_calls, calls_with_error_delay), static_number)
+
+        reconnecting_log = call('Reconnecting tenders client',
+                                extra={'JOURNAL_TENDER_ID': 1120, 'MESSAGE_ID': 'c_bridge_reconnect', 'JOURNAL_CONTRACT_ID': 9})
+        self.assertEqual(self._get_calls_count(calls_logs, reconnecting_log), 1)
+
+
 def suite():
     suite = unittest.TestSuite()
     # TODO -add tests
