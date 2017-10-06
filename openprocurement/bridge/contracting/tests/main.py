@@ -154,12 +154,13 @@ class TestDatabridge(unittest.TestCase):
 
         bridge._put_with_retry = remember_put_with_retry
         mocked_loop.__nonzero__.side_effect = true_list
-        bridge.contracting_client.create_contract = MagicMock(side_effect=[Exception, True])
+        e = Exception('Boom!')
+        bridge.contracting_client.create_contract = MagicMock(side_effect=[e, True])
         contract = munch.munchify(contract)
         bridge.contracts_retry_put_queue.get.return_value = contract
         bridge.retry_put_contracts()
 
-        self.assertEqual(mocked_logger.exception.call_count, 1)
+        mocked_logger.exception.assert_called_once_with(e)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
@@ -195,8 +196,6 @@ class TestDatabridge(unittest.TestCase):
 
         list_contracts = []
         for i in range(0, 10):
-            contract['id'] = i
-            contract['tender_id'] = i + 100
             list_contracts.append(dict(id=i, tender_id=(i+100)))
         bridge.contracts_put_queue = MagicMock()
         bridge.contracts_put_queue.get.side_effect = list_contracts
