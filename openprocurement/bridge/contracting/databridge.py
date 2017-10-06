@@ -409,7 +409,7 @@ class ContractingDataBridge(object):
     def put_contracts(self):
         unsuccessful_contracts = set()
         unsuccessful_contracts_limit = 10
-        while True:
+        while INFINITY_LOOP:
             contract = self.contracts_put_queue.get()
             try:
                 logger.info("Creating contract {} of tender {}".format(contract['id'], contract['tender_id']),
@@ -451,7 +451,7 @@ class ContractingDataBridge(object):
             raise
 
     def retry_put_contracts(self):
-        while True:
+        while INFINITY_LOOP:
             try:
                 contract = self.contracts_retry_put_queue.get()
                 self._put_with_retry(contract)

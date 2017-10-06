@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import munch
 import unittest
 from mock import patch, call, MagicMock
 # from time import sleep
@@ -117,6 +118,100 @@ class TestDatabridge(unittest.TestCase):
             mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
         cb = ContractingDataBridge({'main': {}})
         # TODO: test when all jobs and workers run successful
+
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_retry_put_contracts(
+            self, mocked_loop, mocked_gevent, mocked_logger, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db):
+
+        true_list = [True, False]
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        contract = {'id': '42', 'tender_id': '1984'}
+
+        bridge = ContractingDataBridge({'main': {}})
+        remember_put_with_retry = bridge._put_with_retry
+        bridge.contracts_retry_put_queue = MagicMock()
+        bridge._put_with_retry = MagicMock()
+        bridge.cache_db = MagicMock()
+        bridge._put_tender_in_cache_by_contract = MagicMock()
+        bridge.contracts_retry_put_queue.get.return_value = contract
+
+        bridge.retry_put_contracts()
+
+        bridge.contracts_retry_put_queue.get.assert_called_once_with()
+        bridge._put_with_retry.assert_called_once_with(contract)
+        bridge.cache_db.put.assert_called_once_with(contract['id'], True)
+        bridge._put_tender_in_cache_by_contract.assert_called_once_with(contract,
+                                                                        contract['tender_id'])
+        mocked_gevent.sleep.assert_called_once_with(0)
+
+        bridge._put_with_retry = remember_put_with_retry
+        mocked_loop.__nonzero__.side_effect = true_list
+        bridge.contracting_client.create_contract = MagicMock(side_effect=[Exception, True])
+        contract = munch.munchify(contract)
+        bridge.contracts_retry_put_queue.get.return_value = contract
+        bridge.retry_put_contracts()
+
+        self.assertEqual(mocked_logger.exception.call_count, 1)
+
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_put_contracts(
+            self, mocked_loop, mocked_gevent, mocked_logger, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db):
+
+        list_loop = [True, False]
+        mocked_loop.__nonzero__.side_effect = list_loop
+        contract = munch.munchify({'id': '42', 'tender_id': '1984'})
+
+        bridge = ContractingDataBridge({'main': {}})
+        bridge.contracts_put_queue = MagicMock()
+        bridge.contracts_put_queue.get.return_value = contract
+        bridge.contracting_client = MagicMock()
+        bridge.contracts_retry_put_queue = MagicMock()
+        bridge.contracting_client_init = MagicMock()
+        bridge.cache_db = MagicMock()
+        bridge._put_tender_in_cache_by_contract = MagicMock()
+
+        bridge.put_contracts()
+
+        bridge.contracts_put_queue.get.assert_called_once_with()
+        bridge.contracting_client.create_contract.assert_called_once_with({'data':contract.toDict()})
+        bridge.cache_db.put.assert_called_once_with(contract.id, True)
+        bridge._put_tender_in_cache_by_contract.assert_called_once_with(contract.toDict(), contract.tender_id)
+        mocked_gevent.sleep.assert_called_once_with(0)
+
+        list_contracts = []
+        for i in range(0, 10):
+            contract['id'] = i
+            contract['tender_id'] = i + 100
+            list_contracts.append(dict(id=i, tender_id=(i+100)))
+        bridge.contracts_put_queue = MagicMock()
+        bridge.contracts_put_queue.get.side_effect = list_contracts
+        list_loop = [True for i in range(0, 10)]
+        list_loop.append(False)
+        mocked_loop.__nonzero__.side_effect = list_loop
+
+        bridge.put_contracts()
+
+        extract_calls = [data[0] for data, call in bridge.contracts_retry_put_queue.put.call_args_list]
+        for i in range(0, 10):
+            assert extract_calls[i]['id'] == i
+        self.assertEqual(len(extract_calls), 10)
+        bridge.contracting_client_init.assert_called_once_with()
+
 
 def suite():
     suite = unittest.TestSuite()
