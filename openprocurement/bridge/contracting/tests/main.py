@@ -135,8 +135,9 @@ class TestDatabridge(unittest.TestCase):
         cb = ContractingDataBridge({'main': {}})
         contract = {'id': 0, 'tender_id': 1111}
 
-        class tender_data():
-            data = {'owner': 'owner', 'tender_token': 'tender_token'}
+        tender_data = MagicMock()
+        tender_data.data = {'owner': 'owner', 'tender_token': 'tender_token'}
+
         cb.handicap_contracts_queue.get = MagicMock(
             return_value=contract)
         cb.get_tender_credentials = MagicMock(
@@ -167,8 +168,8 @@ class TestDatabridge(unittest.TestCase):
         for i in range(static_number):
             cb.handicap_contracts_queue.put({'id': i, 'tender_id': i+1111})
 
-        class tender_data():
-            data = {'no_owner': '', 'no_tender_token': ''}
+        tender_data = MagicMock()
+        tender_data.data = {'no_owner': '', 'no_tender_token': ''}
 
         cb.get_tender_credentials = MagicMock(
             return_value=tender_data)
