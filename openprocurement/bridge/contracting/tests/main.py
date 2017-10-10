@@ -328,6 +328,28 @@ class TestDatabridge(unittest.TestCase):
         isinstance(e.exception, exceptions.KeyboardInterrupt)
 
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_run_with_Exception(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        cb = ContractingDataBridge({'main': {}})
+        true_list = [True for i in xrange(0, 21)]
+        true_list.append(False)
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        e = Exception('Error!')
+        cb._restart_synchronization_workers = MagicMock(side_effect=e)
+        cb.run()
+
+        mocked_logger.exception.assert_called_once_with(e)
+
+
 def suite():
     suite = unittest.TestSuite()
     # TODO -add tests
