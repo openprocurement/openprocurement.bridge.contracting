@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
+
+import exceptions
 from mock import patch, call, MagicMock
 # from time import sleep
 from openprocurement.bridge.contracting.databridge import ContractingDataBridge
@@ -284,6 +286,46 @@ class TestDatabridge(unittest.TestCase):
         cb.clients_initialize.assert_called_once_with()
         mocked_logger.warn.assert_called_once_with('Restarting synchronization',
                                                    extra={'MESSAGE_ID': 'c_bridge_restart'})
+
+
+    #
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_run_with_KeyboardInterrupt(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+
+        true_list = [True for i in xrange(0, 21)]
+        true_list.append(False)
+        mocked_loop.__nonzero__.side_effect = true_list
+
+        cb = ContractingDataBridge({'main': {}})
+
+        cb._restart_synchronization_workers = MagicMock(side_effect=KeyboardInterrupt)
+        cb.run()
+
+        gevent_calls = mocked_gevent.killall.call_args_list
+        logger_calls = mocked_logger.info.call_args_list
+
+        keyboard_interrut_log = call('Exiting...')
+        kill_all_jobs = call(cb.jobs, timeout=5)
+        kill_all_immortal_jobs = call(cb.immortal_jobs, timeout=5)
+
+        self.assertEqual(self._get_calls_count(logger_calls, keyboard_interrut_log), 1)
+        self.assertEqual(self._get_calls_count(gevent_calls, kill_all_jobs), 1)
+        self.assertEqual(self._get_calls_count(gevent_calls, kill_all_immortal_jobs), 1)
+
+        cb._start_contract_sculptors = MagicMock(side_effect=KeyboardInterrupt)
+        with self.assertRaises(KeyboardInterrupt) as e:
+            cb.run()
+        isinstance(e.exception, exceptions.KeyboardInterrupt)
 
 
 def suite():
