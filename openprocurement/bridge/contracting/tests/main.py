@@ -5,13 +5,25 @@ import unittest
 import exceptions
 from mock import patch, call, MagicMock
 from munch import munchify
+from Queue import Queue
 # from time import sleep
 from openprocurement_client.client import ResourceNotFound
-from openprocurement.bridge.contracting.databridge import ContractingDataBridge
-from openprocurement.bridge.contracting.journal_msg_ids import (
-    DATABRIDGE_INFO, DATABRIDGE_START
+from openprocurement.bridge.contracting.databridge import (
+    ContractingDataBridge,
+    journal_context,
+    ResourceNotFound,
 )
 
+from openprocurement.bridge.contracting.journal_msg_ids import (
+    DATABRIDGE_INFO,
+    DATABRIDGE_EXCEPTION,
+    DATABRIDGE_CACHED,
+    DATABRIDGE_CONTRACT_EXISTS,
+    DATABRIDGE_CONTRACT_TO_SYNC,
+    DATABRIDGE_COPY_CONTRACT_ITEMS,
+    DATABRIDGE_MISSING_CONTRACT_ITEMS,
+    DATABRIDGE_START,
+)
 
 class TestDatabridge(unittest.TestCase):
     def setUp(self):
@@ -646,6 +658,225 @@ class TestDatabridge(unittest.TestCase):
         reconnecting_log = call('Reconnecting tenders client',
                                 extra={'JOURNAL_TENDER_ID': 1120, 'MESSAGE_ID': 'c_bridge_reconnect', 'JOURNAL_CONTRACT_ID': 9})
         self.assertEqual(self._get_calls_count(calls_logs, reconnecting_log), 1)
+
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test__get_tender_contracts(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        mocked_db()._backend = 'redis'
+        mocked_db()._db_name = 'cache_db_name'
+        mocked_db()._port = 6379
+        mocked_db()._host = 'localhost'
+
+        info_calls = []
+        warn_calls = []
+        debug_calls = []
+
+        cb = ContractingDataBridge({'main': {}})
+        # Check initialization
+        msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
+              "port: '{}'".format(
+            cb.cache_db._backend, cb.cache_db._db_name, cb.cache_db._host,
+            cb.cache_db._port
+        )
+        info_calls += [
+            call(msg, extra={'MESSAGE_ID': DATABRIDGE_INFO}),
+            call('Initialization contracting clients.',
+                 extra={'MESSAGE_ID': DATABRIDGE_INFO})
+        ]
+
+        empty_tender = {'id': 'some_id'}
+
+        cb.tenders_queue.put(empty_tender)
+        cb.tenders_sync_client = MagicMock()
+        cb.tenders_sync_client.get_tender = MagicMock(side_effect=[Exception()])
+        cb._get_tender_contracts()
+        warn_calls += [
+            call('Fail to get tender info {}'.format('some_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"TENDER_ID": 'some_id'}))
+        ]
+        info_calls += [
+            call('Put tender {} back to tenders queue'.format('some_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"TENDER_ID": 'some_id'}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        cb.tenders_sync_client.get_tender = MagicMock(return_value={'data': empty_tender})
+        cb._get_tender_contracts()
+        warn_calls += [
+            call('!!!No contracts found in tender {}'.format('some_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"TENDER_ID": 'some_id'}))
+        ]
+
+        tender = {
+            'id': 'some_id',
+            'contracts': [
+                {
+                    'id': 'some_contract_id',
+                    'status': 'active',
+                    'items': []
+                }
+            ],
+            'dateModified': 'some_date'
+        }
+        empty_tender['dateModified'] = 'some_date'
+
+        cb.tenders_queue.put(empty_tender)
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        cb._get_tender_contracts()
+        info_calls += [
+            call('Contract {} exists in local db'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_CACHED},
+                                       params={"CONTRACT_ID": 'some_contract_id'}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        cb.cache_db.has.return_value = False
+        cb._get_tender_contracts()
+        info_calls += [
+            call('Contract exists {}'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_CONTRACT_EXISTS},
+                                       {"TENDER_ID": empty_tender['id'], "CONTRACT_ID": 'some_contract_id'}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        cb.cache_db.has.return_value = True
+        cb._put_tender_in_cache_by_contract = MagicMock(side_effect=[Exception()])
+        with self.assertRaises(Exception):
+            cb._get_tender_contracts()
+        info_calls += [
+            call('Contract {} exists in local db'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_CACHED},
+                                       params={"CONTRACT_ID": 'some_contract_id'})),
+            call('Put tender {} back to tenders queue'.format('some_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"TENDER_ID": 'some_id',
+                                               "CONTRACT_ID": 'some_contract_id'})),
+
+        ]
+        warn_calls += [
+            call('Fail to contract existance {}'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"TENDER_ID": 'some_id', "CONTRACT_ID": 'some_contract_id'}))
+        ]
+
+        tender = {
+            'id': 'some_id',
+            'contracts': [
+                {
+                    'id': 'some_contract_id',
+                    'status': 'active',
+                    'items': [{}]
+                }
+            ],
+            'dateModified': 'some_date',
+            'procuringEntity': 'some_entity',
+            'mode': 'some_mode',
+            'items': []
+        }
+        cb.tenders_queue.put(empty_tender)
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        cb._put_tender_in_cache_by_contract.side_effect = [ResourceNotFound()] * 20
+        cb._get_tender_contracts()
+        info_calls += [
+            call('Contract {} exists in local db'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_CACHED},
+                                       params={"CONTRACT_ID": 'some_contract_id'})),
+            call('Sync contract {} of tender {}'.format('some_contract_id', tender['id']),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_CONTRACT_TO_SYNC},
+                                       {"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        tender['contracts'][0]['items'] = False
+        tender['items'] = [{}]
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        cb._get_tender_contracts()
+        info_calls += info_calls[-2:] + [
+            call('Copying contract {} items'.format('some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                                       {"CONTRACT_ID": 'some_contract_id', "TENDER_ID": 'some_id'}))
+        ]
+        debug_calls += [
+            call('Copying all tender {} items into contract {}'.format(tender['id'], 'some_contract_id'),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                                       params={"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        tender['lots'] = [None]
+        tender['awards'] = [{
+                'id': 'some_award_id'
+        }]
+        tender['contracts'][0]['awardID'] = 'some_other_award_id'
+        if 'items' in tender['contracts'][0]:
+            del tender['contracts'][0]['items']
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        cb._get_tender_contracts()
+        info_calls += info_calls[-3:]
+        warn_calls += [
+            call('Not found related award for contact {} of tender {}'.format('some_contract_id', tender['id']),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']})),
+            call('Contact {} of tender {} does not contain items info'.format('some_contract_id', tender['id']),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_MISSING_CONTRACT_ITEMS},
+                                       {"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']}))
+        ]
+
+        cb.tenders_queue.put(empty_tender)
+        tender['contracts'][0]['awardID'] = 'some_award_id'
+        tender['awards'][0]['lotID'] = 'some_lot_id'
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        if 'items' in tender['contracts'][0]:
+            del tender['contracts'][0]['items']
+        cb._get_tender_contracts()
+        info_calls += info_calls[-3:] + [
+            call("Clearing 'items' key for contract with empty 'items' list",
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                                       {"CONTRACT_ID": 'some_contract_id', "TENDER_ID": 'some_id'}))
+        ]
+        debug_calls += [
+            call('Copying items matching related lot {}'.format('some_lot_id'))
+        ]
+        warn_calls += warn_calls[-1:]
+
+        cb.tenders_queue.put(empty_tender)
+        tender['awards'][0]['items'] = [{
+            'deliveryDate': {
+                'startDate': 2,
+                'endDate': 1
+            }
+        }]
+        if 'items' in tender['contracts'][0]:
+            del tender['contracts'][0]['items']
+        cb.tenders_sync_client.get_tender.return_value = {'data': tender}
+        cb._get_tender_contracts()
+        info_calls += info_calls[-4:-1] + [
+            call("Found dates missmatch {} and {}".format(2, 1),
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']})),
+            call("startDate value cleaned.",
+                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                       params={"CONTRACT_ID": 'some_contract_id', "TENDER_ID": tender['id']}))
+        ]
+        debug_calls += [
+            call('Copying items from related award {}'.format('some_award_id'))
+        ]
+
+        self.assertEqual(mocked_logger.warn.mock_calls, warn_calls)
+        self.assertEqual(mocked_logger.info.mock_calls, info_calls)
+        self.assertEqual(mocked_logger.debug.mock_calls, debug_calls)
 
 
 def suite():
