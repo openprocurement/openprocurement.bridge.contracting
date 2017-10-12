@@ -878,6 +878,46 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(mocked_logger.info.mock_calls, info_calls)
         self.assertEqual(mocked_logger.debug.mock_calls, debug_calls)
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
+    def test_get_tender_contracts(
+            self, mocked_loop, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        mocked_db()._backend = 'redis'
+        mocked_db()._db_name = 'cache_db_name'
+        mocked_db()._port = 6379
+        mocked_db()._host = 'localhost'
+
+        info_calls = []
+
+        cb = ContractingDataBridge({'main': {}})
+        # Check initialization
+        msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
+              "port: '{}'".format(
+            cb.cache_db._backend, cb.cache_db._db_name, cb.cache_db._host,
+            cb.cache_db._port
+        )
+        info_calls += [
+            call(msg, extra={'MESSAGE_ID': DATABRIDGE_INFO}),
+            call('Initialization contracting clients.',
+                 extra={'MESSAGE_ID': DATABRIDGE_INFO})
+        ]
+
+        with self.assertRaises(Exception) as e:
+            cb.get_tender_contracts()
+            mocked_logger.exception.assert_called_once_with(e)
+
+        mocked_logger.warn.assert_called_once_with("Fail to handle tender contracts",
+                                                   extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, {}))
+        self.assertEqual(mocked_logger.info.mock_calls, info_calls)
+
 
 def suite():
     suite = unittest.TestSuite()
