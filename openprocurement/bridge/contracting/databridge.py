@@ -17,7 +17,10 @@ from uuid import uuid4
 
 import gevent
 from gevent.queue import Queue
-
+try:  # for compatibility with op.client based on "use_requests"
+    from openprocurement_client.exceptions import ResourceGone
+except ImportError:
+    from restkit.errors import ResourceGone
 from openprocurement_client.client import TendersClientSync, TendersClient
 from openprocurement_client.contract import ContractingClient
 from openprocurement_client.client import ResourceNotFound
@@ -266,6 +269,15 @@ class ContractingDataBridge(object):
                     except ResourceNotFound:
                         logger.info('Sync contract {} of tender {}'.format(contract['id'], tender['id']), extra=journal_context(
                             {"MESSAGE_ID": DATABRIDGE_CONTRACT_TO_SYNC}, {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
+                    except ResourceGone:
+                        logger.warn(
+                            'Sync contract {} of tender {} archived'.format(
+                                contract['id'], tender['id']),
+                            extra=journal_context(
+                                {"MESSAGE_ID": DATABRIDGE_CONTRACT_TO_SYNC},
+                                {"CONTRACT_ID": contract['id'],
+                                 "TENDER_ID": tender['id']}))
+                        continue
                     except Exception, e:
                         logger.warn('Fail to contract existance {}'.format(contract['id']), extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, params={"TENDER_ID": tender_to_sync['id'],
                                                                                                                                                                 "CONTRACT_ID": contract['id']}))
