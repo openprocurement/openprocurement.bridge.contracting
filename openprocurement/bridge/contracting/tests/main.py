@@ -7,7 +7,7 @@ import exceptions
 from mock import patch, call, MagicMock
 from munch import munchify
 from datetime import datetime
-try:  # for compatibility with op.client based on "use_requests"
+try:  # compatibility with requests-based or restkit-based op.client.python
     from openprocurement_client.exceptions import ResourceGone
 except ImportError:
     from restkit.errors import ResourceGone
@@ -705,20 +705,19 @@ class TestDatabridge(unittest.TestCase):
         cb.contracting_client_ro = MagicMock()
         cb.contracting_client_ro.get_contract.side_effect = [exception]
         cb._get_tender_contracts()
-        logger_msg = 'Sync contract {} of tender {} archived'.format(
+        logger_msg = 'Sync contract {} of tender {} has been archived'.format(
             "2" * 32, "1" * 32)
         extra = {
             'JOURNAL_TENDER_ID': '1' * 32,
             'MESSAGE_ID': 'c_bridge_contract_to_sync',
             'JOURNAL_CONTRACT_ID': '2' * 32
         }
-        mocked_logger.warn.assert_called_once_with(logger_msg, extra=extra)
+        mocked_logger.info.assert_has_calls([call(logger_msg, extra=extra)])
 
 
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(TestDatabridge)
-    # TODO -add tests
     return suite
 
 
