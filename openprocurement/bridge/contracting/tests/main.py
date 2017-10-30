@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 import munch
 import unittest
+import json
 
 import exceptions
 from mock import patch, call, MagicMock
 from munch import munchify
+from datetime import datetime
+try:  # compatibility with requests-based or restkit-based op.client.python
+    from openprocurement_client.exceptions import ResourceGone
+except ImportError:
+    from restkit.errors import ResourceGone
 # from time import sleep
 from openprocurement_client.client import ResourceNotFound
 from openprocurement.bridge.contracting.databridge import ContractingDataBridge
@@ -647,10 +653,71 @@ class TestDatabridge(unittest.TestCase):
                                 extra={'JOURNAL_TENDER_ID': 1120, 'MESSAGE_ID': 'c_bridge_reconnect', 'JOURNAL_CONTRACT_ID': 9})
         self.assertEqual(self._get_calls_count(calls_logs, reconnecting_log), 1)
 
+    @patch('openprocurement.bridge.contracting.databridge.gevent')
+    @patch('openprocurement.bridge.contracting.databridge.logger')
+    @patch('openprocurement.bridge.contracting.databridge.Db')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.TendersClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch(
+        'openprocurement.bridge.contracting.databridge.ContractingClient')
+    def test_get_tender_contracts_resource_gone(
+            self, mocked_contract_client, mocked_tender_client,
+            mocked_sync_client, mocked_db, mocked_logger, mocked_gevent):
+        error_msg = {
+            "status": "error",
+            "errors": [
+                {
+                    "location": "url",
+                    "name": "contract_id",
+                    "description": "Archived"
+                }
+            ]
+        }
+        resp = MagicMock()
+        resp.body_string.return_value = json.dumps(error_msg)
+        resp.text = json.dumps(error_msg)
+        resp.status_code = 410
+        resp.status_int = 410
+        cb = ContractingDataBridge({'main': {}})
+        tender_to_sync = {
+            'id': '1' * 32,
+            'dateModified': datetime.now().isoformat()
+        }
+        tender = {
+            "data": {
+                "id": "1" * 32,
+                "dateModified": tender_to_sync['dateModified'],
+                "contracts": [
+                    {
+                        "id": "2" * 32,
+                        "status": "active"
+                    }
+                ]
+            }
+        }
+        cb.tenders_queue.put(tender_to_sync)
+        cb.cache_db = MagicMock()
+        cb.cache_db.has.return_value = False
+        cb.tenders_sync_client = MagicMock()
+        cb.tenders_sync_client.get_tender.return_value = tender
+        exception = ResourceGone(response=resp)
+        cb.contracting_client_ro = MagicMock()
+        cb.contracting_client_ro.get_contract.side_effect = [exception]
+        cb._get_tender_contracts()
+        logger_msg = 'Sync contract {} of tender {} has been archived'.format(
+            "2" * 32, "1" * 32)
+        extra = {
+            'JOURNAL_TENDER_ID': '1' * 32,
+            'MESSAGE_ID': 'c_bridge_contract_to_sync',
+            'JOURNAL_CONTRACT_ID': '2' * 32
+        }
+        mocked_logger.info.assert_has_calls([call(logger_msg, extra=extra)])
+
 
 def suite():
     suite = unittest.TestSuite()
-    # TODO -add tests
+    suite.addTest(TestDatabridge)
     return suite
 
 
