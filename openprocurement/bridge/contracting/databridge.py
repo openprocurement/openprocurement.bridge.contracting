@@ -89,6 +89,102 @@ def journal_context(record={}, params={}):
     return record
 
 
+def fix_contract_entry(contract, tender, tender_to_sync):
+    # Fix contract items
+    if not contract.get('items'):
+        logger.info('Copying contract {} items'.format(contract['id']),
+                    extra=journal_context(
+                        {"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                        {"CONTRACT_ID": contract['id'],
+                         "TENDER_ID": tender_to_sync['id']}))
+        if tender.get('lots'):
+            related_awards = [aw for aw in tender['awards'] if
+                              aw['id'] == contract['awardID']]
+            if related_awards:
+                award = related_awards[0]
+                if award.get("items"):
+                    logger.debug('Copying items from related award {}'.format(
+                        award['id']))
+                    contract['items'] = award['items']
+                else:
+                    logger.debug('Copying items matching related lot {}'.format(
+                        award['lotID']))
+                    contract['items'] = [item for item in tender['items'] if
+                                         item.get('relatedLot') == award[
+                                             'lotID']]
+            else:
+                logger.warn(
+                    'Not found related award for contact {} of tender {}'.format(
+                        contract['id'], tender['id']),
+                    extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                          params={"CONTRACT_ID": contract['id'],
+                                                  "TENDER_ID": tender['id']}))
+        else:
+            logger.debug('Copying all tender {} items into contract {}'.format(
+                tender['id'], contract['id']),
+                         extra=journal_context(
+                             {"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                             params={"CONTRACT_ID": contract['id'],
+                                     "TENDER_ID": tender['id']}))
+            contract['items'] = tender['items']
+
+    if isinstance(contract.get('items', None), list) and len(
+            contract.get('items')) == 0:
+        logger.info("Clearing 'items' key for contract with empty 'items' list",
+                    extra=journal_context(
+                        {"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
+                        {"CONTRACT_ID": contract['id'],
+                         "TENDER_ID": tender_to_sync['id']}))
+        del contract['items']
+
+    if not contract.get('items'):
+        logger.warn(
+            'Contact {} of tender {} does not contain items info'.format(
+                contract['id'], tender['id']),
+            extra=journal_context(
+                {"MESSAGE_ID": DATABRIDGE_MISSING_CONTRACT_ITEMS},
+                {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
+
+    # Fix deliveryDate
+    for item in contract.get('items', []):
+        if 'deliveryDate' in item and \
+                item['deliveryDate'].get('startDate') and \
+                item['deliveryDate'].get('endDate'):
+            if item['deliveryDate']['startDate'] > \
+                    item['deliveryDate']['endDate']:
+                logger.info("Found dates missmatch {} and {}".format(
+                    item['deliveryDate']['startDate'],
+                    item['deliveryDate']['endDate']),
+                    extra=journal_context(
+                        {"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                        params={"CONTRACT_ID": contract['id'],
+                                "TENDER_ID": tender['id']}))
+                del item['deliveryDate']['startDate']
+                logger.info("startDate value cleaned.",
+                            extra=journal_context(
+                                {"MESSAGE_ID": DATABRIDGE_EXCEPTION},
+                                params={"CONTRACT_ID": contract['id'],
+                                        "TENDER_ID": tender['id']}))
+
+    # Fix contract value
+    if 'value' not in contract:
+        rel_award = [aw for aw in tender['awards'] if
+                     aw['id'] == contract['awardID']]
+        if not rel_award:
+            logger.warn("Related award {} for contract {} not found!".format(
+                contract['awardID'], contract['id']))
+            return
+        contract['value'] = rel_award[0]['value']
+        logger.debug('Coping value from award to contract {}'.format(
+            contract['id']))
+
+        # Fix contract suppliers
+        if 'suppliers' not in contract:
+            contract['suppliers'] = rel_award[0]['suppliers']
+            logger.debug('Coping suppliers from award to contract {}'.format(
+                contract['id']))
+
+
 class ContractingDataBridge(object):
     """ Contracting Data Bridge """
 
@@ -286,45 +382,8 @@ class ContractingDataBridge(object):
                     if tender.get('mode'):
                         contract['mode'] = tender['mode']
 
-                    if not contract.get('items'):
-                        logger.info('Copying contract {} items'.format(contract['id']), extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
-                                                                                                              {"CONTRACT_ID": contract['id'], "TENDER_ID": tender_to_sync['id']}))
-                        if tender.get('lots'):
-                            related_awards = [aw for aw in tender['awards'] if aw['id'] == contract['awardID']]
-                            if related_awards:
-                                award = related_awards[0]
-                                if award.get("items"):
-                                    logger.debug('Copying items from related award {}'.format(award['id']))
-                                    contract['items'] = award['items']
-                                else:
-                                    logger.debug('Copying items matching related lot {}'.format(award['lotID']))
-                                    contract['items'] = [item for item in tender['items'] if item.get('relatedLot') == award['lotID']]
-                            else:
-                                logger.warn('Not found related award for contact {} of tender {}'.format(contract['id'], tender['id']),
-                                            extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, params={"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
-                        else:
-                            logger.debug('Copying all tender {} items into contract {}'.format(tender['id'], contract['id']),
-                                         extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS}, params={"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
-                            contract['items'] = tender['items']
-
-                    if isinstance(contract.get('items', None), list) and len(contract.get('items')) == 0:
-                        logger.info("Clearing 'items' key for contract with empty 'items' list", extra=journal_context({"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
-                                                                                                                       {"CONTRACT_ID": contract['id'], "TENDER_ID": tender_to_sync['id']}))
-                        del contract['items']
-
-                    if not contract.get('items'):
-                        logger.warn('Contact {} of tender {} does not contain items info'.format(contract['id'], tender['id']),
-                                    extra=journal_context({"MESSAGE_ID": DATABRIDGE_MISSING_CONTRACT_ITEMS},
-                                                          {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
-
-                    for item in contract.get('items', []):
-                        if 'deliveryDate' in item and item['deliveryDate'].get('startDate') and item['deliveryDate'].get('endDate'):
-                            if item['deliveryDate']['startDate'] > item['deliveryDate']['endDate']:
-                                logger.info("Found dates missmatch {} and {}".format(item['deliveryDate']['startDate'], item['deliveryDate']['endDate']),
-                                            extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, params={"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
-                                del item['deliveryDate']['startDate']
-                                logger.info("startDate value cleaned.",
-                                            extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, params={"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}))
+                    # Apply fixes for contract
+                    fix_contract_entry(contract, tender, tender_to_sync)
 
                     self.handicap_contracts_queue.put(contract)
 
