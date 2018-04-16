@@ -8,6 +8,9 @@ requires = [
     'PyYAML',
     'gevent',
     'openprocurement_client==1.0b2',
+    'esculator',
+    'iso8601',
+    'pytz',
 ]
 
 test_requires = requires + [
