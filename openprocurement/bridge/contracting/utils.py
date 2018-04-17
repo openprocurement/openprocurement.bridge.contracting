@@ -9,10 +9,20 @@ from pytz import timezone
 from iso8601 import parse_date
 
 from esculator.calculations import discount_rate_days, payments_days, calculate_payments
-
+from openprocurement.bridge.contracting.journal_msg_ids import (
+    DATABRIDGE_EXCEPTION,
+    DATABRIDGE_COPY_CONTRACT_ITEMS,
+    DATABRIDGE_MISSING_CONTRACT_ITEMS
+)
 
 TZ = timezone(os.environ['TZ'] if 'TZ' in os.environ else 'Europe/Kiev')
 logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
+
+
+def journal_context(record={}, params={}):
+    for k, v in params.items():
+        record["JOURNAL_" + k] = v
+    return record
 
 
 def to_decimal(fraction):
@@ -166,14 +176,14 @@ def fill_base_contract_data(contract, tender):
             "Clearing 'items' key for contract with empty 'items' list",
             extra=journal_context(
                 {"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
-                {"CONTRACT_ID": contract['id'], "TENDER_ID": tender_to_sync['id']}
+                {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}
             )
         )
         del contract['items']
 
     if not contract.get('items'):
         logger.warn(
-            'Contact {} of tender {} does not contain items info'.format(contract['id'], tender['id']),
+            'Contract {} of tender {} does not contain items info'.format(contract['id'], tender['id']),
             extra=journal_context(
                 {"MESSAGE_ID": DATABRIDGE_MISSING_CONTRACT_ITEMS},
                 {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}
