@@ -43,6 +43,7 @@ def generate_milestones(contract, tender):
     )
 
     milestones = []
+    logger.info("Generate milestones for esco tender {}".format(tender['id']))
     for sequence_number in xrange(1, 17):
         date_modified = datetime.now(TZ)
         milestone = {
@@ -78,9 +79,7 @@ def generate_milestones(contract, tender):
         if contract_end_date.year >= milestone_start_date.year and sequence_number != 1:
             milestone['status'] = 'scheduled'
         elif contract_end_date.year < milestone_start_date.year:
-            milestone['status'] = 'scheduled'
-            # TODO: Replace status to 'spare'
-            # milestone['status'] = 'spare'
+            milestone['status'] = 'spare'
 
         milestone['period'] = {
             'startDate': milestone_start_date.isoformat(),
@@ -90,7 +89,6 @@ def generate_milestones(contract, tender):
         milestone['title'] = title
         milestone['description'] = title
         milestones.append(milestone)
-        logger.info("Generated milestones for esco tender {}".format(tender['id']))
     return milestones
 
 
