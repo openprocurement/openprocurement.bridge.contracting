@@ -123,6 +123,7 @@ class ContractingDataBridge(object):
         self.api_server = self.config_get('tenders_api_server')
         self.api_version = self.config_get('tenders_api_version')
         self.ro_api_server = self.config_get('public_tenders_api_server') or self.api_server
+        self.resource = self.config_get('resource') or 'tenders'
 
         self.contracting_api_server = self.config_get('contracting_api_server')
         self.contracting_api_version = self.config_get('contracting_api_version')
@@ -142,7 +143,8 @@ class ContractingDataBridge(object):
         logger.info('Initialization contracting clients.',  extra=journal_context({"MESSAGE_ID": DATABRIDGE_INFO}, {}))
         self.contracting_client = ContractingClient(
             self.config_get('api_token'),
-            host_url=self.contracting_api_server, api_version=self.contracting_api_version
+            host_url=self.contracting_api_server,
+            api_version=self.contracting_api_version,
         )
 
         self.contracting_client_ro = self.contracting_client
@@ -150,19 +152,24 @@ class ContractingDataBridge(object):
             if self.api_server == self.contracting_api_server and self.api_version == self.contracting_api_version:
                 self.contracting_client_ro = ContractingClient(
                     '',
-                    host_url=self.ro_api_server, api_version=self.api_version
+                    host_url=self.ro_api_server,
+                    api_version=self.api_version,
                 )
 
     def clients_initialize(self):
         self.client = TendersClient(
             self.config_get('api_token'),
-            host_url=self.api_server, api_version=self.api_version,
+            host_url=self.api_server,
+            api_version=self.api_version,
+            resource=self.resource
         )
 
         self.contracting_client_init()
 
         self.tenders_sync_client = TendersClientSync('',
-            host_url=self.ro_api_server, api_version=self.api_version,
+            host_url=self.ro_api_server,
+            api_version=self.api_version,
+            resource=self.resource
         )
 
     def config_get(self, name):
@@ -336,8 +343,12 @@ class ContractingDataBridge(object):
                                 extra=journal_context({"MESSAGE_ID": DATABRIDGE_RECONNECT},
                                                       {"CONTRACT_ID": contract['id'],
                                                        "TENDER_ID": contract['tender_id']}))
-                    self.client = TendersClient(self.config_get('api_token'),
-                        host_url=self.api_server, api_version=self.api_version)
+                    self.client = TendersClient(
+                        self.config_get('api_token'),
+                        host_url=self.api_server,
+                        api_version=self.api_version,
+                        resource=self.resource
+                    )
                     unsuccessful_contracts.clear()
                 gevent.sleep(self.on_error_delay)
             else:
