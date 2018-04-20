@@ -188,8 +188,31 @@ def handle_esco_tenders(contract, tender):
     contract['contractType'] = 'esco'
     logger.info('Handle esco tender {}'.format(tender['id']), extra={"MESSAGE_ID": "handle_esco_tenders"})
 
-    # TODO: Logic with lots
-    keys = ['fundingKind', 'NBUdiscountRate', 'yearlyPaymentsPercentageRange', 'noticePublicationDate', 'minValue']
+    keys = ['NBUdiscountRate', 'noticePublicationDate']
+    keys_from_lot = ['fundingKind', 'yearlyPaymentsPercentageRange', 'minValue']
+
+    # fill contract values from lot
+    if tender.get('lots'):
+        related_awards = [aw for aw in tender['awards'] if aw['id'] == contract['awardID']]
+        if related_awards:
+            lot_id = related_awards[0]['lotID']
+            related_lots = [lot for lot in tender['lots'] if lot['id'] == lot_id]
+            if related_lots:
+                logger.debug('Fill contract {} values from lot {}'.format(contract['id'], related_lots[0]['id']))
+                for key in keys_from_lot:
+                    contract[key] = related_lots[0][key]
+            else:
+                logger.critical(
+                    'Not found related lot for contract {} of tender {}'.format(contract['id'], tender['id']),
+                    extra={'MESSAGE_ID': 'not_found_related_lot'}
+                )
+                keys += keys_from_lot
+        else:
+            logger.warn('Not found related award for contract {} of tender {}'.format(contract['id'], tender['id']))
+            keys += keys_from_lot
+    else:
+        keys += keys_from_lot
+
     for key in keys:
         contract[key] = tender[key]
     contract['milestones'] = generate_milestones(contract, tender)
