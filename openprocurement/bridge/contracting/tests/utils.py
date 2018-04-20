@@ -41,6 +41,10 @@ class TestUtilsFucntions(unittest.TestCase):
         self.contract = self.tender['contracts'][1]
         self.assertEquals(self.contract['status'], 'active')
 
+        self.keys = ['fundingKind', 'NBUdiscountRate',
+                'yearlyPaymentsPercentageRange', 'noticePublicationDate',
+                'minValue'] + ['milestones', 'contractType']
+
     def test_handle_common_tenders(self, *mocks):
         contract = deepcopy(self.contract)
 
@@ -54,18 +58,61 @@ class TestUtilsFucntions(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.utils.generate_milestones')
     def test_handle_esco_tenders(self, mocked_generete_milestones, *mocks):
         contract = deepcopy(self.contract)
-        keys = ['fundingKind', 'NBUdiscountRate',
-                'yearlyPaymentsPercentageRange', 'noticePublicationDate',
-                'minValue'] + ['milestones', 'contractType']
 
         self.assertNotIn('contractType', contract)
         self.assertEquals(handle_esco_tenders(contract, self.tender), None)
         self.assertIn('contractType', contract)
         self.assertEquals(contract['contractType'], 'esco')
 
-        self.assertEquals(set(keys).issubset(set(contract.keys())), True)
+        self.assertEquals(set(self.keys).issubset(set(contract.keys())), True)
         mocks[0].info.assert_called_with('Handle esco tender {}'.format(
             self.tender['id']), extra={"MESSAGE_ID": "handle_esco_tenders"})
+
+    @patch('openprocurement.bridge.contracting.utils.generate_milestones')
+    def test_handle_esco_tenders_multilot(self, mocked_generate_m, *mocks):
+        tender = deepcopy(self.tender)
+        contract = deepcopy(self.contract)
+        self.assertNotIn('contractType', contract)
+        self.assertNotIn('yearlyPaymentsPercentageRange', contract)
+        self.assertNotIn('fundingKind', contract)
+        self.assertNotIn('minValue', contract)
+
+        test_lot = {'id': uuid4().hex,
+                    'yearlyPaymentsPercentageRange': 0.80000,
+                    'fundingKind': 'other',
+                    'minValue': {'amount': 0,
+                                 'currency': 'UAH',
+                                 'valueAddedTaxIncluded': True}}
+        tender['lots'] = [test_lot]
+        tender['awards'][2]['lotID'] = test_lot['id']
+        self.assertEquals(handle_esco_tenders(contract, tender), None)
+        self.assertEquals(set(self.keys).issubset(contract.keys()), True)
+        mocks[0].debug.assert_has_calls([call(
+            'Fill contract {} values from lot {}'.format(contract['id'],
+                                                         test_lot['id']))])
+
+        #  no related awards
+        tender = deepcopy(self.tender)
+        contract = deepcopy(self.contract)
+        tender['lots'] = [test_lot]
+        tender['awards'][2]['id'] = 'fake_id'
+        self.assertEquals(handle_esco_tenders(contract, tender), None)
+
+        mocks[0].warn.assert_has_calls([call(
+            'Not found related award for contract {} of tender {}'.format(
+                contract['id'], tender['id']))])
+
+        # here no related lot found test
+        tender = deepcopy(self.tender)
+        contract = deepcopy(self.contract)
+        tender['lots'] = [test_lot]
+        tender['awards'][2]['lotID'] = 'fake_id'
+        self.assertEquals(handle_esco_tenders(contract, tender), None)
+
+        mocks[0].critical.assert_has_calls([call(
+            'Not found related lot for contract {} of tender {}'.format(
+                contract['id'], tender['id']),
+            extra={'MESSAGE_ID': 'not_found_related_lot'})])
 
     def test_fill_base_contract_data(self, *mocks):
 
