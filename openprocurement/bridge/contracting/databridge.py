@@ -353,7 +353,7 @@ class ContractingDataBridge(object):
                             extra=journal_context(
                                 {"MESSAGE_ID": DATABRIDGE_CONTRACT_TO_SYNC},
                                 {"CONTRACT_ID": contract['id'],
-                                 self.resource['singular_name_upper']: tender['id']}))
+                                 '{0}_ID'.format(self.resource['singular_name_upper']): tender['id']}))
                         continue
                     except Exception, e:
                         logger.warn('Fail to contract existance {}'.format(contract['id']), extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}, params={self.resource['singular_name_upper']: tender_to_sync['id'],
@@ -412,9 +412,12 @@ class ContractingDataBridge(object):
                 if len(unsuccessful_contracts) >= unsuccessful_contracts_limit:
                     # Current server stopped processing requests, reconnecting to other
                     logger.info("Reconnecting tenders client",
-                                extra=journal_context({"MESSAGE_ID": DATABRIDGE_RECONNECT},
-                                                      {"CONTRACT_ID": contract['id'],
-                                                       self.resource['singular_name_upper']: contract[self.resource['id_key']]}))
+                        extra=journal_context(
+                            {"MESSAGE_ID": DATABRIDGE_RECONNECT},
+                            {"CONTRACT_ID": contract['id'],
+                            '{0}_ID'.format(self.resource['singular_name_upper']): contract[self.resource['id_key']]}
+                        )
+                    )
                     self.client = TendersClient(
                         self.config_get('api_token'),
                         host_url=self.api_server,
