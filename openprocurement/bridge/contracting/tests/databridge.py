@@ -52,6 +52,8 @@ class TestDatabridge(unittest.TestCase):
         self.contract = deepcopy(self.tender['contracts'][1])
         self.TENDER_ID = self.tender['id']
         self.DIRECTION = 'backward'
+        self.owner_and_token = {'owner': 'owner',
+                                'tender_token': 'tender_token'}
 
     def _get_calls_count(self, calls_list, call_obj):
         count = 0
@@ -236,8 +238,7 @@ class TestDatabridge(unittest.TestCase):
         extract_credentials_calls = cb.client.extract_credentials.call_args_list
         self.assertEqual(
             self._get_calls_count(extract_credentials_calls,
-                                  call(self.TENDER_ID)),
-            3)
+                                  call(self.TENDER_ID)), 3)
         self.assertEqual(len(extract_credentials_calls), 3)
 
         cb.client = MagicMock()
@@ -257,23 +258,32 @@ class TestDatabridge(unittest.TestCase):
         extract_credentials_calls = cb.client.extract_credentials.call_args_list
         self.assertEqual(
             self._get_calls_count(extract_credentials_calls,
-                                  call(self.TENDER_ID)),
-            3)
+                                  call(self.TENDER_ID)), 3)
         self.assertEqual(len(extract_credentials_calls), 3)
         self.assertEqual(data, self.TENDER_ID)
 
     def test_put_tender_in_cache_by_contract(self, *mocks):
         cb = ContractingDataBridge({'main': {}})
-        cb.basket = {'1': 'one', '2': 'two', '42': 'why'}
+        cb.basket = dict()
+        contracts = deepcopy(self.tender['contracts'])
+        for contract in contracts:
+            cb.basket[contract['id']] = contract['date']
         cb.cache_db = MagicMock()
 
-        cb._put_tender_in_cache_by_contract({'id': '1984'}, self.TENDER_ID)
-        self.assertEqual(cb.basket.get('42', None), 'why')
+        contract = deepcopy(self.tender['contracts'][0])
+        contract['id'] = 'fake_id'
+
+        self.assertEquals(cb._put_tender_in_cache_by_contract(
+            contract, self.TENDER_ID), None)
+        self.assertEqual(cb.basket.get(contracts[0]['id'], None),
+                         contracts[0]['date'])
         self.assertEqual(cb.cache_db.put.called, False)
 
-        cb._put_tender_in_cache_by_contract({'id': '42'}, self.TENDER_ID)
-        self.assertEqual(cb.basket.get('42', None), None)
-        cb.cache_db.put.assert_called_once_with(self.TENDER_ID, 'why')
+        self.assertEquals( cb._put_tender_in_cache_by_contract(contracts[0],
+                                                        self.TENDER_ID), None)
+        self.assertEqual(cb.basket.get(contracts[0]['id'], None), None)
+        cb.cache_db.put.assert_called_once_with(self.TENDER_ID,
+                                                contracts[0]['date'])
 
     def test_restart_synchronization_workers(self, *mocks):
 
@@ -338,28 +348,29 @@ class TestDatabridge(unittest.TestCase):
 
     def test_sync_single_tender(self, *mocks):
         cb = ContractingDataBridge({'main': {}})
+        tender = deepcopy(self.tender)
+        tender['status'] = 'active'
+        contract = deepcopy(self.contract)
+        contract['status'] = 'no_active'
+        tender['contracts'] = [munchify(contract)]
         cb.tenders_sync_client.get_tender = MagicMock(
-            return_value={'data': {
-                'contracts': [munchify({'status': 'no_active', 'id': 1})],
-                'id': 2, 'status': 'active',
-                'procuringEntity': 'procuringEntity',
-                'owner': 'owner', 'tender_token': 'tender_token'}})
+            return_value={'data': tender})
 
         cb.sync_single_tender(self.TENDER_ID)
 
         calls_logs = mocks[5].info.call_args_list
         self.assertEqual(self._get_calls_count(calls_logs, call(
-            "Skip contract 1 in status no_active")), 1)
+            "Skip contract {} in status {}".format(contract['id'],
+                                                   contract['status']))), 1)
         self.assertEqual(self._get_calls_count(calls_logs,
-             call("Tender {} does not contain contracts to transfer"
-                 .format(self.TENDER_ID))), 1)
+                call("Tender {} does not contain contracts to transfer"
+                                              .format(self.TENDER_ID))), 1)
 
+        contract = deepcopy(self.contract)
+        contract['status'] = 'active'
+        tender['contracts'] = [munchify(contract)]
         cb.tenders_sync_client.get_tender = MagicMock(
-            return_value={'data': {
-                'contracts': [munchify({'status': 'active', 'id': 1})],
-                'id': 2, 'status': 'active',
-                'procuringEntity': 'procuringEntity',
-                'owner': 'owner', 'tender_token': 'tender_token'}})
+            return_value={'data': tender})
 
         cb.get_tender_credentials = MagicMock(
             return_value={'data': {'procuringEntity': 'procuringEntity',
@@ -376,34 +387,39 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(self._get_calls_count(calls_logs, call(
             "Getting tender {}".format(self.TENDER_ID))), 2)
         self.assertEqual(self._get_calls_count(calls_logs, call(
-            "Got tender 2 in status active")), 2)
+            "Got tender {} in status {}".format(self.TENDER_ID,
+                                                tender['status']))), 2)
         self.assertEqual(self._get_calls_count(calls_logs, call(
             'Getting tender {} credentials'.format(self.TENDER_ID))), 2)
         self.assertEqual(self._get_calls_count(calls_logs, call(
             'Got tender {} credentials'.format(self.TENDER_ID))), 2)
         self.assertEqual(self._get_calls_count(calls_logs, call(
-            "Checking if contract 1 already exists")), 1)
+            "Checking if contract {} already exists".format(contract['id']))),
+                         1)
         self.assertEqual(
             self._get_calls_count(calls_logs, call(
-                'Contract 1 does not exists. Prepare contract for creation.')),
-            1)
+                'Contract {} does not exists. Prepare contract for creation.'
+                    .format(contract['id']))), 1)
         self.assertEqual(self._get_calls_count(calls_logs, call(
-            'Extending contract 1 with extra data')), 1)
+          'Extending contract {} with extra data'.format(contract['id']))), 1)
         self.assertEqual(
-            self._get_calls_count(calls_logs, call('Creating contract 1')), 1)
+            self._get_calls_count(calls_logs, call(
+                'Creating contract {}'.format(contract['id']))), 1)
         self.assertEqual(
-            self._get_calls_count(calls_logs, call('Contract 1 created')), 1)
+            self._get_calls_count(calls_logs, call(
+                'Contract {} created'.format(contract['id']))), 1)
         self.assertEqual(self._get_calls_count(calls_logs, call(
-            'Successfully transfered contracts: [1]')), 1)
+            "Successfully transfered contracts: [u'{}']".format(
+                contract['id']))), 1)
 
     def test_sync_single_tender_Exception(self, *mocks):
         cb = ContractingDataBridge({'main': {}})
+        tender = deepcopy(self.tender)
+        tender['status'] = 'active'
+        contract = deepcopy(self.contract)
+        contract['status'] = 'active'
         cb.tenders_sync_client.get_tender = MagicMock(
-            return_value={'data': {
-                'contracts': [munchify({'status': 'active', 'id': 1})],
-                'id': 2, 'status': 'active',
-                'procuringEntity': 'procuringEntity',
-                'owner': 'owner', 'tender_token': 'tender_token'}})
+            return_value={'data': tender})
         cb.get_tender_credentials = MagicMock(
             return_value={'data': {'procuringEntity': 'procuringEntity',
                                    'tender_token': 'tender_token'}})
@@ -412,7 +428,8 @@ class TestDatabridge(unittest.TestCase):
         calls_logs = mocks[5].info.call_args_list
 
         self.assertEqual(
-            self._get_calls_count(calls_logs, call('Contract exists 1')), 1)
+            self._get_calls_count(calls_logs,
+                      call('Contract exists {}'.format(contract['id']))), 1)
 
         error = Exception('Error!')
         cb.contracting_client.get_contract = MagicMock(side_effect=error)
@@ -443,8 +460,7 @@ class TestDatabridge(unittest.TestCase):
         bridge._put_with_retry.assert_called_once_with(contract)
         bridge.cache_db.put.assert_called_once_with(contract['id'], True)
         bridge._put_tender_in_cache_by_contract.assert_called_once_with(
-            contract,
-            contract['tender_id'])
+            contract, contract['tender_id'])
         mocks[6].sleep.assert_called_once_with(0)
 
         bridge._put_with_retry = remember_put_with_retry
@@ -461,7 +477,9 @@ class TestDatabridge(unittest.TestCase):
     def test_put_contracts(self, *mocks):
         list_loop = [True, False]
         mocks[0].__nonzero__.side_effect = list_loop
-        contract = munch.munchify({'id': '42', 'tender_id': self.TENDER_ID})
+        contract = deepcopy(self.contract)
+        contract['tender_id'] = self.TENDER_ID
+        contract = munch.munchify(contract)
 
         bridge = ContractingDataBridge({'main': {}})
         bridge.contracts_put_queue = MagicMock()
@@ -484,7 +502,10 @@ class TestDatabridge(unittest.TestCase):
 
         list_contracts = []
         for i in range(0, 10):
-            list_contracts.append(dict(id=i, tender_id=(i + 100)))
+            contract = deepcopy(self.contract)
+            contract['id'] = i
+            contract['tender_id'] = i + 100
+            list_contracts.append(contract)
         bridge.contracts_put_queue = MagicMock()
         bridge.contracts_put_queue.get.side_effect = list_contracts
         list_loop = [True for i in range(0, 10)]
@@ -508,7 +529,8 @@ class TestDatabridge(unittest.TestCase):
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
         tender_data = MagicMock()
-        tender_data.data = {'owner': 'owner', 'tender_token': 'tender_token'}
+        tender_data.data = deepcopy(self.tender)
+        tender_data.data.update(self.owner_and_token)
         cb.handicap_contracts_queue_retry.get = MagicMock(
             return_value=contract)
         cb.get_tender_data_with_retry = MagicMock(return_value=tender_data)
@@ -538,7 +560,8 @@ class TestDatabridge(unittest.TestCase):
         contract['tender_id'] = self.TENDER_ID
 
         tender_data = MagicMock()
-        tender_data.data = {'owner': 'owner', 'tender_token': 'tender_token'}
+        tender_data.data = deepcopy(self.tender)
+        tender_data.data.update(self.owner_and_token)
 
         cb.handicap_contracts_queue.get = MagicMock(
             return_value=contract)
@@ -560,7 +583,8 @@ class TestDatabridge(unittest.TestCase):
             cb.handicap_contracts_queue.put({'id': i, 'tender_id': i + 1111})
 
         tender_data = MagicMock()
-        tender_data.data = {'no_owner': '', 'no_tender_token': ''}
+        tender_data.data = deepcopy(self.tender)
+        tender_data.data.update({'no_owner': '', 'no_tender_token': ''})
 
         cb.get_tender_credentials = MagicMock(
             return_value=tender_data)
@@ -696,15 +720,23 @@ class TestDatabridge(unittest.TestCase):
         ]
 
         response = self._fake_response()
+        competitiveDialogueUA = deepcopy(self.tender)
+        competitiveDialogueUA['procurementMethodType'] = 'competitiveDialogueUA'
+        competitiveDialogueEU = deepcopy(self.tender)
+        competitiveDialogueEU['procurementMethodType'] = 'competitiveDialogueEU'
+        pending = deepcopy(self.tender)
+        pending['status'] = 'pending'
+        complete = deepcopy(self.tender)
+        complete['status'] = 'complete'
+        complete_lots = deepcopy(self.tender)
+        complete_lots['status'] = 'complete'
+        complete_lots['lots'] = [{'status': 'complete'}]
         tenders = [
-            munchify({'id': self.TENDER_ID,
-                      'procurementMethodType': 'competitiveDialogueUA'}),
-            munchify({'id': self.TENDER_ID,
-                      'procurementMethodType': 'competitiveDialogueEU'}),
-            munchify({'id': self.TENDER_ID, 'status': 'pending'}),
-            munchify({'id': self.TENDER_ID, 'status': 'complete'}),
-            munchify({'id': self.TENDER_ID, 'status': 'complete',
-                      'lots': [{'status': 'complete'}]}),
+            munchify(competitiveDialogueUA),
+            munchify(competitiveDialogueEU),
+            munchify(pending),
+            munchify(complete),
+            munchify(complete_lots),
         ]
         response.data = tenders
         params = {'descending': True, 'offset': True}
