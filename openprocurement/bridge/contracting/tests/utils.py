@@ -177,13 +177,19 @@ class TestUtilsFucntions(unittest.TestCase):
                           {'JOURNAL_test': 'test'})
 
     def test_generate_milestones(self, *mocks):
-
         contract = deepcopy(self.contract)
+
+        contract_start_date = parse_date(contract['period']['startDate']) \
+            if 'period' in contract and 'startDate' in contract['period'] \
+            else parse_date(contract['dateSigned'])
+        announcement_date = parse_date(self.tender['noticePublicationDate'])
+        target_milestones_count = 16 + \
+                           (contract_start_date.year - announcement_date.year)
         milestones = generate_milestones(contract, self.tender)
 
         mocks[0].info.assert_called_with(
             "Generate milestones for esco tender {}".format(self.tender['id']))
-        self.assertEqual(len(milestones), 16)
+        self.assertEqual(len(milestones), target_milestones_count)
         contract_end_date = parse_date(contract['period']['endDate'])
         for seq_number, milestone in enumerate(milestones):
             self.assertEquals(set(milestone.keys()),
@@ -200,7 +206,30 @@ class TestUtilsFucntions(unittest.TestCase):
             else:
                 self.assertEquals(milestone['status'], 'spare')
 
+        #  last scheduled milestone endDate = contract period endDate
+        last_scheduled_miles = \
+            [m for m in milestones if m['status'] == 'scheduled'][-1]
+        self.assertEquals(
+            parse_date(last_scheduled_miles['period']['endDate']).isoformat(),
+            parse_date(contract['period']['endDate']).isoformat())
+        #  last milestone endDate = contract start Date + 15 years
+        contract_delta_15_years = parse_date(contract['period']['startDate'])
+        contract_delta_15_years = contract_delta_15_years.replace(
+            year=contract_delta_15_years.year+15)
+        self.assertEquals(
+            contract_delta_15_years.isoformat(),
+            parse_date(milestones[-1]['period']['endDate']).isoformat()
+        )
 
+        #  test if no period in contract
+        contract = deepcopy(self.contract)
+        del contract['period']
+        milestones = generate_milestones(contract, self.tender)
+        last_scheduled_miles = \
+            [m for m in milestones if m['status'] == 'scheduled'][-1]
+        self.assertEquals(
+            parse_date(last_scheduled_miles['period']['endDate']).isoformat(),
+            parse_date(contract['period']['endDate']).isoformat())
 
 def suite():
     suite = unittest.TestSuite()
