@@ -23,10 +23,24 @@ def to_decimal(fraction):
 def generate_milestones(contract, tender):
     days_per_year = 365
     npv_calculation_duration = 20
+    announcement_date = parse_date(tender['noticePublicationDate'])
 
+    if not 'period' in contract:
+        contract_days = timedelta(days=contract['value']['contractDuration']['days'])
+        contract_years = contract['value']['contractDuration']['years']
+        contract_end_date = announcement_date.replace(year=announcement_date.year + contract_years) + contract_days
+        contract['period'] = {
+            'startDate': contract['dateSigned'],
+            'endDate': contract_end_date.isoformat()
+        }
+
+    # set contract.period.startDate to contract.dateSigned if missed
+    if not 'startDate' in contract['period']:
+        contract['period']['startDate'] = contract['dateSigned']
+
+    contract_start_date = parse_date(contract['period']['startDate'])
     contract_end_date = parse_date(contract['period']['endDate'])
 
-    announcement_date = parse_date(tender['noticePublicationDate'])
     contract_duration_years = contract['value']['contractDuration']['years']
     contract_duration_days = contract['value']['contractDuration']['days']
     yearly_payments_percentage = contract['value']['yearlyPaymentsPercentage']
@@ -43,8 +57,12 @@ def generate_milestones(contract, tender):
     )
 
     milestones = []
+    years_before_contract_start = contract_start_date.year - announcement_date.year
+
+    last_milestone_sequence_number = 16 + years_before_contract_start
+
     logger.info("Generate milestones for esco tender {}".format(tender['id']))
-    for sequence_number in xrange(1, 17):
+    for sequence_number in xrange(1, last_milestone_sequence_number + 1):
         date_modified = datetime.now(TZ)
         milestone = {
             'id': uuid4().hex,
@@ -67,11 +85,12 @@ def generate_milestones(contract, tender):
             milestone_start_date = announcement_date
             milestone_end_date = datetime(announcement_date.year + sequence_number, 1, 1, tzinfo=TZ)
             milestone['status'] = 'pending'
-        elif sequence_number == 16:
-            year = announcement_date.year
-            end_date = announcement_date - timedelta(days=1)
-            milestone_start_date = datetime(year + sequence_number - 1, 1, 1, tzinfo=TZ)
-            milestone_end_date = datetime(year + sequence_number, end_date.month, end_date.day, tzinfo=TZ)
+        elif sequence_number == last_milestone_sequence_number:
+            milestone_start_date = datetime(announcement_date.year + sequence_number - 1, 1, 1, tzinfo=TZ)
+            milestone_end_date = datetime(
+                announcement_date.year + sequence_number - 1, contract_start_date.month, contract_start_date.day,
+                tzinfo=TZ
+            )
         else:
             milestone_start_date = datetime(announcement_date.year + sequence_number - 1, 1, 1, tzinfo=TZ)
             milestone_end_date = datetime(announcement_date.year + sequence_number, 1, 1, tzinfo=TZ)
@@ -80,6 +99,11 @@ def generate_milestones(contract, tender):
             milestone['status'] = 'scheduled'
         elif contract_end_date.year < milestone_start_date.year:
             milestone['status'] = 'spare'
+
+        if contract_end_date.year == announcement_date.year + sequence_number - 1:
+            milestone_end_date = datetime(
+                announcement_date.year + sequence_number - 1, contract_end_date.month, contract_end_date.day, tzinfo=TZ
+            )
 
         milestone['period'] = {
             'startDate': milestone_start_date.isoformat(),
