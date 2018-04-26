@@ -39,7 +39,6 @@ from openprocurement.bridge.contracting.journal_msg_ids import (
 from openprocurement.bridge.contracting.utils import (
     fill_base_contract_data,
     handle_common_tenders,
-    handle_esco_tenders
 )
 
 from openprocurement.bridge.contracting import constants
@@ -384,10 +383,7 @@ class ContractingDataBridge(object):
                         continue
 
                     fill_base_contract_data(contract, tender)
-                    if tender.get('procurementMethodType') == 'esco':
-                        handle_esco_tenders(contract, tender)
-                    else:
-                        handle_common_tenders(contract, tender)
+                    handle_common_tenders(contract, tender)
                     self.handicap_contracts_queue.put(contract)
 
     def get_tender_contracts(self):
