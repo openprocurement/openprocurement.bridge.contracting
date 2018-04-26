@@ -75,7 +75,7 @@ def generate_milestones(contract, tender):
                 "valueAddedTaxIncluded": contract['value']['valueAddedTaxIncluded']
             },
             'value': {
-                "amount": to_decimal(payments[sequence_number - 1]),
+                "amount": to_decimal(payments[sequence_number - 1]) if sequence_number <= 21 else 0.00,
                 "currency": contract['value']['currency'],
                 "valueAddedTaxIncluded": contract['value']['valueAddedTaxIncluded']
             },
