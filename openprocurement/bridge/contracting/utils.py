@@ -16,8 +16,7 @@ logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
 
 
 def to_decimal(fraction):
-    # return Decimal(fraction.numerator) / Decimal(fraction.denominator)
-    return float(fraction.numerator) / float(fraction.denominator)
+    return str(Decimal(fraction.numerator) / Decimal(fraction.denominator))
 
 
 def generate_milestones(contract, tender):
