@@ -9,10 +9,20 @@ from pytz import timezone
 from iso8601 import parse_date
 
 from esculator.calculations import discount_rate_days, payments_days, calculate_payments
-
+from openprocurement.bridge.contracting.journal_msg_ids import (
+    DATABRIDGE_EXCEPTION,
+    DATABRIDGE_COPY_CONTRACT_ITEMS,
+    DATABRIDGE_MISSING_CONTRACT_ITEMS
+)
 
 TZ = timezone(os.environ['TZ'] if 'TZ' in os.environ else 'Europe/Kiev')
 logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
+
+
+def journal_context(record={}, params={}):
+    for k, v in params.items():
+        record["JOURNAL_" + k] = v
+    return record
 
 
 def to_decimal(fraction):
@@ -27,7 +37,9 @@ def generate_milestones(contract, tender):
     if not 'period' in contract:
         contract_days = timedelta(days=contract['value']['contractDuration']['days'])
         contract_years = contract['value']['contractDuration']['years']
-        contract_end_date = announcement_date.replace(year=announcement_date.year + contract_years) + contract_days
+        contract_end_date = announcement_date.replace(
+            year=announcement_date.year + contract_years, hour=0, minute=0,
+            second=0, microsecond=0) + contract_days
         contract['period'] = {
             'startDate': contract['dateSigned'],
             'endDate': contract_end_date.isoformat()
@@ -82,17 +94,15 @@ def generate_milestones(contract, tender):
 
         if sequence_number == 1:
             milestone_start_date = announcement_date
-            milestone_end_date = datetime(announcement_date.year + sequence_number, 1, 1, tzinfo=TZ)
+            milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
             milestone['status'] = 'pending'
         elif sequence_number == last_milestone_sequence_number:
-            milestone_start_date = datetime(announcement_date.year + sequence_number - 1, 1, 1, tzinfo=TZ)
-            milestone_end_date = datetime(
-                announcement_date.year + sequence_number - 1, contract_start_date.month, contract_start_date.day,
-                tzinfo=TZ
-            )
+            milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
+            milestone_end_date = TZ.localize(datetime(
+                announcement_date.year + sequence_number - 1, contract_start_date.month, contract_start_date.day))
         else:
-            milestone_start_date = datetime(announcement_date.year + sequence_number - 1, 1, 1, tzinfo=TZ)
-            milestone_end_date = datetime(announcement_date.year + sequence_number, 1, 1, tzinfo=TZ)
+            milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
+            milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
 
         if contract_end_date.year >= milestone_start_date.year and sequence_number != 1:
             milestone['status'] = 'scheduled'
@@ -100,9 +110,8 @@ def generate_milestones(contract, tender):
             milestone['status'] = 'spare'
 
         if contract_end_date.year == announcement_date.year + sequence_number - 1:
-            milestone_end_date = datetime(
-                announcement_date.year + sequence_number - 1, contract_end_date.month, contract_end_date.day, tzinfo=TZ
-            )
+            milestone_end_date = TZ.localize(datetime(
+                announcement_date.year + sequence_number - 1, contract_end_date.month, contract_end_date.day))
 
         milestone['period'] = {
             'startDate': milestone_start_date.isoformat(),
@@ -166,14 +175,14 @@ def fill_base_contract_data(contract, tender):
             "Clearing 'items' key for contract with empty 'items' list",
             extra=journal_context(
                 {"MESSAGE_ID": DATABRIDGE_COPY_CONTRACT_ITEMS},
-                {"CONTRACT_ID": contract['id'], "TENDER_ID": tender_to_sync['id']}
+                {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}
             )
         )
         del contract['items']
 
     if not contract.get('items'):
         logger.warn(
-            'Contact {} of tender {} does not contain items info'.format(contract['id'], tender['id']),
+            'Contract {} of tender {} does not contain items info'.format(contract['id'], tender['id']),
             extra=journal_context(
                 {"MESSAGE_ID": DATABRIDGE_MISSING_CONTRACT_ITEMS},
                 {"CONTRACT_ID": contract['id'], "TENDER_ID": tender['id']}

@@ -39,7 +39,8 @@ from openprocurement.bridge.contracting.journal_msg_ids import (
 from openprocurement.bridge.contracting.utils import (
     fill_base_contract_data,
     handle_common_tenders,
-    handle_esco_tenders
+    handle_esco_tenders,
+    journal_context
 )
 
 
@@ -90,12 +91,6 @@ class Db(object):
 
 def generate_req_id():
     return b'contracting-data-bridge-req-' + str(uuid4()).encode('ascii')
-
-
-def journal_context(record={}, params={}):
-    for k, v in params.items():
-        record["JOURNAL_" + k] = v
-    return record
 
 
 class ContractingDataBridge(object):
