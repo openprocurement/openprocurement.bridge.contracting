@@ -16,7 +16,6 @@ try:  # compatibility with requests-based or restkit-based op.client.python
     from openprocurement_client.exceptions import ResourceGone
 except ImportError:
     from restkit.errors import ResourceGone
-# from time import sleep
 from openprocurement_client.client import ResourceNotFound
 from openprocurement.bridge.contracting.databridge import (
     ContractingDataBridge, Db, generate_req_id, journal_context
@@ -30,10 +29,26 @@ from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_FOUND_MULTILOT_COMPLETE,
     DATABRIDGE_SYNC_SLEEP,
     DATABRIDGE_SYNC_RESUME,
-    DATABRIDGE_EXCEPTION
+    DATABRIDGE_EXCEPTION,
+    DATABRIDGE_CONTRACT_EXISTS,
+    DATABRIDGE_CREATE_CONTRACT,
+    DATABRIDGE_GET_EXTRA_INFO
 )
 
 PWD = os.path.dirname(os.path.realpath(__file__))
+
+
+class AlmostAlwaysTrue(object):
+
+    def __init__(self, total_iterations=1):
+        self.total_iterations = total_iterations
+        self.current_iteration = 0
+
+    def __nonzero__(self):
+        if self.current_iteration < self.total_iterations:
+            self.current_iteration += 1
+            return bool(1)
+        return bool(0)
 
 
 @patch('openprocurement.bridge.contracting.databridge.gevent')
@@ -44,6 +59,14 @@ PWD = os.path.dirname(os.path.realpath(__file__))
 @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
 @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
 class TestDatabridge(unittest.TestCase):
+    """
+    Tests of TestDatabridge class suppose to test all functions inside
+    ContractingDataBridge class.
+
+    All mocks instead of beeing decorated to each test method , are
+    decorated only to class and passed to each test method by *mocks(positional
+    arguments).
+    """
 
     def setUp(self):
         self.config = {'main': {}}
@@ -903,6 +926,91 @@ class TestDatabridge(unittest.TestCase):
         mocks[5].warn.assert_called_once_with('Backward worker died!',
             extra=journal_context({"MESSAGE_ID": DATABRIDGE_WORKER_DIED}, {}))
         self.assertEqual(mocks[5].info.mock_calls, info_calls)
+
+    def test__get_tender_contracts(self, *mocks):
+        cb = ContractingDataBridge(
+            {'main': {'public_tenders_api_server': 'test_server'}})
+        tender_to_sync = {
+            'id': self.TENDER_ID,
+            'dateModified': datetime.now().isoformat()
+        }
+        tender = {
+            "data": deepcopy(self.tender)
+        }
+        tender['data']['contracts'] = [deepcopy(self.contract)]
+        cb.tenders_queue.put(tender_to_sync)
+        cb.cache_db = MagicMock()
+        cb.cache_db.has.return_value = False
+        cb.tenders_sync_client = MagicMock()
+        cb.tenders_sync_client.get_tender.return_value = tender
+        exception = IndexError()
+        cb.contracting_client_ro = MagicMock()
+        cb.contracting_client_ro.get_contract.side_effect = [exception]
+        cb._put_tender_in_cache_by_contract = MagicMock()
+
+        with self.assertRaises(Exception) as e:
+            cb._get_tender_contracts()
+        mocks[5].warn.assert_called_once_with(
+            'Fail to contract existance {}'.format(self.contract['id']),
+            extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION,
+                                   "JOURNAL_TENDER_ID": self.TENDER_ID,
+                                   "JOURNAL_CONTRACT_ID": self.contract['id']}))
+        mocks[5].exception.assert_called_once_with(exception)
+        mocks[5].info.assert_has_calls([call(
+            'Put tender {} back to tenders queue'.format(self.TENDER_ID),
+            extra={'JOURNAL_TENDER_ID': self.TENDER_ID,
+                   'MESSAGE_ID': DATABRIDGE_EXCEPTION,
+                   'JOURNAL_CONTRACT_ID': self.contract['id']})])
+
+        # no exception is raised, so else is executed
+        cb.contracting_client_ro.get_contract = MagicMock()
+        cb._get_tender_contracts()
+        mocks[5].info.assert_has_calls([call(
+            'Contract exists {}'.format(self.contract['id']),
+            extra={'JOURNAL_TENDER_ID': self.TENDER_ID,
+                   'MESSAGE_ID': DATABRIDGE_CONTRACT_EXISTS,
+                   'JOURNAL_CONTRACT_ID': self.contract['id']})])
+        cb._put_tender_in_cache_by_contract.assert_called_once_with(
+            tender['data']['contracts'][0], self.TENDER_ID)
+
+    def test_get_tender_contracts(self, *mocks):
+        cb = ContractingDataBridge(
+            {'main': {'public_tenders_api_server': 'test_server'}})
+        cb._get_tender_contracts = MagicMock()
+
+        with patch('__builtin__.True', AlmostAlwaysTrue(1)):
+            cb.get_tender_contracts()
+        cb._get_tender_contracts.assert_called_once_with()
+
+        exception = IndexError()
+        cb._get_tender_contracts.side_effect = [exception]
+        with self.assertRaises(Exception) as e:
+            cb.get_tender_contracts()
+        mocks[5].warn.assert_called_once_with(
+            'Fail to handle tender contracts',
+            extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}))
+        mocks[5].exception.assert_called_once_with(exception)
+
+    def test_get_tender_data_with_retry(self, *mocks):
+        cb = ContractingDataBridge(
+            {'main': {'public_tenders_api_server': 'test_server'}})
+        contract = deepcopy(self.contract)
+        contract['tender_id'] = self.TENDER_ID
+        tender_data = MagicMock()
+        tender_data.data = {'owner': 'owner',
+                            'tender_token': 'tender_token'}
+        cb.get_tender_credentials = MagicMock(return_value=tender_data)
+        cb.contracting_client.create_contract = MagicMock()
+
+        result = cb.get_tender_data_with_retry(contract)
+
+        cb.get_tender_credentials.assert_called_once_with(self.TENDER_ID)
+        mocks[5].info.assert_has_calls(call(
+            'Getting extra info for tender {}'.format(self.TENDER_ID),
+            extra=journal_context({"MESSAGE_ID": DATABRIDGE_GET_EXTRA_INFO,
+                                   "JOURNAL_TENDER_ID": self.TENDER_ID,
+                                   "JOURNAL_CONTRACT_ID": contract['id']})))
+        self.assertEquals(result, tender_data)
 
 
 class TestDb(unittest.TestCase):
