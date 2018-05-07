@@ -1,13 +1,16 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.1'
+version = '1.1.1'
 
 requires = [
     'setuptools',
     'PyYAML',
     'gevent',
     'openprocurement_client==1.0b2',
+    'esculator',
+    'iso8601',
+    'pytz',
 ]
 
 test_requires = requires + [
