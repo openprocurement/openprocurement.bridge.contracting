@@ -98,8 +98,8 @@ def generate_milestones(contract, tender):
             milestone['status'] = 'pending'
         elif sequence_number == last_milestone_sequence_number:
             milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
-            milestone_end_date = TZ.localize(datetime(
-                announcement_date.year + sequence_number - 1, contract_start_date.month, contract_start_date.day))
+            milestone_end_date = contract_start_date.replace(
+                        year=contract_start_date.year + 15)
         else:
             milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
             milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
@@ -110,8 +110,7 @@ def generate_milestones(contract, tender):
             milestone['status'] = 'spare'
 
         if contract_end_date.year == announcement_date.year + sequence_number - 1:
-            milestone_end_date = TZ.localize(datetime(
-                announcement_date.year + sequence_number - 1, contract_end_date.month, contract_end_date.day))
+            milestone_end_date = contract_end_date
 
         milestone['period'] = {
             'startDate': milestone_start_date.isoformat(),
