@@ -256,9 +256,8 @@ class TestUtilsFucntions(unittest.TestCase):
         #  last scheduled milestone endDate = contract period endDate
         last_scheduled_miles = \
             [m for m in milestones if m['status'] == 'scheduled'][-1]
-        self.assertEquals(
-            parse_date(last_scheduled_miles['period']['endDate']).isoformat(),
-            parse_date(contract['period']['endDate']).isoformat())
+        self.assertEquals(last_scheduled_miles['period']['endDate'],
+                          contract['period']['endDate'])
         #  last milestone endDate = contract start Date + 15 years
         contract_delta_15_years = parse_date(contract['period']['startDate'])
         contract_delta_15_years = contract_delta_15_years.replace(
