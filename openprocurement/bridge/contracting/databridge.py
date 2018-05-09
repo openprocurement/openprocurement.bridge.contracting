@@ -180,16 +180,14 @@ class ContractingDataBridge(object):
         self.client = TendersClient(
             self.config_get('api_token'),
             host_url=self.api_server,
-            api_version=self.api_version,
-            resource=self.resource['name']
+            api_version=self.api_version
         )
 
         self.contracting_client_init()
 
         self.tenders_sync_client = TendersClientSync('',
             host_url=self.ro_api_server,
-            api_version=self.api_version,
-            resource=self.resource['name']
+            api_version=self.api_version
         )
 
     def config_get(self, name):
