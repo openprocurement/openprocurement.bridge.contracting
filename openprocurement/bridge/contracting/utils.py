@@ -211,11 +211,13 @@ def fill_base_contract_data(contract, tender):
 
 
 def handle_common_tenders(contract, tender):
+    fill_base_contract_data(contract, tender)
     contract['contractType'] = 'common'
     logger.info('Handle common tender {}'.format(tender['id']), extra={"MESSAGE_ID": "handle_common_tenders"})
 
 
 def handle_esco_tenders(contract, tender):
+    fill_base_contract_data(contract, tender)
     contract['contractType'] = 'esco'
     logger.info('Handle esco tender {}'.format(tender['id']), extra={"MESSAGE_ID": "handle_esco_tenders"})
 
