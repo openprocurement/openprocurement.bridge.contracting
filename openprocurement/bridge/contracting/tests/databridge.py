@@ -4,7 +4,6 @@ import json
 import munch
 import os
 import sys
-import types
 import unittest
 
 from copy import deepcopy
@@ -17,46 +16,22 @@ try:  # compatibility with requests-based or restkit-based op.client.python
 except ImportError:
     from restkit.errors import ResourceGone
 from openprocurement_client.client import ResourceNotFound
+from openprocurement.bridge.contracting.tests.base import \
+    MockedResponse, AlmostAlwaysTrue
 from openprocurement.bridge.contracting.databridge import (
     ContractingDataBridge, Db, generate_req_id, journal_context
 )
-from openprocurement.bridge.contracting.journal_msg_ids import (
-    DATABRIDGE_INFO, DATABRIDGE_START,
-    DATABRIDGE_TENDER_PROCESS,
-    DATABRIDGE_WORKER_DIED,
-    DATABRIDGE_SKIP_NOT_MODIFIED,
-    DATABRIDGE_FOUND_NOLOT_COMPLETE,
-    DATABRIDGE_FOUND_MULTILOT_COMPLETE,
-    DATABRIDGE_SYNC_SLEEP,
-    DATABRIDGE_SYNC_RESUME,
-    DATABRIDGE_EXCEPTION,
-    DATABRIDGE_CONTRACT_EXISTS,
-    DATABRIDGE_CREATE_CONTRACT,
-    DATABRIDGE_GET_EXTRA_INFO
-)
+from openprocurement.bridge.contracting.journal_msg_ids import *
 
 PWD = os.path.dirname(os.path.realpath(__file__))
 
 
-class AlmostAlwaysTrue(object):
-
-    def __init__(self, total_iterations=1):
-        self.total_iterations = total_iterations
-        self.current_iteration = 0
-
-    def __nonzero__(self):
-        if self.current_iteration < self.total_iterations:
-            self.current_iteration += 1
-            return bool(1)
-        return bool(0)
-
-
+@patch('restkit.resource.Resource.request',
+       return_value=MockedResponse(
+           status_int=200, headers={},
+           body_string='{"prev_page": {"offset": 0}, "next_page": {"offset": 1}}'))
 @patch('openprocurement.bridge.contracting.databridge.gevent')
 @patch('openprocurement.bridge.contracting.databridge.logger')
-@patch('openprocurement.bridge.contracting.databridge.Db')
-@patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-@patch('openprocurement.bridge.contracting.databridge.TendersClient')
-@patch('openprocurement.bridge.contracting.databridge.ContractingClient')
 @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
 class TestDatabridge(unittest.TestCase):
     """
@@ -69,7 +44,14 @@ class TestDatabridge(unittest.TestCase):
     """
 
     def setUp(self):
-        self.config = {'main': {}}
+        self.config = {'main': {
+            'tenders_api_server': 'http://localhost:6543',
+            'tenders_api_version': '2.4',
+            'contracting_api_server': 'http://localhost:6543',
+            'contracting_api_version': '2.4',
+            'public_tenders_api_server': 'http://localhost:6543'
+        }
+        }
         with open(PWD + '/data/tender.json', 'r') as json_file:
             self.tender = json.load(json_file)
         self.contract = deepcopy(self.tender['contracts'][1])
@@ -91,12 +73,8 @@ class TestDatabridge(unittest.TestCase):
         true_list = [True for i in xrange(0, 21)]
         true_list.append(False)
         mocks[0].__nonzero__.side_effect = true_list
-        mocks[4]()._backend = 'redis'
-        mocks[4]()._db_name = 'cache_db_name'
-        mocks[4]()._port = 6379
-        mocks[4]()._host = 'localhost'
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         # Check initialization
         msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
               "port: '{}'".format(
@@ -108,11 +86,11 @@ class TestDatabridge(unittest.TestCase):
             call('Initialization contracting clients.',
                  extra={'MESSAGE_ID': DATABRIDGE_INFO})
         ]
-        mocks[5].info.assert_has_calls(calls)
+        mocks[1].info.assert_has_calls(calls)
 
         # Run: while loop has 22 iterations with dead workers and jobs
         cb.run()
-        logger_calls = mocks[5].info.call_args_list
+        logger_calls = mocks[1].info.call_args_list
         start_bridge = call('Start Contracting Data Bridge',
                             extra={'MESSAGE_ID': 'c_bridge_start'})
         current_stage = call(
@@ -134,7 +112,7 @@ class TestDatabridge(unittest.TestCase):
             self._get_calls_count(logger_calls, starting_sync_workers), 22)
         self.assertEqual(self._get_calls_count(logger_calls, init_clients), 43)
 
-        warn_calls = mocks[5].warn.call_args_list
+        warn_calls = mocks[1].warn.call_args_list
         restart_sync = call('Restarting synchronization',
                             extra={'MESSAGE_ID': 'c_bridge_restart'})
         restart_tender_worker = call('Restarting get_tender_contracts worker')
@@ -156,7 +134,7 @@ class TestDatabridge(unittest.TestCase):
             self._get_calls_count(warn_calls, restart_prepare_data_retry), 21)
         # TODO: calculate spawn calls with different args
 
-        spawn_calls = mocks[6].spawn.call_args_list
+        spawn_calls = mocks[2].spawn.call_args_list
 
         self.assertEqual(len(spawn_calls), 154)
         self.assertEqual(
@@ -181,7 +159,7 @@ class TestDatabridge(unittest.TestCase):
                                   call(cb.get_tender_contracts_forward)), 22)
 
     def test_run_with_all_jobs_and_workers(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
 
         true_list = [True, False]
         mocks[0].__nonzero__.side_effect = true_list
@@ -226,7 +204,7 @@ class TestDatabridge(unittest.TestCase):
         cb._restart_synchronization_workers = _restart_synchronization_workers
         cb.run()
 
-        logger_calls = mocks[5].info.call_args_list
+        logger_calls = mocks[1].info.call_args_list
 
         first_log = call(
             "Caching backend: '{}', db name: '{}', host: '{}', port: '{}'".format(
@@ -240,16 +218,16 @@ class TestDatabridge(unittest.TestCase):
         thread_log = call('Start Contracting Data Bridge',
                           extra=({'MESSAGE_ID': DATABRIDGE_START}))
 
-        self.assertEqual(mocks[5].info.call_count, 3)
+        self.assertEqual(mocks[1].info.call_count, 3)
         self.assertEqual(self._get_calls_count(logger_calls, first_log), 1)
         self.assertEqual(self._get_calls_count(logger_calls, second_log), 1)
         self.assertEqual(self._get_calls_count(logger_calls, thread_log), 1)
-        self.assertEqual(mocks[5].warn.call_count, 0)
-        self.assertEqual(mocks[6].spawn.call_count, 0)
+        self.assertEqual(mocks[1].warn.call_count, 0)
+        self.assertEqual(mocks[2].spawn.call_count, 0)
         self.assertEqual(cb._restart_synchronization_workers.call_count, 0)
 
     def test_get_tender_credentials(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         cb.client = MagicMock()
         cb.client.extract_credentials.side_effect = (Exception(),
                                                      Exception(),
@@ -286,7 +264,7 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(data, self.TENDER_ID)
 
     def test_put_tender_in_cache_by_contract(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         cb.basket = dict()
         contracts = deepcopy(self.tender['contracts'])
         for contract in contracts:
@@ -310,7 +288,7 @@ class TestDatabridge(unittest.TestCase):
 
     def test_restart_synchronization_workers(self, *mocks):
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         cb.clients_initialize = MagicMock()
         job_1 = MagicMock()
         job_2 = MagicMock()
@@ -324,7 +302,7 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(job_2.kill.call_count, 1)
         cb._start_synchronization_workers.assert_called_once_with()
         cb.clients_initialize.assert_called_once_with()
-        mocks[5].warn.assert_called_once_with('Restarting synchronization',
+        mocks[1].warn.assert_called_once_with('Restarting synchronization',
                                       extra={'MESSAGE_ID': 'c_bridge_restart'})
 
     def test_run_with_KeyboardInterrupt(self, *mocks):
@@ -333,14 +311,14 @@ class TestDatabridge(unittest.TestCase):
         true_list.append(False)
         mocks[0].__nonzero__.side_effect = true_list
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
 
         cb._restart_synchronization_workers = MagicMock(
             side_effect=KeyboardInterrupt)
         cb.run()
 
-        gevent_calls = mocks[6].killall.call_args_list
-        logger_calls = mocks[5].info.call_args_list
+        gevent_calls = mocks[2].killall.call_args_list
+        logger_calls = mocks[1].info.call_args_list
 
         keyboard_interrut_log = call('Exiting...')
         kill_all_jobs = call(cb.jobs, timeout=5)
@@ -358,7 +336,7 @@ class TestDatabridge(unittest.TestCase):
         isinstance(e.exception, exceptions.KeyboardInterrupt)
 
     def test_run_with_Exception(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         true_list = [True for i in xrange(0, 21)]
         true_list.append(False)
         mocks[0].__nonzero__.side_effect = true_list
@@ -367,10 +345,15 @@ class TestDatabridge(unittest.TestCase):
         cb._restart_synchronization_workers = MagicMock(side_effect=e)
         cb.run()
 
-        mocks[5].exception.assert_called_once_with(e)
+        mocks[1].exception.assert_called_once_with(e)
 
     def test_sync_single_tender(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        body_string = '{"prev_page": {"offset": 0}, "next_page": {"offset": 1}, "data": {"owner": "fake_owner", ' \
+                      '"tender_token": "fake_token", "id": "fake_id"}}'
+        mocks[3].return_value = MockedResponse(
+            status_int=200, headers={'Set-Cookie': 'fake_cookie'},
+            body_string=body_string)
+        cb = ContractingDataBridge(self.config)
         tender = deepcopy(self.tender)
         tender['status'] = 'active'
         contract = deepcopy(self.contract)
@@ -381,7 +364,7 @@ class TestDatabridge(unittest.TestCase):
 
         cb.sync_single_tender(self.TENDER_ID)
 
-        calls_logs = mocks[5].info.call_args_list
+        calls_logs = mocks[1].info.call_args_list
         self.assertEqual(self._get_calls_count(calls_logs, call(
             "Skip contract {} in status {}".format(contract['id'],
                                                    contract['status']))), 1)
@@ -405,7 +388,7 @@ class TestDatabridge(unittest.TestCase):
             return_value={'data': ['test1', 'test2']})
         cb.sync_single_tender(self.TENDER_ID)
 
-        calls_logs = mocks[5].info.call_args_list
+        calls_logs = mocks[1].info.call_args_list
 
         self.assertEqual(self._get_calls_count(calls_logs, call(
             "Getting tender {}".format(self.TENDER_ID))), 2)
@@ -436,7 +419,7 @@ class TestDatabridge(unittest.TestCase):
                 contract['id']))), 1)
 
     def test_sync_single_tender_Exception(self, *mocks):
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         tender = deepcopy(self.tender)
         tender['status'] = 'active'
         contract = deepcopy(self.contract)
@@ -448,7 +431,7 @@ class TestDatabridge(unittest.TestCase):
                                    'tender_token': 'tender_token'}})
 
         cb.sync_single_tender(self.TENDER_ID)
-        calls_logs = mocks[5].info.call_args_list
+        calls_logs = mocks[1].info.call_args_list
 
         self.assertEqual(
             self._get_calls_count(calls_logs,
@@ -459,7 +442,7 @@ class TestDatabridge(unittest.TestCase):
 
         with self.assertRaises(Exception) as e:
             cb.sync_single_tender(self.TENDER_ID)
-        mocks[5].exception.assert_called_once_with(e.exception)
+        mocks[1].exception.assert_called_once_with(e.exception)
 
     def test_retry_put_contracts(self, *mocks):
 
@@ -469,33 +452,33 @@ class TestDatabridge(unittest.TestCase):
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
 
-        bridge = ContractingDataBridge({'main': {}})
-        remember_put_with_retry = bridge._put_with_retry
-        bridge.contracts_retry_put_queue = MagicMock()
-        bridge._put_with_retry = MagicMock()
-        bridge.cache_db = MagicMock()
-        bridge._put_tender_in_cache_by_contract = MagicMock()
-        bridge.contracts_retry_put_queue.get.return_value = contract
+        cb = ContractingDataBridge(self.config)
+        remember_put_with_retry = cb._put_with_retry
+        cb.contracts_retry_put_queue = MagicMock()
+        cb._put_with_retry = MagicMock()
+        cb.cache_db = MagicMock()
+        cb._put_tender_in_cache_by_contract = MagicMock()
+        cb.contracts_retry_put_queue.get.return_value = contract
 
-        bridge.retry_put_contracts()
+        cb.retry_put_contracts()
 
-        bridge.contracts_retry_put_queue.get.assert_called_once_with()
-        bridge._put_with_retry.assert_called_once_with(contract)
-        bridge.cache_db.put.assert_called_once_with(contract['id'], True)
-        bridge._put_tender_in_cache_by_contract.assert_called_once_with(
+        cb.contracts_retry_put_queue.get.assert_called_once_with()
+        cb._put_with_retry.assert_called_once_with(contract)
+        cb.cache_db.put.assert_called_once_with(contract['id'], True)
+        cb._put_tender_in_cache_by_contract.assert_called_once_with(
             contract, contract['tender_id'])
-        mocks[6].sleep.assert_called_once_with(0)
+        mocks[2].sleep.assert_called_once_with(0)
 
-        bridge._put_with_retry = remember_put_with_retry
+        cb._put_with_retry = remember_put_with_retry
         mocks[0].__nonzero__.side_effect = true_list
         e = Exception('Boom!')
-        bridge.contracting_client.create_contract = MagicMock(
+        cb.contracting_client.create_contract = MagicMock(
             side_effect=[e, True])
         contract = munch.munchify(contract)
-        bridge.contracts_retry_put_queue.get.return_value = contract
-        bridge.retry_put_contracts()
+        cb.contracts_retry_put_queue.get.return_value = contract
+        cb.retry_put_contracts()
 
-        mocks[5].exception.assert_called_once_with(e)
+        mocks[1].exception.assert_called_once_with(e)
 
     def test_put_contracts(self, *mocks):
         list_loop = [True, False]
@@ -504,24 +487,24 @@ class TestDatabridge(unittest.TestCase):
         contract['tender_id'] = self.TENDER_ID
         contract = munch.munchify(contract)
 
-        bridge = ContractingDataBridge({'main': {}})
-        bridge.contracts_put_queue = MagicMock()
-        bridge.contracts_put_queue.get.return_value = contract
-        bridge.contracting_client = MagicMock()
-        bridge.contracts_retry_put_queue = MagicMock()
-        bridge.contracting_client_init = MagicMock()
-        bridge.cache_db = MagicMock()
-        bridge._put_tender_in_cache_by_contract = MagicMock()
+        cb = ContractingDataBridge(self.config)
+        cb.contracts_put_queue = MagicMock()
+        cb.contracts_put_queue.get.return_value = contract
+        cb.contracting_client = MagicMock()
+        cb.contracts_retry_put_queue = MagicMock()
+        cb.contracting_client_init = MagicMock()
+        cb.cache_db = MagicMock()
+        cb._put_tender_in_cache_by_contract = MagicMock()
 
-        bridge.put_contracts()
+        cb.put_contracts()
 
-        bridge.contracts_put_queue.get.assert_called_once_with()
-        bridge.contracting_client.create_contract.assert_called_once_with(
+        cb.contracts_put_queue.get.assert_called_once_with()
+        cb.contracting_client.create_contract.assert_called_once_with(
             {'data': contract.toDict()})
-        bridge.cache_db.put.assert_called_once_with(contract.id, True)
-        bridge._put_tender_in_cache_by_contract.assert_called_once_with(
+        cb.cache_db.put.assert_called_once_with(contract.id, True)
+        cb._put_tender_in_cache_by_contract.assert_called_once_with(
             contract.toDict(), contract.tender_id)
-        mocks[6].sleep.assert_called_once_with(0)
+        mocks[2].sleep.assert_called_once_with(0)
 
         list_contracts = []
         for i in range(0, 10):
@@ -529,26 +512,26 @@ class TestDatabridge(unittest.TestCase):
             contract['id'] = i
             contract['tender_id'] = i + 100
             list_contracts.append(contract)
-        bridge.contracts_put_queue = MagicMock()
-        bridge.contracts_put_queue.get.side_effect = list_contracts
+        cb.contracts_put_queue = MagicMock()
+        cb.contracts_put_queue.get.side_effect = list_contracts
         list_loop = [True for i in range(0, 10)]
         list_loop.append(False)
         mocks[0].__nonzero__.side_effect = list_loop
 
-        bridge.put_contracts()
+        cb.put_contracts()
 
         extract_calls = [data[0] for data, call in
-                         bridge.contracts_retry_put_queue.put.call_args_list]
+                         cb.contracts_retry_put_queue.put.call_args_list]
         for i in range(0, 10):
             assert extract_calls[i]['id'] == i
         self.assertEqual(len(extract_calls), 10)
-        bridge.contracting_client_init.assert_called_once_with()
+        cb.contracting_client_init.assert_called_once_with()
 
     def test_prepare_contract_data_retry(self, *mocks):
         true_list = [True, False]
         mocks[0].__nonzero__.side_effect = true_list
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
         tender_data = MagicMock()
@@ -565,7 +548,7 @@ class TestDatabridge(unittest.TestCase):
         true_list = [True, False]
         mocks[0].__nonzero__.side_effect = true_list
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
         cb.handicap_contracts_queue_retry.get = MagicMock(
@@ -573,12 +556,12 @@ class TestDatabridge(unittest.TestCase):
         e = Exception("Error!!! prepare_contract_data_retry")
         cb.get_tender_data_with_retry = MagicMock(side_effect=e)
         cb.prepare_contract_data_retry()
-        mocks[5].exception.assert_called_with(e)
+        mocks[1].exception.assert_called_with(e)
 
     def test_prepare_contract_data(self, *mocks):
         true_list = [True, False]
         mocks[0].__nonzero__.side_effect = true_list
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
 
@@ -600,7 +583,7 @@ class TestDatabridge(unittest.TestCase):
         true_list = [True for i in xrange(0, static_number)]
         true_list.append(False)
         mocks[0].__nonzero__.side_effect = true_list
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
 
         for i in range(static_number):
             cb.handicap_contracts_queue.put({'id': i, 'tender_id': i + 1111})
@@ -613,8 +596,8 @@ class TestDatabridge(unittest.TestCase):
             return_value=tender_data)
 
         cb.prepare_contract_data()
-        list_calls = mocks[6].sleep.call_args_list
-        calls_logs = mocks[5].info.call_args_list
+        list_calls = mocks[2].sleep.call_args_list
+        calls_logs = mocks[1].info.call_args_list
 
         calls_with_error_delay = call(cb.on_error_delay)
         self.assertEqual(
@@ -644,8 +627,7 @@ class TestDatabridge(unittest.TestCase):
         resp.text = json.dumps(error_msg)
         resp.status_code = 410
         resp.status_int = 410
-        cb = ContractingDataBridge(
-            {'main': {'public_tenders_api_server': 'test_server'}})
+        cb = ContractingDataBridge(self.config)
         tender_to_sync = {
             'id': self.TENDER_ID,
             'dateModified': datetime.now().isoformat()
@@ -670,14 +652,14 @@ class TestDatabridge(unittest.TestCase):
             'MESSAGE_ID': 'c_bridge_contract_to_sync',
             'JOURNAL_CONTRACT_ID': self.contract['id']
         }
-        mocks[5].info.assert_has_calls([call(logger_msg, extra=extra)])
+        mocks[1].info.assert_has_calls([call(logger_msg, extra=extra)])
 
         #  check if no contracts in tender, raises exception
         cb.tenders_queue = MagicMock()
         cb.tenders_queue.get.return_value = {'id': 'id'}
         del tender['data']['contracts']
         cb._get_tender_contracts()
-        mocks[5].warn.assert_has_calls([
+        mocks[1].warn.assert_has_calls([
             call('!!!No contracts found in tender {}'.format(self.TENDER_ID),
                 extra={"MESSAGE_ID": DATABRIDGE_EXCEPTION,
                        "JOURNAL_TENDER_ID": self.TENDER_ID})])
@@ -686,29 +668,31 @@ class TestDatabridge(unittest.TestCase):
         cb.tenders_sync_client.get_tender.side_effect = Exception()
         cb.tenders_sync_client.get_tender.return_value = MagicMock()
         cb._get_tender_contracts()
-        mocks[5].warn.called_once_with('Fail to get tender info id',
-                 extra={'MESSAGE_ID': 'c_bridge_exception',
-                        'JOURNAL_TENDER_ID': 'id'})
-        mocks[5].info.called_once_with('Put tender id back to tenders queue',
-                 extra={'MESSAGE_ID': 'c_bridge_exception',
-                        'JOURNAL_TENDER_ID': 'id'})
+        mocks[1].warn.called_once_with('Fail to get tender info id',
+            extra={'MESSAGE_ID': 'c_bridge_exception', 'JOURNAL_TENDER_ID': 'id'})
+        mocks[1].info.called_once_with('Put tender id back to tenders queue',
+            extra={'MESSAGE_ID': 'c_bridge_exception', 'JOURNAL_TENDER_ID': 'id'})
 
     def test_initialize_sync(self, *mocks):
-        mocked_tenders_client_sync = mocks[3]  # TendersClientSync
-        response_mock = MagicMock()
-        tenders_client_mock = MagicMock()
-        tenders_client_mock.sync_tenders.return_value = response_mock
-        mocked_tenders_client_sync.return_value = tenders_client_mock
+        body_string = '{"prev_page": {"offset": 0}, "next_page": {"offset": 1} }'
+        mocks[3].return_value = MockedResponse(
+            status_int=200, headers={'Set-Cookie': 'fake_cookie'},
+            body_string=body_string)
+        cb = ContractingDataBridge(self.config)
+        response = cb.initialize_sync(params={'descending': True},
+                                      direction='backward')
 
-        bridge = ContractingDataBridge({'main': {}})
-        response = bridge.initialize_sync(params={'descending': True},
-                                          direction='backward')
-
-        self.assertEquals(id(response), id(response_mock))
-        self.assertEquals(mocked_tenders_client_sync.called, True)
-
-        response = bridge.initialize_sync(params={})
-        self.assertEquals(id(response), id(response_mock))
+        self.assertEquals(str(response),
+                          "Munch({'next_page': Munch({'offset': 1}), 'prev_page': Munch({'offset': 0})})")
+        mocks[1].info.assert_has_calls(call(
+            'Initial sync point {}'.format({'forward_offset': 0, 'backward_offset': 1}),
+        ))
+        response = cb.initialize_sync(params={})
+        self.assertEquals(str(response),
+                          "Munch({'next_page': Munch({'offset': 1}), 'prev_page': Munch({'offset': 0})})")
+        mocks[1].info.assert_has_calls(call(
+            'Starting forward sync from offset {}'.format(0),
+        ))
 
     def _fake_response(self, status=None):
         class Empty:
@@ -721,15 +705,11 @@ class TestDatabridge(unittest.TestCase):
         return response
 
     def test_get_tenders(self, *mocks):
-        mocks[4]()._backend = 'redis'
-        mocks[4]()._db_name = 'cache_db_name'
-        mocks[4]()._port = 6379
-        mocks[4]()._host = 'localhost'
 
         info_calls = list()
         debug_calls = list()
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         # Check initialization
         msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
               "port: '{}'".format(
@@ -812,8 +792,8 @@ class TestDatabridge(unittest.TestCase):
             call('{} {}'.format(direction, params))
         ]
 
-        self.assertEqual(mocks[5].debug.mock_calls, debug_calls)
-        self.assertEqual(mocks[5].info.mock_calls, info_calls)
+        self.assertEqual(mocks[1].debug.mock_calls, debug_calls)
+        self.assertEqual(mocks[1].info.mock_calls, info_calls)
 
     def _fake_generator(self, flag, items=None):
         if flag:
@@ -823,15 +803,10 @@ class TestDatabridge(unittest.TestCase):
             raise Exception()
 
     def test_get_tender_contracts_forward(self, *mocks):
-        mocks[4]()._backend = 'redis'
-        mocks[4]()._db_name = 'cache_db_name'
-        mocks[4]()._port = 6379
-        mocks[4]()._host = 'localhost'
-
         info_calls = []
         warn_calls = []
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         # Check initialization
         msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
               "port: '{}'".format(
@@ -864,24 +839,20 @@ class TestDatabridge(unittest.TestCase):
         cb.get_tenders.return_value = self._fake_generator(False)
         with self.assertRaises(Exception) as e:
             cb.get_tender_contracts_forward()
-            mocks[5].exception.assert_called_once_with(e)
+            mocks[1].exception.assert_called_once_with(e)
 
         info_calls += [call('Start forward data sync worker...')]
         warn_calls += [call('Forward worker died!', extra=journal_context(
             {"MESSAGE_ID": DATABRIDGE_WORKER_DIED}, {}))]
 
-        self.assertEqual(mocks[5].info.mock_calls, info_calls)
-        self.assertEqual(mocks[5].warn.mock_calls, warn_calls)
+        self.assertEqual(mocks[1].info.mock_calls, info_calls)
+        self.assertEqual(mocks[1].warn.mock_calls, warn_calls)
 
     def test_get_tender_contracts_backward(self, *mocks):
-        mocks[4]()._backend = 'redis'
-        mocks[4]()._db_name = 'cache_db_name'
-        mocks[4]()._port = 6379
-        mocks[4]()._host = 'localhost'
 
         info_calls = []
 
-        cb = ContractingDataBridge({'main': {}})
+        cb = ContractingDataBridge(self.config)
         # Check initialization
         msg = "Caching backend: '{}', db name: '{}', host: '{}', " \
               "port: '{}'".format(
@@ -920,16 +891,15 @@ class TestDatabridge(unittest.TestCase):
         cb.get_tenders.return_value = self._fake_generator(False)
         with self.assertRaises(Exception) as e:
             cb.get_tender_contracts_backward()
-            mocks[5].exception.assert_called_once_with(e)
+            mocks[1].exception.assert_called_once_with(e)
 
         info_calls += [call('Start backward data sync worker...')]
-        mocks[5].warn.assert_called_once_with('Backward worker died!',
+        mocks[1].warn.assert_called_once_with('Backward worker died!',
             extra=journal_context({"MESSAGE_ID": DATABRIDGE_WORKER_DIED}, {}))
-        self.assertEqual(mocks[5].info.mock_calls, info_calls)
+        self.assertEqual(mocks[1].info.mock_calls, info_calls)
 
     def test__get_tender_contracts(self, *mocks):
-        cb = ContractingDataBridge(
-            {'main': {'public_tenders_api_server': 'test_server'}})
+        cb = ContractingDataBridge(self.config)
         tender_to_sync = {
             'id': self.TENDER_ID,
             'dateModified': datetime.now().isoformat()
@@ -950,13 +920,13 @@ class TestDatabridge(unittest.TestCase):
 
         with self.assertRaises(Exception) as e:
             cb._get_tender_contracts()
-        mocks[5].warn.assert_called_once_with(
+        mocks[1].warn.assert_called_once_with(
             'Fail to contract existance {}'.format(self.contract['id']),
             extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION,
                                    "JOURNAL_TENDER_ID": self.TENDER_ID,
                                    "JOURNAL_CONTRACT_ID": self.contract['id']}))
-        mocks[5].exception.assert_called_once_with(exception)
-        mocks[5].info.assert_has_calls([call(
+        mocks[1].exception.assert_called_once_with(exception)
+        mocks[1].info.assert_has_calls([call(
             'Put tender {} back to tenders queue'.format(self.TENDER_ID),
             extra={'JOURNAL_TENDER_ID': self.TENDER_ID,
                    'MESSAGE_ID': DATABRIDGE_EXCEPTION,
@@ -965,7 +935,7 @@ class TestDatabridge(unittest.TestCase):
         # no exception is raised, so else is executed
         cb.contracting_client_ro.get_contract = MagicMock()
         cb._get_tender_contracts()
-        mocks[5].info.assert_has_calls([call(
+        mocks[1].info.assert_has_calls([call(
             'Contract exists {}'.format(self.contract['id']),
             extra={'JOURNAL_TENDER_ID': self.TENDER_ID,
                    'MESSAGE_ID': DATABRIDGE_CONTRACT_EXISTS,
@@ -974,8 +944,7 @@ class TestDatabridge(unittest.TestCase):
             tender['data']['contracts'][0], self.TENDER_ID)
 
     def test_get_tender_contracts(self, *mocks):
-        cb = ContractingDataBridge(
-            {'main': {'public_tenders_api_server': 'test_server'}})
+        cb = ContractingDataBridge(self.config)
         cb._get_tender_contracts = MagicMock()
 
         with patch('__builtin__.True', AlmostAlwaysTrue(1)):
@@ -986,14 +955,13 @@ class TestDatabridge(unittest.TestCase):
         cb._get_tender_contracts.side_effect = [exception]
         with self.assertRaises(Exception) as e:
             cb.get_tender_contracts()
-        mocks[5].warn.assert_called_once_with(
+        mocks[1].warn.assert_called_once_with(
             'Fail to handle tender contracts',
             extra=journal_context({"MESSAGE_ID": DATABRIDGE_EXCEPTION}))
-        mocks[5].exception.assert_called_once_with(exception)
+        mocks[1].exception.assert_called_once_with(exception)
 
     def test_get_tender_data_with_retry(self, *mocks):
-        cb = ContractingDataBridge(
-            {'main': {'public_tenders_api_server': 'test_server'}})
+        cb = ContractingDataBridge(self.config)
         contract = deepcopy(self.contract)
         contract['tender_id'] = self.TENDER_ID
         tender_data = MagicMock()
@@ -1005,7 +973,7 @@ class TestDatabridge(unittest.TestCase):
         result = cb.get_tender_data_with_retry(contract)
 
         cb.get_tender_credentials.assert_called_once_with(self.TENDER_ID)
-        mocks[5].info.assert_has_calls(call(
+        mocks[1].info.assert_has_calls(call(
             'Getting extra info for tender {}'.format(self.TENDER_ID),
             extra=journal_context({"MESSAGE_ID": DATABRIDGE_GET_EXTRA_INFO,
                                    "JOURNAL_TENDER_ID": self.TENDER_ID,

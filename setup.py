@@ -17,6 +17,8 @@ test_requires = requires + [
     'webtest',
     'python-coveralls',
     'mock',
+    'redis',
+    'lazydb'
 ]
 
 docs_requires = requires + [
