@@ -20,7 +20,7 @@ from yaml import load
 
 #from openprocurement_client.client import TendersClientSync, TendersClient
 from openprocurement_client.clients import APIResourceClientSync, APIResourceClient
-from openprocurement_client.contract import ContractingClient
+from openprocurement_client.resources.contracts import ContractingClient
 from openprocurement_client.exceptions import ResourceGone, ResourceNotFound
 from openprocurement.bridge.contracting import constants
 from openprocurement.bridge.contracting.utils import (
