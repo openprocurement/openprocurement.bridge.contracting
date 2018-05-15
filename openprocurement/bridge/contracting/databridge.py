@@ -438,8 +438,7 @@ class ContractingDataBridge(object):
                     self.client = TendersClient(
                         self.config_get('api_token'),
                         host_url=self.api_server,
-                        api_version=self.api_version,
-                        resource=self.resource
+                        api_version=self.api_version
                     )
                     unsuccessful_contracts.clear()
                 gevent.sleep(self.on_error_delay)
