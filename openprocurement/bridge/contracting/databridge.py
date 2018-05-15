@@ -18,7 +18,8 @@ from retrying import retry
 from uuid import uuid4
 from yaml import load
 
-from openprocurement_client.client import TendersClientSync, TendersClient
+#from openprocurement_client.client import TendersClientSync, TendersClient
+from openprocurement_client.clients import APIResourceClientSync, APIResourceClient
 from openprocurement_client.contract import ContractingClient
 from openprocurement_client.exceptions import ResourceGone, ResourceNotFound
 from openprocurement.bridge.contracting import constants
@@ -189,7 +190,7 @@ class ContractingDataBridge(object):
                 )
 
     def clients_initialize(self):
-        self.client = TendersClient(
+        self.client = APIResourceClient(
             self.config_get('api_token'),
             host_url=self.api_server,
             api_version=self.api_version,
@@ -198,7 +199,7 @@ class ContractingDataBridge(object):
 
         self.contracting_client_init()
 
-        self.tenders_sync_client = TendersClientSync('',
+        self.tenders_sync_client = APIResourceClientSync('',
             host_url=self.ro_api_server,
             api_version=self.api_version,
             resource=self.resource['name']
@@ -231,7 +232,9 @@ class ContractingDataBridge(object):
         self.initialization_event.clear()
         if direction == "backward":
             assert params['descending']
-            response = self.tenders_sync_client.sync_tenders(params, extra_headers={'X-Client-Request-ID': generate_req_id()})
+            response = self.tenders_sync_client.sync_resource_items(
+                params, extra_headers={'X-Client-Request-ID': generate_req_id()}
+            )
             # set values in reverse order due to 'descending' option
             self.initial_sync_point = {'forward_offset': response.prev_page.offset,
                                        'backward_offset': response.next_page.offset}
@@ -243,7 +246,7 @@ class ContractingDataBridge(object):
             gevent.wait([self.initialization_event])
             params['offset'] = self.initial_sync_point['forward_offset']
             logger.info("Starting forward sync from offset {}".format(params['offset']))
-            return self.tenders_sync_client.sync_tenders(params, extra_headers={'X-Client-Request-ID': generate_req_id()})
+            return self.tenders_sync_client.sync_resource_items(params, extra_headers={'X-Client-Request-ID': generate_req_id()})
 
     def get_tenders(self, params={}, direction=""):
         response = self.initialize_sync(params=params, direction=direction)
@@ -307,7 +310,7 @@ class ContractingDataBridge(object):
             gevent.sleep(delay)
             logger.info('Restore {} sync'.format(direction), extra=journal_context({"MESSAGE_ID": DATABRIDGE_SYNC_RESUME}))
             logger.debug('{} {}'.format(direction, params))
-            response = self.tenders_sync_client.sync_tenders(params, extra_headers={'X-Client-Request-ID': generate_req_id()})
+            response = self.tenders_sync_client.sync_resource_items(params, extra_headers={'X-Client-Request-ID': generate_req_id()})
 
     def _put_tender_in_cache_by_contract(self, contract, tender_id):
         dateModified = self.basket.get(contract['id'])
@@ -435,7 +438,7 @@ class ContractingDataBridge(object):
                             self.resource['id_key_upper']: contract[self.resource['id_key']]}
                         )
                     )
-                    self.client = TendersClient(
+                    self.client = APIResourceClient(
                         self.config_get('api_token'),
                         host_url=self.api_server,
                         api_version=self.api_version,
