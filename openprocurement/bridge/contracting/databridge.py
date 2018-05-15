@@ -7,41 +7,49 @@ try:
 except ImportError:
     pass
 
+import argparse
+import gevent
 import logging
 import logging.config
 import os
-import argparse
 
+from gevent.queue import Queue
 from retrying import retry
 from uuid import uuid4
+from yaml import load
 
-import gevent
-from gevent.queue import Queue
-try:  # compatibility with requests-based or restkit-based op.client.python
-    from openprocurement_client.exceptions import ResourceGone, ResourceNotFound
-except ImportError:
-    from openprocurement_client.client import ResourceNotFound
-    from restkit.errors import ResourceGone
 from openprocurement_client.client import TendersClientSync, TendersClient
 from openprocurement_client.contract import ContractingClient
-from yaml import load
-from openprocurement.bridge.contracting.journal_msg_ids import (
-    DATABRIDGE_RESTART, DATABRIDGE_GET_CREDENTIALS, DATABRIDGE_GOT_CREDENTIALS,
-    DATABRIDGE_FOUND_MULTILOT_COMPLETE, DATABRIDGE_FOUND_NOLOT_COMPLETE,
-    DATABRIDGE_CONTRACT_TO_SYNC, DATABRIDGE_CONTRACT_EXISTS,
-    DATABRIDGE_COPY_CONTRACT_ITEMS, DATABRIDGE_MISSING_CONTRACT_ITEMS,
-    DATABRIDGE_GET_EXTRA_INFO, DATABRIDGE_WORKER_DIED, DATABRIDGE_START,
-    DATABRIDGE_GOT_EXTRA_INFO, DATABRIDGE_CREATE_CONTRACT, DATABRIDGE_EXCEPTION,
-    DATABRIDGE_CONTRACT_CREATED, DATABRIDGE_RETRY_CREATE, DATABRIDGE_INFO,
-    DATABRIDGE_TENDER_PROCESS, DATABRIDGE_SKIP_NOT_MODIFIED,
-    DATABRIDGE_SYNC_SLEEP, DATABRIDGE_SYNC_RESUME, DATABRIDGE_CACHED,
-    DATABRIDGE_RECONNECT)
+from openprocurement_client.exceptions import ResourceGone, ResourceNotFound
+from openprocurement.bridge.contracting import constants
 from openprocurement.bridge.contracting.utils import (
     fill_base_contract_data,
     handle_common_tenders,
 )
-
-from openprocurement.bridge.contracting import constants
+from openprocurement.bridge.contracting.journal_msg_ids import (
+    DATABRIDGE_CACHED,
+    DATABRIDGE_CONTRACT_CREATED,
+    DATABRIDGE_CONTRACT_EXISTS,
+    DATABRIDGE_CONTRACT_TO_SYNC,
+    DATABRIDGE_CREATE_CONTRACT,
+    DATABRIDGE_EXCEPTION,
+    DATABRIDGE_FOUND_MULTILOT_COMPLETE,
+    DATABRIDGE_FOUND_NOLOT_COMPLETE,
+    DATABRIDGE_GET_CREDENTIALS,
+    DATABRIDGE_GET_EXTRA_INFO,
+    DATABRIDGE_GOT_CREDENTIALS,
+    DATABRIDGE_GOT_EXTRA_INFO,
+    DATABRIDGE_INFO,
+    DATABRIDGE_RECONNECT,
+    DATABRIDGE_RESTART,
+    DATABRIDGE_RETRY_CREATE,
+    DATABRIDGE_SKIP_NOT_MODIFIED,
+    DATABRIDGE_START,
+    DATABRIDGE_SYNC_RESUME,
+    DATABRIDGE_SYNC_SLEEP,
+    DATABRIDGE_TENDER_PROCESS,
+    DATABRIDGE_WORKER_DIED,
+)
 
 
 logger = logging.getLogger("openprocurement.bridge.contracting.databridge")
@@ -152,7 +160,7 @@ class ContractingDataBridge(object):
         """
         self.resource = {}
         self.resource['name'] = self.config_get('resource') or 'tenders'
-        
+
         self.resource['singular_name'] = self.resource['name'][:-1]
         self.resource['singular_name_upper'] = self.resource['singular_name'].upper()
         self.resource['id_key'] = '{0}_id'.format(self.resource['singular_name'])
