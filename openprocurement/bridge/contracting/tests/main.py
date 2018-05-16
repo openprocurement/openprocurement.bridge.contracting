@@ -7,12 +7,8 @@ import exceptions
 from mock import patch, call, MagicMock
 from munch import munchify
 from datetime import datetime
-try:  # compatibility with requests-based or restkit-based op.client.python
-    from openprocurement_client.exceptions import ResourceGone
-except ImportError:
-    from restkit.errors import ResourceGone
-# from time import sleep
-from openprocurement_client.client import ResourceNotFound
+
+from openprocurement_client.exceptions import ResourceGone, ResourceNotFound
 from openprocurement.bridge.contracting.databridge import ContractingDataBridge
 from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_INFO, DATABRIDGE_START
@@ -60,7 +56,7 @@ class TestDatabridge(unittest.TestCase):
             "port: '{}'".format(
                 cb.cache_db._backend, cb.cache_db._db_name, cb.cache_db._host,
                 cb.cache_db._port
-        )
+            )
         calls = [
             call(msg, extra={'MESSAGE_ID': DATABRIDGE_INFO}),
             call('Initialization contracting clients.',
@@ -71,8 +67,9 @@ class TestDatabridge(unittest.TestCase):
         # Run: while loop has 22 iterations with dead workers and jobs
         cb.run()
         logger_calls = mocked_logger.info.call_args_list
-        start_bridge = call('Start Contracting Data Bridge',
-                                        extra={'MESSAGE_ID': 'c_bridge_start'})
+        start_bridge = call(
+            'Start Contracting Data Bridge',
+            extra={'MESSAGE_ID': 'c_bridge_start'})
         current_stage = call(
             'Current state: Tenders to process 0; Unhandled contracts 0; '
             'Contracts to create 0; Retrying to create 0',
@@ -93,8 +90,9 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(self._get_calls_count(logger_calls, init_clients), 43)
 
         warn_calls = mocked_logger.warn.call_args_list
-        restart_sync = call('Restarting synchronization',
-             extra={'MESSAGE_ID': 'c_bridge_restart'})
+        restart_sync = call(
+            'Restarting synchronization',
+            extra={'MESSAGE_ID': 'c_bridge_restart'})
         restart_tender_worker = call('Restarting get_tender_contracts worker')
         restart_retry_worker = call('Restarting retry_put_contracts worker')
         restart_prepare_data = call('Restarting prepare_contract_data worker')
@@ -206,7 +204,6 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(mocked_gevent.spawn.call_count, 0)
         self.assertEqual(cb._restart_synchronization_workers.call_count, 0)
 
-
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
     @patch('openprocurement.bridge.contracting.databridge.TendersClient')
@@ -296,8 +293,6 @@ class TestDatabridge(unittest.TestCase):
         mocked_logger.warn.assert_called_once_with('Restarting synchronization',
                                                    extra={'MESSAGE_ID': 'c_bridge_restart'})
 
-
-    #
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
@@ -336,7 +331,6 @@ class TestDatabridge(unittest.TestCase):
             cb.run()
         isinstance(e.exception, exceptions.KeyboardInterrupt)
 
-
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
@@ -357,7 +351,6 @@ class TestDatabridge(unittest.TestCase):
         cb.run()
 
         mocked_logger.exception.assert_called_once_with(e)
-
 
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
@@ -443,7 +436,6 @@ class TestDatabridge(unittest.TestCase):
             cb.sync_single_tender(tender_id)
         mocked_logger.exception.assert_called_once_with(e.exception)
 
-
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
     @patch('openprocurement.bridge.contracting.databridge.TendersClient')
@@ -514,7 +506,7 @@ class TestDatabridge(unittest.TestCase):
         bridge.put_contracts()
 
         bridge.contracts_put_queue.get.assert_called_once_with()
-        bridge.contracting_client.create_contract.assert_called_once_with({'data':contract.toDict()})
+        bridge.contracting_client.create_contract.assert_called_once_with({'data': contract.toDict()})
         bridge.cache_db.put.assert_called_once_with(contract.id, True)
         bridge._put_tender_in_cache_by_contract.assert_called_once_with(contract.toDict(), contract.tender_id)
         mocked_gevent.sleep.assert_called_once_with(0)
@@ -535,7 +527,6 @@ class TestDatabridge(unittest.TestCase):
             assert extract_calls[i]['id'] == i
         self.assertEqual(len(extract_calls), 10)
         bridge.contracting_client_init.assert_called_once_with()
-
 
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
@@ -584,7 +575,6 @@ class TestDatabridge(unittest.TestCase):
         cb.get_tender_data_with_retry = MagicMock(side_effect=e)
         cb.prepare_contract_data_retry()
         mocked_logger.exception.assert_called_with(e)
-
 
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
@@ -649,8 +639,9 @@ class TestDatabridge(unittest.TestCase):
         calls_with_error_delay = call(cb.on_error_delay)
         self.assertEqual(self._get_calls_count(list_calls, calls_with_error_delay), static_number)
 
-        reconnecting_log = call('Reconnecting tenders client',
-                                extra={'JOURNAL_TENDER_ID': 1120, 'MESSAGE_ID': 'c_bridge_reconnect', 'JOURNAL_CONTRACT_ID': 9})
+        reconnecting_log = call(
+            'Reconnecting tenders client',
+            extra={'JOURNAL_TENDER_ID': 1120, 'MESSAGE_ID': 'c_bridge_reconnect', 'JOURNAL_CONTRACT_ID': 9})
         self.assertEqual(self._get_calls_count(calls_logs, reconnecting_log), 1)
 
     @patch('openprocurement.bridge.contracting.databridge.gevent')
