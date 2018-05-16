@@ -33,8 +33,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
     def test_run_with_dead_all_jobs_and_workers(
@@ -134,8 +134,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -205,8 +205,8 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(cb._restart_synchronization_workers.call_count, 0)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     def test_get_tender_credentials(
             self, mocked_contract_client, mocked_tender_client,
@@ -247,8 +247,8 @@ class TestDatabridge(unittest.TestCase):
         self.assertEqual(data, tender_id)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     def test_put_tender_in_cache_by_contract(self, mocked_contract_client,
                                              mocked_tender_client,
@@ -267,8 +267,8 @@ class TestDatabridge(unittest.TestCase):
         cb.cache_db.put.assert_called_once_with('2001', 'why')
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     def test_restart_synchronization_workers(self, mocked_logger,
@@ -297,8 +297,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -334,8 +334,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.gevent')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
     def test_run_with_Exception(
@@ -356,8 +356,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -407,8 +407,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -437,8 +437,8 @@ class TestDatabridge(unittest.TestCase):
         mocked_logger.exception.assert_called_once_with(e.exception)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.gevent')
@@ -480,8 +480,8 @@ class TestDatabridge(unittest.TestCase):
         mocked_logger.exception.assert_called_once_with(e)
 
     @patch('openprocurement.bridge.contracting.databridge.Db')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch('openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.gevent')
@@ -532,8 +532,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -557,8 +557,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -580,8 +580,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -608,8 +608,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     @patch('openprocurement.bridge.contracting.databridge.INFINITY_LOOP')
@@ -648,8 +648,8 @@ class TestDatabridge(unittest.TestCase):
     @patch('openprocurement.bridge.contracting.databridge.logger')
     @patch('openprocurement.bridge.contracting.databridge.Db')
     @patch(
-        'openprocurement.bridge.contracting.databridge.TendersClientSync')
-    @patch('openprocurement.bridge.contracting.databridge.TendersClient')
+        'openprocurement.bridge.contracting.databridge.APIResourceClientSync')
+    @patch('openprocurement.bridge.contracting.databridge.APIResourceClient')
     @patch(
         'openprocurement.bridge.contracting.databridge.ContractingClient')
     def test_get_tender_contracts_resource_gone(
