@@ -11,3 +11,5 @@ TARGET_TENDER_STATUSES = (
 )
 # status of lot, that will be processed by databridge
 TARGET_LOT_STATUS = 'complete'
+DAYS_PER_YEAR = 365
+ACCELERATOR = 86400
