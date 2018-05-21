@@ -10,6 +10,7 @@ from mock import MagicMock, patch, call
 from pytz import timezone
 from uuid import uuid4
 
+from openprocurement.bridge.contracting.constants import DAYS_PER_YEAR, ACCELERATOR
 from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_COPY_CONTRACT_ITEMS,
     DATABRIDGE_EXCEPTION
@@ -230,8 +231,7 @@ class TestUtilsFucntions(unittest.TestCase):
             if 'period' in contract and 'startDate' in contract['period'] \
             else parse_date(contract['dateSigned'])
         announcement_date = parse_date(self.tender['noticePublicationDate'])
-        target_milestones_count = 16 + \
-                           (contract_start_date.year - announcement_date.year)
+        target_milestones_count = 16 + (contract_start_date.year - announcement_date.year)
         milestones = generate_milestones(contract, self.tender)
 
         mocks[0].info.assert_called_with(
@@ -239,10 +239,11 @@ class TestUtilsFucntions(unittest.TestCase):
         self.assertEqual(len(milestones), target_milestones_count)
         contract_end_date = parse_date(contract['period']['endDate'])
         for seq_number, milestone in enumerate(milestones):
-            self.assertEquals(set(milestone.keys()),
-                              {'status', 'description', 'sequenceNumber',
-                               'title', 'period', 'value', 'dateModified',
-                               'date', 'amountPaid', 'id'})
+            self.assertEquals(
+                set(milestone.keys()),
+                {'status', 'description', 'sequenceNumber', 'title', 'period', 'value', 'dateModified', 'date',
+                 'amountPaid', 'id'}
+            )
             seq_number += 1
             if seq_number == 1:
                 self.assertEquals(milestone['status'], 'pending')
@@ -259,23 +260,40 @@ class TestUtilsFucntions(unittest.TestCase):
         self.assertEquals(last_scheduled_miles['period']['endDate'],
                           contract['period']['endDate'])
         #  last milestone endDate = contract start Date + 15 years
-        contract_delta_15_years = parse_date(contract['period']['startDate'])
-        contract_delta_15_years = contract_delta_15_years.replace(
-            year=contract_delta_15_years.year+15)
+        contract_start_date = parse_date(contract['period']['startDate'])
+        max_contract_end_date = contract_start_date + timedelta(days=DAYS_PER_YEAR * 15)
         self.assertEquals(
-            contract_delta_15_years.isoformat(),
-            parse_date(milestones[-1]['period']['endDate']).isoformat()
+            max_contract_end_date.isoformat(),
+            milestones[-1]['period']['endDate']
         )
 
         #  test if no period in contract
         contract = deepcopy(self.contract)
         del contract['period']
         milestones = generate_milestones(contract, self.tender)
-        last_scheduled_miles = \
-            [m for m in milestones if m['status'] == 'scheduled'][-1]
-        self.assertEquals(
-            parse_date(last_scheduled_miles['period']['endDate']).isoformat(),
-            parse_date(contract['period']['endDate']).isoformat())
+        last_scheduled_miles = [m for m in milestones if m['status'] == 'scheduled'][-1]
+        self.assertEquals(last_scheduled_miles['period']['endDate'], contract['period']['endDate'])
+
+    def test_generate_accelerated_milestones(self, *mocks):
+        contract = deepcopy(self.contract)
+        contract['mode'] = 'test'
+
+        contract_start_date = parse_date(contract['period']['startDate']) \
+            if 'period' in contract and 'startDate' in contract['period'] \
+            else parse_date(contract['dateSigned'])
+        announcement_date = parse_date(self.tender['noticePublicationDate'])
+        target_milestones_count = 16 + (contract_start_date.year - announcement_date.year)
+        milestones = generate_milestones(contract, self.tender)
+        last_scheduled_milestone = [m for m in milestones if m['status'] == 'scheduled'][-1]
+
+        contract_days = timedelta(days=contract['value']['contractDuration']['days'])
+        contract_years = timedelta(days=DAYS_PER_YEAR * contract['value']['contractDuration']['years'])
+        contract_start_date = parse_date(contract['period']['startDate'])
+        delta = timedelta(days=DAYS_PER_YEAR * 15)
+        max_end_date = contract_start_date + timedelta(seconds=delta.total_seconds() / ACCELERATOR)
+        self.assertEquals(last_scheduled_milestone['period']['endDate'], contract['period']['endDate'])
+        self.assertEqual(milestones[-1]['period']['endDate'][:-8], max_end_date.isoformat()[:-8])
+
 
 def suite():
     suite = unittest.TestSuite()

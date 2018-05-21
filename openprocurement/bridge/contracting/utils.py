@@ -9,6 +9,7 @@ from pytz import timezone
 from iso8601 import parse_date
 
 from esculator.calculations import discount_rate_days, payments_days, calculate_payments
+from openprocurement.bridge.contracting.constants import ACCELERATOR, DAYS_PER_YEAR
 from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_EXCEPTION,
     DATABRIDGE_COPY_CONTRACT_ITEMS,
@@ -30,16 +31,13 @@ def to_decimal(fraction):
 
 
 def generate_milestones(contract, tender):
-    days_per_year = 365
     npv_calculation_duration = 20
     announcement_date = parse_date(tender['noticePublicationDate'])
 
-    if not 'period' in contract:
-        contract_days = timedelta(days=contract['value']['contractDuration']['days'])
-        contract_years = contract['value']['contractDuration']['years']
-        contract_end_date = announcement_date.replace(
-            year=announcement_date.year + contract_years, hour=0, minute=0,
-            second=0, microsecond=0) + contract_days
+    contract_days = timedelta(days=contract['value']['contractDuration']['days'])
+    contract_years = timedelta(days=contract['value']['contractDuration']['years'] * DAYS_PER_YEAR)
+    if not 'period' in contract or ('mode' in contract and contract['mode'] == 'test'):
+        contract_end_date = announcement_date + contract_years + contract_days
         contract['period'] = {
             'startDate': contract['dateSigned'],
             'endDate': contract_end_date.isoformat()
@@ -57,9 +55,9 @@ def generate_milestones(contract, tender):
     yearly_payments_percentage = contract['value']['yearlyPaymentsPercentage']
     annual_cost_reduction = contract['value']['annualCostsReduction']
 
-    days_for_discount_rate = discount_rate_days(announcement_date, days_per_year, npv_calculation_duration)
+    days_for_discount_rate = discount_rate_days(announcement_date, DAYS_PER_YEAR, npv_calculation_duration)
     days_with_payments = payments_days(
-        contract_duration_years, contract_duration_days, days_for_discount_rate, days_per_year,
+        contract_duration_years, contract_duration_days, days_for_discount_rate, DAYS_PER_YEAR,
         npv_calculation_duration
     )
 
@@ -98,8 +96,7 @@ def generate_milestones(contract, tender):
             milestone['status'] = 'pending'
         elif sequence_number == last_milestone_sequence_number:
             milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
-            milestone_end_date = contract_start_date.replace(
-                        year=contract_start_date.year + 15)
+            milestone_end_date = contract_start_date + timedelta(days=DAYS_PER_YEAR * 15)
         else:
             milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
             milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
@@ -120,7 +117,57 @@ def generate_milestones(contract, tender):
         milestone['title'] = title
         milestone['description'] = title
         milestones.append(milestone)
+    if 'mode' in contract and contract['mode'] == 'test':
+        accelerate_milestones(milestones, DAYS_PER_YEAR, ACCELERATOR)
+        # accelerate contract.dateSigned
+        date_signed = parse_date(contract['dateSigned'])
+        signed_delta = date_signed - announcement_date
+        date_signed = announcement_date + timedelta(seconds=signed_delta.total_seconds() / ACCELERATOR)
+        contract['dateSigned'] = date_signed.isoformat()
+        # accelerate contract.period.endDate
+        delta = contract_days + contract_years
+        contract_end_date = announcement_date + timedelta(seconds=delta.total_seconds() / ACCELERATOR)
+        contract['period'] = {
+            'startDate': contract['dateSigned'],
+            'endDate': contract_end_date.isoformat()
+        }
     return milestones
+
+
+def accelerate_milestones(milestones, days_per_year, accelerator):
+    year = timedelta(seconds=timedelta(days=days_per_year).total_seconds() / accelerator)
+    previous_end_date = None
+    for index, milestone in enumerate(milestones):
+        if index == 0:
+            start_date = parse_date(milestone['period']['startDate'])
+            end_date = parse_date(milestone['period']['endDate'])
+            delta = end_date - start_date
+            end_date = start_date + timedelta(seconds=delta.total_seconds() / accelerator)
+
+            milestone['period']['endDate'] = end_date.isoformat()
+        elif milestone['status'] == 'spare' and milestones[index - 1]['status'] in tuple(['scheduled', 'pending']):
+            previous_start_date = parse_date(milestones[index - 1]['period']['startDate'])
+            previous_end_date = previous_start_date + year
+            real_start_date = parse_date(milestone['period']['startDate'])
+            end_date = parse_date(milestone['period']['endDate'])
+            delta = end_date - real_start_date
+            end_date = previous_end_date + timedelta(seconds=delta.total_seconds() / accelerator)
+
+            milestone['period'] = {
+                'startDate': previous_end_date.isoformat(),
+                'endDate': end_date.isoformat()
+            }
+        else:
+            real_start_date = parse_date(milestone['period']['startDate'])
+            end_date = parse_date(milestone['period']['endDate'])
+
+            milestone['period']['startDate'] = milestones[index - 1]['period']['endDate']
+
+            start_date = parse_date(milestones[index - 1]['period']['endDate'])
+            delta = end_date - real_start_date
+            end_date = start_date + timedelta(seconds=delta.total_seconds() / accelerator)
+
+            milestone['period']['endDate'] = end_date.isoformat()
 
 
 def fill_base_contract_data(contract, tender):
