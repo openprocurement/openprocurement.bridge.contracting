@@ -12,6 +12,7 @@ import logging.config
 import os
 import argparse
 
+from pkg_resources import iter_entry_points
 from retrying import retry
 from uuid import uuid4
 
@@ -143,12 +144,20 @@ class ContractingDataBridge(object):
         self.contracts_retry_put_queue = Queue(maxsize=queue_size)
         self.basket = {}
 
+        self.procurementMethodTypes = {
+            'default': handle_common_tenders,
+            'esco': handle_esco_tenders
+        }
+
+        for entry_point in iter_entry_points('openprocurement.bridge.contracting.handlers'):
+            self.procurementMethodTypes[entry_point.name] = entry_point.load()
+
     def init_resource(self):
         """Initialize resource-related constants to adapt to different CBD-s
         """
         self.resource = {}
         self.resource['name'] = self.config_get('resource') or 'tenders'
-        
+
         self.resource['singular_name'] = self.resource['name'][:-1]
         self.resource['singular_name_upper'] = self.resource['singular_name'].upper()
         self.resource['id_key'] = '{0}_id'.format(self.resource['singular_name'])
@@ -376,11 +385,13 @@ class ContractingDataBridge(object):
                         self._put_tender_in_cache_by_contract(contract, tender_to_sync['id'])
                         continue
 
-                    fill_base_contract_data(contract, tender)
-                    if tender.get('procurementMethodType') == 'esco':
-                        handle_esco_tenders(contract, tender)
+                    procurement_method_type = tender.get('procurementMethodType')
+                    if procurement_method_type in self.procurementMethodTypes:
+                        handle = self.procurementMethodTypes[procurement_method_type]
                     else:
-                        handle_common_tenders(contract, tender)
+                        handle = self.procurementMethodTypes['default']
+
+                    handle(contract, tender)
                     self.handicap_contracts_queue.put(contract)
 
     def get_tender_contracts(self):
@@ -427,8 +438,7 @@ class ContractingDataBridge(object):
                     self.client = TendersClient(
                         self.config_get('api_token'),
                         host_url=self.api_server,
-                        api_version=self.api_version,
-                        resource=self.resource
+                        api_version=self.api_version
                     )
                     unsuccessful_contracts.clear()
                 gevent.sleep(self.on_error_delay)
