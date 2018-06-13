@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+from re import compile
+
+
 SKIPPED_PROCUREMENT_METHOD_TYPES = [
     'competitiveDialogueUA',
     'competitiveDialogueEU',
@@ -12,4 +16,4 @@ TARGET_TENDER_STATUSES = (
 # status of lot, that will be processed by databridge
 TARGET_LOT_STATUS = 'complete'
 DAYS_PER_YEAR = 365
-ACCELERATOR = 86400
+ACCELERATOR_RE = compile(r'.accelerator=(?P<accelerator>\d+)')

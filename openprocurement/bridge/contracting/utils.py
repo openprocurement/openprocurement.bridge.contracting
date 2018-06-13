@@ -9,7 +9,7 @@ from pytz import timezone
 from iso8601 import parse_date
 
 from esculator.calculations import discount_rate_days, payments_days, calculate_payments
-from openprocurement.bridge.contracting.constants import ACCELERATOR, DAYS_PER_YEAR
+from openprocurement.bridge.contracting.constants import ACCELERATOR_RE, DAYS_PER_YEAR
 from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_EXCEPTION,
     DATABRIDGE_COPY_CONTRACT_ITEMS,
@@ -31,20 +31,32 @@ def to_decimal(fraction):
 
 
 def generate_milestones(contract, tender):
+    accelerator = 0
+    if 'procurementMethodDetails' in contract:
+        re_obj = ACCELERATOR_RE.search(contract['procurementMethodDetails'])
+        if re_obj and 'accelerator' in re_obj.groupdict():
+            accelerator = int(re_obj.groupdict()['accelerator'])
+
     npv_calculation_duration = 20
     announcement_date = parse_date(tender['noticePublicationDate'])
 
     contract_days = timedelta(days=contract['value']['contractDuration']['days'])
     contract_years = timedelta(days=contract['value']['contractDuration']['years'] * DAYS_PER_YEAR)
-    if not 'period' in contract or ('mode' in contract and contract['mode'] == 'test'):
+    date_signed = parse_date(contract['dateSigned'])
+    signed_delta = date_signed - announcement_date
+    if 'period' not in contract or ('mode' in contract and contract['mode'] == 'test'):
         contract_end_date = announcement_date + contract_years + contract_days
+        if accelerator:
+            real_date_signed = announcement_date + timedelta(seconds=signed_delta.total_seconds() * accelerator)
+            contract['dateSigned'] = real_date_signed.isoformat()
+
         contract['period'] = {
             'startDate': contract['dateSigned'],
             'endDate': contract_end_date.isoformat()
         }
 
     # set contract.period.startDate to contract.dateSigned if missed
-    if not 'startDate' in contract['period']:
+    if 'startDate' not in contract['period']:
         contract['period']['startDate'] = contract['dateSigned']
 
     contract_start_date = parse_date(contract['period']['startDate'])
@@ -117,16 +129,13 @@ def generate_milestones(contract, tender):
         milestone['title'] = title
         milestone['description'] = title
         milestones.append(milestone)
-    if 'mode' in contract and contract['mode'] == 'test':
-        accelerate_milestones(milestones, DAYS_PER_YEAR, ACCELERATOR)
-        # accelerate contract.dateSigned
-        date_signed = parse_date(contract['dateSigned'])
-        signed_delta = date_signed - announcement_date
-        date_signed = announcement_date + timedelta(seconds=signed_delta.total_seconds() / ACCELERATOR)
+    if accelerator:
+        accelerate_milestones(milestones, DAYS_PER_YEAR, accelerator)
+        # restore accelerated contract.dateSigned
         contract['dateSigned'] = date_signed.isoformat()
         # accelerate contract.period.endDate
         delta = contract_days + contract_years
-        contract_end_date = announcement_date + timedelta(seconds=delta.total_seconds() / ACCELERATOR)
+        contract_end_date = announcement_date + timedelta(seconds=delta.total_seconds() / accelerator)
         contract['period'] = {
             'startDate': contract['dateSigned'],
             'endDate': contract_end_date.isoformat()
@@ -266,6 +275,8 @@ def handle_common_tenders(contract, tender):
 def handle_esco_tenders(contract, tender):
     fill_base_contract_data(contract, tender)
     contract['contractType'] = 'esco'
+    if 'procurementMethodDetails' in tender:
+        contract['procurementMethodDetails'] = tender['procurementMethodDetails']
     logger.info('Handle esco tender {}'.format(tender['id']), extra={"MESSAGE_ID": "handle_esco_tenders"})
 
     keys = ['NBUdiscountRate', 'noticePublicationDate']
