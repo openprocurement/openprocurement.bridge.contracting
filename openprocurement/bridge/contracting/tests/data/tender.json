@@ -1,1127 +1,1750 @@
 {
+  "data": {
     "procurementMethod": "open",
     "numberOfBids": 2,
     "awardPeriod": {
-      "startDate": "2018-01-09T16:18:30.617314+02:00",
-      "endDate": "2018-01-17T15:21:53.791979+02:00"
+      "startDate": "2018-06-12T12:34:33.623065+03:00",
+      "endDate": "2018-06-12T12:38:18.655443+03:00"
     },
     "complaintPeriod": {
-      "startDate": "2017-12-01T15:53:56+02:00",
-      "endDate": "2017-12-29T00:00:00+02:00"
+      "startDate": "2018-06-12T11:53:17.813141+03:00",
+      "endDate": "2018-06-12T12:20:17.813141+03:00"
     },
-    "auctionUrl": "https://auction.openprocurement.org/esco-tenders/014ae8b741ff49a1bb94b43d198bda22",
     "enquiryPeriod": {
-      "startDate": "2017-12-01T15:53:56+02:00",
-      "clarificationsUntil": "2017-12-28T00:00:00+02:00",
-      "endDate": "2017-12-23T18:00:00+02:00",
-      "invalidationDate": "2017-12-01T15:51:06.950593+02:00"
+      "startDate": "2018-06-12T11:53:17.813141+03:00",
+      "clarificationsUntil": "2018-06-12T12:17:17.813141+03:00",
+      "endDate": "2018-06-12T12:14:17.813141+03:00",
+      "invalidationDate": "2018-06-12T12:04:30.722079+03:00"
     },
-    "submissionMethod": "electronicAuction",
-    "procurementMethodType": "esco",
-    "procuringEntity": {
-      "kind": "general",
-      "name": "УПРАВЛІННЯ ОСВІТИ ДАРНИЦЬКОЇ РАЙОННОЇ В МІСТІ КИЄВІ ДЕРЖАВНОЇ АДМІНІСТРАЦІЇ",
-      "address": {
-        "postalCode": "02091",
-        "countryName": "Україна",
-        "streetAddress": "Дарницький район, ХАРКІВСЬКЕ ШОСЕ, будинок 168-К",
-        "region": "Київська обл.",
-        "locality": "Київ"
-      },
-      "contactPoint": {
-        "telephone": "+380445628766",
-        "name_en": "Тройко Любов ",
-        "name": "Тройко Любов ",
-        "availableLanguage": "uk",
-        "email": "TENDER-UO@UKR.NET"
-      },
-      "identifier": {
-        "scheme": "UA-EDR",
-        "legalName_en": "Department of Education of the Darnytsky District State Administration in Kyiv",
-        "id": "37448113",
-        "legalName": "УПРАВЛІННЯ ОСВІТИ ДАРНИЦЬКОЇ РАЙОННОЇ В МІСТІ КИЄВІ ДЕРЖАВНОЇ АДМІНІСТРАЦІЇ"
-      },
-      "name_en": "Department of Education of the Darnytsky District State Administration in Kyiv"
-    },
-    "owner": "it.ua",
     "qualifications": [
       {
         "status": "active",
         "documents": [
           {
-            "hash": "md5:72205e4d78feff40326830b586d1d733",
+            "hash": "md5:4b53837b97ed014b89fdd8838f256ed5",
             "author": "tender_owner",
             "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/3397342a45314faea1cac1785aa19e9b?KeyID=52462340&Signature=oEDfS4TSz4CGhslq%2FrY6Acmf1dEoSX0HGGy7ok6prubxtPDN7trVqQOLe0JlHmr6CJTtvLdeFHsPAEAc70MaCg%253D%253D",
-            "title": "385 Київеско.PDF",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/53a33c7278e7461fbc42ce8bd24fe99d?KeyID=ce796f2d&Signature=9dXT3cn1GMAMuUPEAKHBI7qtsHkGg00%2F1cBuKqu8g0SuLQ9UuRoq%2FtGRMGOET2bRgLXN80k9J%252BTN5nrxq6UrDg%253D%253D",
+            "title": "d-24124fc4delenitiDkxHaf.doc",
             "documentOf": "tender",
-            "datePublished": "2018-01-03T14:44:55.572206+02:00",
-            "dateModified": "2018-01-03T14:44:55.572220+02:00",
-            "id": "d11ec4ba626742018f6482f346915626"
-          },
-          {
-            "hash": "md5:857877a57d80939844076da5ef097031",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/d7ecc79faa014118b1ee3f8ae7b9fe77?KeyID=52462340&Signature=ovTkf%252BznhNhGwT9Xqe9CxE%252BbPNq%2FwLRbZ%252Bk1FWuZzXC9EF6RtCBNxqBEBQM5LmMbT%2FTHQ1ExeADc8QmKrF6EDQ%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-01-03T14:45:24.693057+02:00",
-            "dateModified": "2018-01-03T14:45:24.693085+02:00",
-            "id": "3aab10ae17c4496d9f630a95f443f4e3"
+            "datePublished": "2018-06-12T12:26:53.928051+03:00",
+            "dateModified": "2018-06-12T12:26:53.928087+03:00",
+            "id": "e4afe49c32d5457ab5b7813d73b9cfcc"
           }
         ],
         "eligible": true,
         "qualified": true,
-        "bidID": "a47742f21c9642ba9cc594d02b6360dd",
-        "date": "2018-01-03T14:45:30.662056+02:00",
-        "id": "284fe85c84f2465f8c6ede6ab12e1268"
+        "lotID": "dee25308def84ae0be92a84142df2268",
+        "bidID": "1b8da78e65f643c58668d151c577a1cf",
+        "date": "2018-06-12T12:27:16.290387+03:00",
+        "id": "89891b62c69a4014b8eb26df8c80d814"
+      },
+      {
+        "status": "cancelled",
+        "documents": [
+          {
+            "hash": "md5:dd679d5f15b4f1a11a26e1960e10476c",
+            "author": "tender_owner",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/5d8cd423a90f45edb727de19bc94aac0?KeyID=ce796f2d&Signature=ZTfAGEUkAXRjD0vc3LH54wz8vRt4twhQ%2FPFZWD8W1nNErPGR6KwB9Il6bscPLYYILslq3EfZ8YSY3tH6J9DtBg%253D%253D",
+            "title": "d-48e0d7adtemporejOsrOT.pdf",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:27:21.014968+03:00",
+            "dateModified": "2018-06-12T12:27:21.015006+03:00",
+            "id": "97d9302b17bc4f088403ec307fca2307"
+          }
+        ],
+        "eligible": true,
+        "qualified": true,
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "bidID": "1b8da78e65f643c58668d151c577a1cf",
+        "date": "2018-06-12T12:27:49.508880+03:00",
+        "id": "b156419b28b947ea8c678689eb8db5fd"
       },
       {
         "status": "active",
-        "documents": [
-          {
-            "hash": "md5:1ec3f006620e4664a9bdd9a116c9b35a",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/d3a55319b36d447184584f6d0da6207f?KeyID=52462340&Signature=yt40OFjqK5WEdTyaYvP777loc2xS2GoF4w5IzObleBKBbJVA7unQw8AeARFWp9MgeqUqlp%2Fun4xRWecseMvMAw%253D%253D",
-            "title": "385 Елтек лайт.PDF",
-            "documentOf": "tender",
-            "datePublished": "2018-01-03T14:46:46.516931+02:00",
-            "dateModified": "2018-01-03T14:46:46.516959+02:00",
-            "id": "7e52975c54de4119a1b9c3d70e460806"
-          },
-          {
-            "hash": "md5:48ae9833d435268e4f4b901252c136b2",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/33d9c5fd0dab460eacb584440ac4e466?KeyID=52462340&Signature=JbYgpDTxgtiqNVnyxKa4OzCzqxX2lR5WxaFXz%252BFVjoE6KqfHwheKgxlrt5HxKWSh4Ai7KVKAvNMwXxmz42GfBA%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-01-03T14:46:49.605203+02:00",
-            "dateModified": "2018-01-03T14:46:49.605219+02:00",
-            "id": "ea8733a55f2d462f80dcbbad7f45c858"
-          }
-        ],
+        "lotID": "87dfa27db6804b4f822ed6b53e4dc9b2",
         "eligible": true,
         "qualified": true,
-        "bidID": "5537734076d44793b261141ae529a7b9",
-        "date": "2018-01-03T14:46:53.225635+02:00",
-        "id": "7900e1fab2f7402680674784ae89dbc5"
+        "bidID": "1b8da78e65f643c58668d151c577a1cf",
+        "date": "2018-06-12T12:27:54.045523+03:00",
+        "id": "6afbda1d57af457f9190108e9e5a1b68"
+      },
+      {
+        "status": "active",
+        "lotID": "dee25308def84ae0be92a84142df2268",
+        "eligible": true,
+        "qualified": true,
+        "bidID": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "date": "2018-06-12T12:27:57.872837+03:00",
+        "id": "a11ca25036ed498998bf910dce07eada"
+      },
+      {
+        "status": "active",
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "eligible": true,
+        "qualified": true,
+        "bidID": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "date": "2018-06-12T12:28:01.690764+03:00",
+        "id": "ac7d07f1497f4ac19902cd64e7c7ecb4"
+      },
+      {
+        "status": "active",
+        "lotID": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "eligible": true,
+        "qualified": true,
+        "bidID": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "date": "2018-06-12T12:28:05.696585+03:00",
+        "id": "70870ee271a049e1b6590a0b0cefeaae"
+      },
+      {
+        "status": "active",
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "eligible": true,
+        "qualified": true,
+        "bidID": "1b8da78e65f643c58668d151c577a1cf",
+        "date": "2018-06-12T12:28:09.487721+03:00",
+        "id": "5f125bf4e4ce43f1a839b73a510995c7"
       }
     ],
-    "id": "014ae8b741ff49a1bb94b43d198bda22",
+    "submissionMethod": "electronicAuction",
+    "complaints": [
+      {
+        "status": "resolved",
+        "tendererActionDate": "2018-06-12T11:59:43.779962+03:00",
+        "description": "\u0411\u0443\u043d\u0456\u0442\u0438 \u043e\u0433\u0440\u0456\u0431\u0430\u0442\u0438\u0441\u044f \u0441\u0432\u044f\u0449\u0435\u043d\u043d\u0438\u043a\u0456\u0432 \u0434\u043e\u043a\u0430\u043d\u0434\u0438\u0431\u0438\u0442\u0438 \u0441\u0443\u0436\u0435\u043d\u0430 \u0441\u0432\u0438\u0434 \u0434\u0438\u043a \u043f\u043e\u043a\u043e\u0442\u0438\u0442\u0438 \u043f\u0430\u0445\u0456\u0442\u0442\u044f \u0440\u0430\u0445\u0443\u0431\u043d\u043e \u0448\u0430\u0445\u0440\u0430\u0439\u0441\u044c\u043a\u0438\u0439 \u0437\u0432\u0456\u0434\u0441\u0438.",
+        "title": "\u0412\u0456\u0434\u0432\u043e\u043b\u043e\u0436\u0443\u0432\u0430\u0442\u0438 \u043f\u0430\u0445\u0456\u0442\u0442\u044f \u0434\u043e\u0441\u0438\u043f\u0430\u0442\u0438\u0441\u044f I \u043f\u0440\u043e\u0433\u0440\u0435\u043c\u0456\u0442\u0438.",
+        "resolutionType": "resolved",
+        "resolution": "\u0421\u0443\u0436\u0435\u043d\u0430 \u0434\u0443\u0448\u0430\u0440\u043a\u0430 \u0442\u0443\u0434\u043e\u044e \u043c\u0443\u0440\u0430\u0432\u0447\u0430\u043d\u0438\u0439 \u0437\u0431\u0456\u0440\u043e\u0441\u043b\u043e\u0432 \u0431\u0430\u0433\u0430\u0442\u043e\u043b\u043e\u0442\u043e\u0432\u0438\u0439 \u043a\u043e\u0440\u0443\u043f\u0446\u0456\u043e\u043d \u0437 \u043d\u0435\u0446\u0456\u043d\u043e\u0432\u0438\u043c\u0438 \u043f\u043e\u043a\u0430\u0437\u043d\u0438\u043a\u0430\u043c\u0438 \u043a\u0440\u0435\u043c\u043f\u0456\u043b\u0435\u0446\u044c \u043d\u0430\u0441\u0443\u043f\u0435\u0440\u0435\u043a\u0438 \u043f\u0435\u0447\u0435\u0440\u0443\u0432\u0430\u043d\u043d\u044f \u0442\u0443\u0434\u043e\u044e \u0432\u0438\u0445\u0440\u044e\u0432\u0430\u0442\u0438\u0439 \u043f\u0440\u0430\u0445\u0442\u0438\u043a\u0430 \u0441\u0442\u0440\u0443\u043f\u043b\u0438\u0432\u0438\u0439.",
+        "author": {
+          "contactPoint": {
+            "telephone": "426-07-12",
+            "url": "http://skinmedic.com.ua",
+            "faxNumber": "413-41-40",
+            "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+            "email": "kmkshvl@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "00037256",
+            "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+          },
+          "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+          "address": {
+            "postalCode": "04655",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+            "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+            "locality": "\u041a\u0438\u0457\u0432"
+          }
+        },
+        "satisfied": true,
+        "dateAnswered": "2018-06-12T11:59:43.779927+03:00",
+        "tendererAction": "\u0423\u0442\u0432\u043e\u0440\u043d\u0438\u0439 \u0444\u043b\u044c\u043e\u0440\u0435\u0441 \u0437\u0430\u0491\u0430\u0432\u0438\u0442\u0438\u0441\u044f \u0434\u0443\u0448\u0430\u0440\u043a\u0430 \u0442\u0430\u043b\u044f\u0440\u043e\u0432\u0438\u0439 \u0437\u0430\u043f\u0435\u0440\u0442\u0438 \u043d\u0430\u0432\u0440\u0430\u0442\u0438\u0442\u0438\u0441\u044f \u0442\u043e\u0441\u043a\u043d\u043e \u0432\u0438\u043a\u043e\u0442 \u0445\u043b\u044f\u0441\u0442\u043e\u0440 \u0432\u0435\u0441\u0435\u043b\u043e.",
+        "dateSubmitted": "2018-06-12T11:59:18.529126+03:00",
+        "complaintID": "UA-2018-06-12-000004-a.a1",
+        "date": "2018-06-12T12:00:07.747583+03:00",
+        "documents": [
+          {
+            "hash": "md5:a34de90b75430f988b46939719ac236c",
+            "author": "complaint_owner",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/a4ce7b98e5b84d6fa0787d0db74cacf3?KeyID=ce796f2d&Signature=ofH73N8hxMemeNx3%252BiHn%252BrivUwRwfOV4rN9DF82339W5wIJCmPJo0Jxvl5p6EhAd76jMTFge4nGvRqf0FhSOBA%253D%253D",
+            "title": "d-ba393c64asperioresDzzET1.pdf",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T11:59:16.407142+03:00",
+            "dateModified": "2018-06-12T11:59:16.407178+03:00",
+            "id": "2c6978086f314043beafc07451fa3608"
+          }
+        ],
+        "type": "claim",
+        "id": "0e789dfa645d4afc9761f81bee8360f0"
+      },
+      {
+        "relatedLot": "dee25308def84ae0be92a84142df2268",
+        "status": "resolved",
+        "tendererActionDate": "2018-06-12T12:01:23.710869+03:00",
+        "description": "\u0417\u0432\u0438\u0448\u043a\u0438 \u0437\u0430\u0433\u043b\u0438\u0442\u043d\u0443\u0442\u0438\u0441\u044f \u0432\u0456\u0434\u0440\u043e\u0431\u043b\u044f\u0442\u0438 \u043a\u043b\u044f\u043c\u0430\u0442\u0438 \u0437\u0430\u0432\u0435\u0434\u0438\u0441\u0432\u0456\u0442\u043e\u043a \u043f\u0435\u0440\u0435\u043c\u043e\u0432\u043b\u044f\u0442\u0438 \u0434\u0435\u0440\u0436\u0438\u0432\u043e \u043d\u0430\u043f\u043e\u043b\u044f\u0433\u0430\u0442\u0438 \u0434\u043e\u043a\u0443\u043a\u0430 \u0437\u0430\u043c\u0456\u0447\u0430\u0442\u0438 \u043d\u0430\u0441\u0443\u043f\u0435\u0440\u0435\u043a\u0438 \u043a\u0430\u0440\u0430\u0441\u0456\u0440.",
+        "author": {
+          "contactPoint": {
+            "telephone": "2341170",
+            "url": "http://www.shev.gov.ua/",
+            "faxNumber": "2343591",
+            "name": "\u041b\u0456\u043f\u043e\u0432\u0435\u0446\u044c \u0404\u0432\u0433\u0435\u043d \u0406\u0432\u0430\u043d\u043e\u0432\u0438\u0447",
+            "email": "buh510@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "21725150",
+            "legalName": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f"
+          },
+          "name": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f",
+          "address": {
+            "postalCode": "01030",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0411\u043e\u0433\u0434\u0430\u043d\u0430 \u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u043e\u0433\u043e \u0432\u0443\u043b\u0438\u0446\u044f, 21-29",
+            "region": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+            "locality": "\u041f\u0435\u0440\u0435\u044f\u0441\u043b\u0430\u0432-\u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u0438\u0439"
+          }
+        },
+        "resolutionType": "resolved",
+        "resolution": "\u0420\u0456\u0434\u043a\u0438\u0439 \u0432\u0438\u0491\u0443\u043b\u044f\u0440\u0438 \u043f\u043e\u0440\u043e\u0441\u043f\u043e\u0440\u044e\u0432\u0430\u0442\u0438\u0441\u044f \u0432\u0456\u0441\u0456\u043c\u043a\u0430 \u043d\u0430\u0434\u043a\u0443\u0441\u0438\u0442\u0438 \u0447\u0443\u0434\u0430\u0440 \u043a\u043e\u0440\u0447\u0438\u0442\u0438 \u0434\u0438\u043a \u0437\u0430\u0431\u043b\u0443\u0434\u0438\u0442\u0438\u0441\u044f \u0441\u0432\u044f\u0449\u0435\u043d\u043d\u0438\u043a\u0456\u0432.",
+        "title": "\u0411\u0435\u0440\u0434\u043d\u0438\u043a \u043a\u0438\u043a\u0430\u0442\u0438 \u0432\u0456\u0434\u0441\u0430\u0434\u0436\u0443\u0432\u0430\u0442\u0438.",
+        "satisfied": true,
+        "dateAnswered": "2018-06-12T12:01:23.710834+03:00",
+        "tendererAction": "\u041f\u043e\u043d\u0430\u0433\u043e\u0434\u043e\u0432\u0443\u0432\u0430\u0442\u0438 \u043f\u043e\u043f\u043e\u0440\u043e\u0441\u043a\u043e\u0448\u0443\u0432\u0430\u0442\u0438 \u043f\u0440\u043e\u0434\u043d\u044e\u0432\u0430\u0442\u0438 \u043f\u0435\u0440\u0435\u0440\u0456\u0437 \u0434\u0440\u0443\u0436\u0435\u043d\u044c\u043a\u043e \u043d\u0430\u043f\u0430\u0441\u0430\u0442\u0438 \u0445\u0432\u0438\u0491\u0430 \u043a\u0440\u0435\u043c\u043f\u0456\u043b\u0435\u0446\u044c \u0440\u0443\u043d\u0435\u043d\u0446\u0435 \u0448\u043e\u043b\u0443\u043f\u0430\u0439\u043a\u0430 \u0448\u043a\u0432\u0430\u0440\u0430.",
+        "dateSubmitted": "2018-06-12T12:00:57.143096+03:00",
+        "complaintID": "UA-2018-06-12-000004-a.a2",
+        "date": "2018-06-12T12:01:47.639847+03:00",
+        "documents": [
+          {
+            "hash": "md5:63071e997dc9e2a68f3a9108264c1196",
+            "author": "complaint_owner",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/e1d3f0d79ad148269152d14ec51bab17?KeyID=ce796f2d&Signature=ZPCvs4Q88Aoa6J8DcyvvEAlga2LAPE5K2wZVjQH%252BjETSZTHNln0T0PFjIgVF6goR0rL7WOHYHEhqSC3WRpaWDA%253D%253D",
+            "title": "d-0503940adolorID20qu.docx",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:00:54.651593+03:00",
+            "dateModified": "2018-06-12T12:00:54.651692+03:00",
+            "id": "ec3c4ad6ac834122b39848447a827adb"
+          }
+        ],
+        "type": "claim",
+        "id": "98b08e19f24d41309d64e79833b6dc8c"
+      }
+    ],
+    "awardCriteria": "ratedCriteria",
+    "questions": [
+      {
+        "description": "\u041f\u043e\u0440\u043e\u0447\u043d\u043e \u043f\u043e\u0442\u0435\u0441\u0430\u0442\u0438 \u043f\u0430\u043b\u044c\u043e\u043a \u0433\u0443\u043f\u0430\u043b\u043a\u0430 \u043a\u0456\u0437\u043a\u0430 \u0434\u0443\u0448\u0430\u0440\u043a\u0430 \u043a\u0440\u0435\u043c\u043f\u0456\u043b\u0435\u0446\u044c \u043c\u0438\u043c\u043e \u043e\u0441\u043c\u043e\u043b\u044e\u0432\u0430\u0442\u0438.",
+        "title": "q-fd4554b6: \u0417\u0432\u0456\u0434\u0441\u0438 \u0444\u0430\u0440\u0444\u0443\u0440 \u043a\u0443\u043a\u0456\u043b\u044c \u043d\u0435\u0434\u043e\u043c\u043e\u0432\u0430.",
+        "author": {
+          "contactPoint": {
+            "telephone": "426-07-12",
+            "url": "http://skinmedic.com.ua",
+            "faxNumber": "413-41-40",
+            "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+            "email": "kmkshvl@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "00037256",
+            "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+          },
+          "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+          "address": {
+            "postalCode": "04655",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+            "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+            "locality": "\u041a\u0438\u0457\u0432"
+          }
+        },
+        "answer": "\u041f\u043e\u0442\u0435\u0441\u0430\u0442\u0438 \u0434\u0438\u0442\u0438\u043d\u043e\u043d\u044c\u043a\u0430 \u0442\u0440\u0443\u0442\u0438\u0437\u043d\u0438\u043d\u0430 \u0440\u0435\u043c\u0435\u0441\u0442\u0432\u0443\u0432\u0430\u0442\u0438 \u0437\u0430\u0431\u043b\u0443\u0434\u0438\u0442\u0438\u0441\u044f \u043e\u0431\u043b\u0430\u0433\u043e\u0434\u0438\u0442\u0438 \u043f\u0435\u0440\u0448\u0438\u0439 \u0447\u0435\u043f\u0443\u0440\u043d\u0456\u0442\u0438 \u0434\u0440\u043e\u0432\u0430 \u0441\u0430\u043c\u043e\u043f\u0440\u044f\u0434\u043a\u0430 \u0432\u0438\u0445\u0440\u044e\u0432\u0430\u0442\u0438\u0439 \u0441\u043f\u0440\u0430\u0432\u043d\u0456\u0441\u0442\u044c \u0447\u0435\u0442\u0432\u0435\u0440\u0433\u043e\u0432\u0438\u0439 \u043f\u043e\u043a\u043e\u0457\u0442\u0438\u0441\u044f \u043f\u043e\u043f\u0435\u0440\u0435\u0442\u043e\u043f\u043b\u044e\u0432\u0430\u0442\u0438 \u043f\u043e\u043f\u043e\u0440\u043e\u0441\u043a\u043e\u0448\u0443\u0432\u0430\u0442\u0438 \u0441\u043f\u0440\u0430\u0432\u043d\u0438\u043a \u0441\u0442\u0440\u0443\u0433\u043d\u0443\u0442\u0438 \u0437\u0430\u0433\u0430\u043b\u0430\u0432\u0430\u043d\u0438\u0442\u0438\u0441\u044f \u043f\u0456\u0434\u0441\u0442\u043e\u043b\u0438\u043d\u0438 \u043f\u043e\u0442\u0440\u0456\u043f\u043a\u0438 \u043f\u043e\u043c\u0435\u0440 \u043f\u043e\u043e\u0431\u0441\u043a\u0440\u0456\u0431\u0430\u0442\u0438 \u043f\u0440\u0438\u0457\u0437\u0434\u043d\u0438\u0439 \u0434\u0443\u0440\u0430\u043d\u043b\u044f\u0441\u0438 \u0432\u0456\u0434\u0447\u0430\u043b\u044e\u0432\u0430\u0442\u0438 \u043a\u043b\u044f\u0442\u044c\u0431\u0430 \u0440\u0443\u043a\u043e\u043f\u0438\u0441\u043d\u0438\u0439 \u0437\u0430\u0441\u0435\u043b\u044e\u0432\u0430\u0442\u0438 \u0432\u0456\u0434\u0440\u043e\u0431\u043b\u044f\u0442\u0438 \u0441\u043a\u0430\u043d\u0434\u0437\u044e\u0431\u0438\u0442\u0438 \u043f\u043e\u0440\u043e\u0441\u043f\u0456\u043a\u0430\u0442\u0438\u0441\u044f \u043b\u044e\u0431\u043e\u043c\u0443\u0434\u0440.",
+        "date": "2018-06-12T11:55:43.468429+03:00",
+        "dateAnswered": "2018-06-12T11:56:06.982385+03:00",
+        "id": "366be7a02c9546fa9dec03e7cede5967",
+        "questionOf": "tender"
+      },
+      {
+        "description": "\u041f\u043e\u0444\u0430\u043b\u044c\u0448\u0443\u0432\u0430\u0442\u0438 \u0440\u0443\u043a\u043e\u043f\u0438\u0441\u043d\u0438\u0439 \u0447\u0438\u0441\u0442\u043e \u0437\u0430\u0439\u043c\u0430\u0442\u0438 \u043f\u043e\u043f\u043e\u0440\u043e\u0441\u043a\u043e\u0448\u0443\u0432\u0430\u0442\u0438 \u043f\u043e\u0440\u043e\u0441\u043f\u0456\u043a\u0430\u0442\u0438\u0441\u044f \u043d\u0430\u0442\u044c \u043f\u0435\u0440\u0435\u043f\u043b\u0443\u0442\u0443\u0432\u0430\u0442\u0438 \u043f\u0430\u0446\u044c\u043e\u0440 \u0442\u0440\u0438\u043d\u044c\u043a\u0430\u043b\u043e \u043d\u0430\u0442\u044c \u0445\u0440\u0435\u0441\u0442\u0438\u043a \u0434\u0435\u0448\u043f\u0435\u0440\u0443\u0432\u0430\u0442\u0438 \u0441\u043f\u0443\u0441\u043a\u0430\u0442\u0438.",
+        "title": "q-d039a47b: \u041f\u0430\u0440\u0430\u0441\u0442\u0430\u0441 \u043b\u0430\u0432\u0435\u0440\u0434\u0436\u0435\u0442 \u0443\u0440\u0435\u043a\u0442\u0438 \u043c\u0430\u043c\u0430 \u044f \u0432 \u0442\u0435\u043b\u0435\u0432\u0456\u0437\u043e\u0440\u0456.",
+        "author": {
+          "contactPoint": {
+            "telephone": "426-07-12",
+            "url": "http://skinmedic.com.ua",
+            "faxNumber": "413-41-40",
+            "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+            "email": "kmkshvl@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "00037256",
+            "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+          },
+          "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+          "address": {
+            "postalCode": "04655",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+            "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+            "locality": "\u041a\u0438\u0457\u0432"
+          }
+        },
+        "relatedItem": "8a36dbbbbaf448bdb5f8df28e79f370e",
+        "answer": "\u0414\u0435\u0441\u044f\u0442\u043e\u0447\u043e\u043a \u043a\u043b\u044f\u043c\u0430\u0442\u0438 \u0434\u0435\u0448\u043f\u0435\u0440\u0443\u0432\u0430\u0442\u0438 \u043f\u043e\u0437\u043d\u0430\u043a\u043e\u043c\u0438\u0442\u0438\u0441\u044f \u043f\u0435\u0440\u0448\u0438\u0439 \u043c\u0443\u0440\u043a\u043e\u0442\u0430\u0442\u0438 \u043f\u0440\u043e\u0442\u044c\u043e\u0445\u043a\u0430\u0442\u0438 \u0440\u0434\u0438\u0442\u0438\u0441\u044f \u0436\u043e\u0432\u0442\u0456\u0448\u0430\u0442\u0438 \u043f\u0435\u0440\u0435\u0433\u043e\u0440\u0442\u0443\u0432\u0430\u0442\u0438 \u043d\u0430\u043a\u0440\u0430\u0448\u0443\u0432\u0430\u0442\u0438 \u0456\u043c\u0448\u0435\u0434\u044c \u043e\u0431\u0433\u0443\u0440\u043a\u0430\u0442\u0438 \u0437\u0430\u0433\u0430\u043b\u0430\u0432\u0430\u043d\u0438\u0442\u0438\u0441\u044f \u0440\u0434\u0438\u0442\u0438\u0441\u044f \u043d\u0430\u0431\u043b\u044e\u0432\u0430\u0442\u0438 \u043f\u0435\u0440\u0435\u043f\u043b\u0430\u0447\u0443\u0432\u0430\u0442\u0438 \u043e\u0431\u043b\u0456\u043f\u043b\u044e\u0432\u0430\u043d\u043d\u044f \u0437\u0446\u0456\u043b\u0456\u0442\u0438 \u0441\u0442\u0438\u0440\u0442\u0430 \u0445\u0440\u0435\u0441\u0442\u0438\u043a \u043f\u043e\u0437\u043e\u0440\u044e\u0432\u0430\u0442\u0438 \u0432\u0456\u0434\u0440\u0443\u0431\u043d\u0456\u0441\u0442\u044c \u0432\u0438\u043a\u043e\u0442 \u043f\u0435\u0447\u0435\u0440\u0443\u0432\u0430\u043d\u043d\u044f \u043a\u043b\u044e\u043a\u0430 \u043f\u0440\u043e\u0448\u043a\u043e\u043b\u044f\u0440\u0443\u0432\u0430\u0442\u0438 \u0441\u0432\u0438\u0434 \u043d\u0430\u043f\u0440\u0443\u0433\u043e\u043c \u043a\u043b\u044f\u043c\u0430\u0442\u0438 \u0431\u0443\u043d\u0456\u0442\u0438 \u043f\u0456\u0434\u0441\u0442\u043e\u043b\u0438\u043d\u0438 \u0441\u043a\u0430\u043d\u0434\u0437\u044e\u0431\u0438\u0442\u0438 \u0433\u0443\u0434\u0438\u0442\u0438 \u043f\u043e\u0444\u0430\u043b\u044c\u0448\u0443\u0432\u0430\u0442\u0438 \u043f\u0456\u0434\u0441\u0443\u0434\u043d\u0456\u0439 \u0445\u043b\u044c\u043e\u0440\u043a\u0430 \u043f\u043e\u0442\u0435\u0441\u0430\u0442\u0438 \u043a\u0438\u043a\u0430\u0442\u0438 \u0433\u0430\u043d\u0434\u0435\u0432\u0435\u0440\u0438 \u0432\u0438\u0441\u043c\u0456\u0432\u0430\u0442\u0438 \u0445\u043b\u044f\u0441\u0442\u043e\u0440 \u0442\u0443\u0434\u043e\u044e \u0434\u0443\u0448\u043c\u0430\u043d \u0440\u0456\u0432\u0435\u0446\u044c \u043e\u0431\u0448\u0438\u0442\u0438 \u043e\u0431\u043b\u0456\u0437\u043e\u043a.",
+        "date": "2018-06-12T11:56:40.816211+03:00",
+        "dateAnswered": "2018-06-12T11:57:04.995392+03:00",
+        "id": "72c74bf12e964115b25c47916d4f91ac",
+        "questionOf": "item"
+      },
+      {
+        "description": "\u0421\u0442\u0430\u043b\u0435\u0446\u044c \u0432\u0456\u0434\u043c\u0430\u0449\u0443\u0432\u0430\u0442\u0438 \u0445\u043b\u044c\u043e\u0440\u043a\u0430 \u0432\u0438\u043c\u0430\u0441\u0442\u0438\u0442\u0438 \u0445\u0430\u043f\u0430\u043d\u0438\u043d\u0430 \u043c\u0443\u0436\u0438\u0447\u0438\u0439 \u0437\u0430\u043a\u0443\u0448\u0442\u0440\u0430\u0442\u0438 \u0431\u0435\u0437\u0441\u0442\u0430\u0442\u043e\u0447\u043d\u043e.",
+        "title": "q-cba6d690: \u0414\u0443\u0448\u043c\u0430\u043d \u043a\u043e\u043b\u043e\u0434\u0430.",
+        "author": {
+          "contactPoint": {
+            "telephone": "044-563-99-42---------097-641-99-01",
+            "url": "http://kpbl.org.ua",
+            "faxNumber": "044-563-99-05",
+            "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+            "email": "kpbl@bigmir.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "13313462",
+            "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+          },
+          "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+          "address": {
+            "postalCode": "02121",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+            "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+            "locality": "\u041a\u0438\u0457\u0432"
+          }
+        },
+        "relatedItem": "dee25308def84ae0be92a84142df2268",
+        "answer": "\u0427\u0435\u043f\u0443\u0440\u0438\u0442\u0438 \u043e\u0431\u0440\u0443\u0431\u043a\u0430 \u043b\u0435\u043c\u0435\u043d\u0442\u0456\u0442\u0438 \u043b\u0438\u0445\u043e\u0442\u0430 \u0441\u043e\u043b\u043e\u0434\u044f\u0442\u043a\u043e \u044f\u0434\u0435\u0440\u043d\u0438\u0439 \u043f\u043e\u043a\u043e\u0457\u0442\u0438\u0441\u044f \u0434\u0440\u0443\u0436\u0435\u043d\u044c\u043a\u043e \u0441\u0442\u0440\u0430\u0442\u0430 \u043f\u043e\u0442\u0440\u0456\u043f\u043a\u0438 \u043f\u043e\u0432\u0438\u0432\u043e\u0434\u0438\u0442\u0438 \u0432\u0456\u0441\u0456\u043c\u043a\u0430 \u0442\u043e\u0441\u043a\u043d\u043e \u043f\u043e\u0432\u043e\u043b\u043e\u0432\u0449\u0438\u043d\u0430 \u0436\u043e\u0432\u0442\u0456\u0448\u0430\u0442\u0438 \u0447\u0435\u0442\u0432\u0435\u0440\u0442\u044c \u043d\u0430\u0447\u0435\u0440\u043f\u0430\u0442\u0438 \u0437\u0433\u0443\u0447\u0430\u0442\u0438\u0441\u044f \u0443\u0442\u0438\u0440\u0438\u0442\u0438\u0441\u044f \u0431\u0456\u0434\u0430 \u0437 \u043d\u0435\u0446\u0456\u043d\u043e\u0432\u0438\u043c\u0438 \u043f\u043e\u043a\u0430\u0437\u043d\u0438\u043a\u0430\u043c\u0438 \u0443\u0440\u0430\u0437 II \u0432\u0430\u0434\u043a\u043e \u0441\u043b\u0456\u0434\u0438\u0442\u0438 \u043b\u044e\u0431'\u044f\u0447\u0438\u0439 \u0432\u0438\u043a\u043e\u0442 \u043d\u0430\u0447\u0435\u0440\u043f\u0430\u0442\u0438 \u043f\u0440\u0438\u0442\u043e\u0440\u0436\u0438\u0442\u0438 \u0437\u0430\u0491\u0430\u0432\u0438\u0442\u0438\u0441\u044f \u043c\u043d\u0438\u0448\u043a\u0438.",
+        "date": "2018-06-12T11:57:39.506969+03:00",
+        "dateAnswered": "2018-06-12T11:58:09.454727+03:00",
+        "id": "d888ab4b70d04bea896f812b1510611a",
+        "questionOf": "lot"
+      },
+      {
+        "description": "\u041f\u0440\u043e\u0433\u0440\u0435\u043c\u0456\u0442\u0438 \u0440\u0456\u0437\u043d\u0438\u0442\u0438 \u043f\u043e\u0432\u0456\u0434\u0436\u0438\u043c\u0430\u0442\u0438 \u0431\u0443\u0434\u0434\u0435\u043d\u044c \u043f\u043e\u0437\u0441\u0430\u043f\u0443\u0432\u0430\u0442\u0438 \u0437\u0432\u0435\u0441\u0435\u043b\u044f\u0442\u0438 \u0434\u043e\u0447\u0438\u0441\u0442\u0430 \u043f\u043e\u043d\u0430\u0437\u0431\u0456\u0440\u0443\u0432\u0430\u0442\u0438 \u0437\u0431\u0456\u0440\u043e\u0441\u043b\u043e\u0432 \u0432\u0438\u0433\u043e\u043b\u043e\u0441 \u0443\u0434\u0435\u043d\u044c \u043f\u043e\u0434\u0443\u0431\u043d\u0443\u0442\u0438.",
+        "title": "q-f5926bd7: \u041f\u0440\u0438\u0439\u043c\u0430\u0447\u043a\u0430 \u0441\u043f\u0440\u0430\u0432\u043d\u0456\u0441\u0442\u044c \u043f\u043e\u0432\u0456\u0434\u0436\u0438\u043c\u0430\u0442\u0438.",
+        "author": {
+          "contactPoint": {
+            "telephone": "2341170",
+            "url": "http://www.shev.gov.ua/",
+            "faxNumber": "2343591",
+            "name": "\u041b\u0456\u043f\u043e\u0432\u0435\u0446\u044c \u0404\u0432\u0433\u0435\u043d \u0406\u0432\u0430\u043d\u043e\u0432\u0438\u0447",
+            "email": "buh510@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "21725150",
+            "legalName": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f"
+          },
+          "name": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f",
+          "address": {
+            "postalCode": "01030",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0411\u043e\u0433\u0434\u0430\u043d\u0430 \u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u043e\u0433\u043e \u0432\u0443\u043b\u0438\u0446\u044f, 21-29",
+            "region": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+            "locality": "\u041f\u0435\u0440\u0435\u044f\u0441\u043b\u0430\u0432-\u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u0438\u0439"
+          }
+        },
+        "relatedItem": "445a034c7da2496b83dcc4830e702caa",
+        "answer": "\u041f\u043e\u043a\u043e\u0457\u0442\u0438\u0441\u044f \u0445\u0440\u0435\u0441\u0442\u0438\u043a \u0448\u0430\u0445\u0440\u0430\u0439\u0441\u044c\u043a\u0438\u0439 \u0433\u0430\u0457\u0440 \u043f\u043e\u0440\u043e\u0441\u043f\u0456\u043a\u0430\u0442\u0438\u0441\u044f \u0445\u043b\u044f\u0441\u0442\u043e\u0440 \u043d\u0430\u043a\u043e\u0442\u0438\u0442\u0438 I \u043d\u043e\u0440\u043e\u0445\u0430 \u0434\u043e\u043b\u043e\u0432\u043b\u044e\u0432\u0430\u0442\u0438 \u0432\u0438\u0432\u0430\u0433\u043e\u043c \u0432\u0456\u0434\u0447\u0430\u043b\u044e\u0432\u0430\u0442\u0438 \u043f\u043e\u0432\u0438\u0441\u043b\u0443\u0436\u0443\u0432\u0430\u0442\u0438 \u0443\u0442\u0432\u043e\u0440\u043d\u0438\u0439 \u0436\u0438\u0434\u0435\u043b \u043d\u0435\u0447\u0435\u0441\u0430\u043d\u0438\u0439 \u043a\u0438\u043a\u0430\u0442\u0438 \u0433\u043e\u0441\u0442\u0438\u043d\u043e\u0447\u043a\u0430 \u0434\u0432\u043e\u0439\u043b\u0435\u0437\u043d\u0438\u0439 \u0432\u0438\u0441\u043f\u043e\u0432\u0456\u0434\u0430\u0442\u0438\u0441\u044f \u0431\u043e\u0440\u043e\u0437\u043d\u0438\u0439 \u0440\u043e\u0441\u0442\u0440\u044f\u0441\u0442\u0438 \u0437\u0430\u043a\u0443\u0442 \u0433\u0440\u044e\u043a II \u043f\u0430\u043b\u0438\u0432\u043e \u043f\u043e\u0440\u043e\u0447\u043d\u043e \u0447\u0435\u043f\u0443\u0440\u0438\u0442\u0438 \u0437\u0431\u043b\u0438\u0436\u0430\u0442\u0438 \u0443\u0431\u0440\u0430\u043d\u0438\u0439 \u0434\u0437\u044e\u0431\u043d\u0443\u0442\u0438 \u0442\u0456\u0441\u043d\u0438\u0442\u0438\u0441\u044f \u0437\u0430-\u0449\u043e-\u0440\u0430\u0437 \u0432\u0438\u043c\u0430\u0441\u0442\u0438\u0442\u0438 \u043e\u0441\u043c\u043e\u043b\u044e\u0432\u0430\u0442\u0438 \u0448\u0442\u0440\u0430\u043f\u043e\u0432\u0438\u0439 \u0432\u0456\u0441\u0456\u043c\u043a\u0430 \u043c\u043e\u0432\u043b\u044f\u0442\u0438 \u043f\u043e\u0434\u043e\u043a\u0443\u0440\u044e\u0432\u0430\u0442\u0438 \u0432\u0438\u0440\u0435\u0447\u0438 \u0441\u0443\u0436\u0435\u043d\u0430 \u043f\u0440\u043e\u043f\u0438\u0449\u0430\u0442\u0438 \u0431\u0456\u0434\u0430 \u0437 \u043d\u0435\u0446\u0456\u043d\u043e\u0432\u0438\u043c\u0438 \u043f\u043e\u043a\u0430\u0437\u043d\u0438\u043a\u0430\u043c\u0438 \u043f\u043e\u0437\u0430\u0441\u043e\u043b\u043e\u0434\u0436\u0443\u0432\u0430\u0442\u0438 \u0444\u043b\u044c\u043e\u0440\u0435\u0441 \u043f\u043e\u043c\u0435\u0440 \u043f\u0440\u0438\u0442\u044f\u0433\u0430\u0442\u0438.",
+        "date": "2018-06-12T11:57:40.980287+03:00",
+        "dateAnswered": "2018-06-12T11:58:12.687598+03:00",
+        "id": "fcc58f02c7774d65abd34b9c37136a85",
+        "questionOf": "lot"
+      },
+      {
+        "description": "\u0417\u0432\u0435\u0441\u0435\u043b\u044f\u0442\u0438 \u0441\u0442\u0430\u043b\u0435\u0446\u044c \u043f\u043e\u043e\u0431\u0441\u043a\u0440\u0456\u0431\u0430\u0442\u0438 \u043f\u043e\u0434\u0440\u0443\u0436\u043a\u0430 \u043f\u043e\u0440\u043e\u0437\u0433\u0440\u0438\u0437\u0430\u0442\u0438 \u0447\u0438\u0441\u0442\u043e \u0433\u0440\u0443\u043d \u043f'\u044f\u043d\u043e.",
+        "title": "q-9a54ea6f: \u041d\u0430\u043f\u043e\u043b\u044f\u0433\u0430\u0442\u0438 \u0437\u0431\u0456\u0440\u043e\u0441\u043b\u043e\u0432 \u043f\u0435\u0440\u0435\u0441\u043e\u043b\u043e\u0434\u0436\u0443\u0432\u0430\u0442\u0438 \u0440\u043e\u0431\u0430\u043a \u0434\u0456\u0442\u043a\u0438.",
+        "author": {
+          "contactPoint": {
+            "telephone": "426-07-12",
+            "url": "http://skinmedic.com.ua",
+            "faxNumber": "413-41-40",
+            "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+            "email": "kmkshvl@ukr.net"
+          },
+          "identifier": {
+            "scheme": "UA-EDR",
+            "id": "00037256",
+            "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+          },
+          "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+          "address": {
+            "postalCode": "04655",
+            "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+            "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+            "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+            "locality": "\u041a\u0438\u0457\u0432"
+          }
+        },
+        "relatedItem": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "answer": "\u041f\u0440\u0438\u043a\u0440\u0438\u0432\u0430\u0442\u0438\u0441\u044f \u0440\u043e\u0441\u043f\u043e\u0440\u044e\u0432\u0430\u0442\u0438\u0441\u044f \u043f\u0440\u0438\u0445\u0430\u043f\u0446\u0435\u043c \u043f\u0456\u0434\u0441\u0442\u043e\u043b\u0438\u043d\u0438 \u043b\u0456\u0442\u043d\u0456\u0439 \u0432\u0438\u0447\u0443\u0445\u0430\u0442\u0438\u0441\u044f \u0431\u0443\u0434\u0434\u0435\u043d\u044c \u043d\u0430\u0454\u043c\u0435\u0446\u044c \u043c\u0443\u0440\u043a\u043e\u0442\u0430\u0442\u0438 \u043f\u043e\u0432\u0438\u0440\u044f\u0447\u0443\u0432\u0430\u0442\u0438 \u043a\u0430\u0440\u0430\u0441\u0456\u0440 \u043a\u0438\u0448\u043a\u0430\u0442\u0438\u0439 \u043d\u0430\u0434\u043e\u0432\u0431\u0430\u0442\u0438 \u0456\u0437\u0433.. \u0437\u0430\u043f\u0430\u0449\u0435\u043a\u0443\u0432\u0430\u0442\u0438 \u0441\u043a\u0438\u0442\u043a\u0438 \u0437\u0430\u043c\u0438\u0441\u043a\u0440\u0438\u0442\u0438 \u043b\u0438\u0445\u043e\u0442\u0430 \u0443\u0434\u0435\u043d\u044c \u0447\u0443\u0434\u0430\u0440 \u043f\u043e\u043f\u0435\u0440\u0435\u0442\u043e\u043f\u043b\u044e\u0432\u0430\u0442\u0438 \u043a\u0440\u0435\u043c\u043f\u0456\u043b\u0435\u0446\u044c \u0434\u0438\u0442\u0438\u043d\u043e\u043d\u044c\u043a\u0430 \u0434\u0432\u043e\u0439\u043b\u0435\u0437\u043d\u0438\u0439 \u043f\u0430\u043d\u044e\u0433\u0430 \u0437\u043e\u043b\u043e\u0442\u043e\u043a\u0440\u0438\u043b\u0438\u0439 \u043d\u0430\u0434\u043e\u0432\u0431\u0430\u0442\u0438 \u043a\u043e\u0440\u043c\u0438\u0442\u0438\u0441\u044f \u0444\u0438\u043a \u043c\u0443\u0436\u0438\u0447\u0438\u0439 \u0432\u0456\u0434\u0445\u0432\u0430\u043b\u044e\u0432\u0430\u0442\u0438\u0441\u044f \u0432\u0438\u043f\u0440\u0430\u0432\u0430 \u0447\u0435\u043f\u0443\u0440\u043d\u0456\u0442\u0438 \u0431\u0456\u043b\u043e\u0448\u043a\u0430 \u043e\u0431\u043b\u0456\u0437\u043e\u043a \u043d\u0430\u043f\u043e\u043b\u044f\u0433\u0430\u0442\u0438 \u043f\u043e\u043d\u0430\u0433\u043e\u0434\u043e\u0432\u0443\u0432\u0430\u0442\u0438 \u044f\u0434\u0435\u0440\u043d\u0438\u0439 \u043f\u043e\u0440\u043e\u0447\u043d\u043e \u043f\u043e\u043f\u0456\u0432\u0441\u044c\u043a\u0438\u0439 \u043d\u043e\u0432\u043e\u043d\u0430\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u0438\u0439 \u0432\u0435\u0441\u0456\u043b\u0447\u0430\u043d\u0438\u043d \u043d\u0430\u0431\u043b\u044e\u0432\u0430\u0442\u0438 \u0437\u0433\u0443\u0447\u0430\u0442\u0438\u0441\u044f \u043f\u043e\u043a\u043e\u0440\u0436\u0430\u0432\u0456\u0442\u0438 \u0433\u043e\u0440\u0456\u0441\u044c\u043a\u0438\u0439 \u043d\u0430\u0431\u043b\u044e\u0432\u0430\u0442\u0438 \u0441\u043e\u043a\u0438\u0440\u043d\u0438\u043a \u0437\u0434\u0438\u043c\u0456\u0442\u0438 \u043d\u0430\u0447\u0435\u0440\u043f\u0430\u0442\u0438 \u0446\u0438\u0431\u0443\u043b\u044c\u043d\u0438\u0439 \u0432\u0430\u0434\u043a\u043e \u043f\u043e\u0440\u043e\u0447\u043d\u043e \u0431\u0443\u0431\u0430 \u0432\u0430\u0440\u0438\u043b\u043e \u0434\u043e\u0431\u043e\u0440\u043e\u0442\u0438\u0441\u044f.",
+        "date": "2018-06-12T11:57:42.605089+03:00",
+        "dateAnswered": "2018-06-12T11:58:16.024715+03:00",
+        "id": "b3cbe88b84624b71bc019f94db8b7a9b",
+        "questionOf": "lot"
+      }
+    ],
+    "owner": "test.quintagroup.com",
+    "title_en": "[TESTING]",
+    "id": "62dea27b3f7147a99c47b6dab9f742c3",
+    "description": "\u0406\u0437\u0433.. \u043a\u043e\u0440\u0447\u0438\u0442\u0438 \u043d\u043e\u0440\u043e\u0445\u0430 \u0431\u0456\u0434\u0430 \u0437 \u043d\u0435\u0446\u0456\u043d\u043e\u0432\u0438\u043c\u0438 \u043f\u043e\u043a\u0430\u0437\u043d\u0438\u043a\u0430\u043c\u0438 \u0443\u0441\u043f\u043e\u0434\u0456 \u0440\u0430\u043a\u043b\u044f\u0446\u044c\u043a\u0438\u0439 \u043f\u043e\u0441\u0442\u043e\u044f\u043b\u044c\u043d\u0438\u0439 \u0443\u0437\u0430\u0432\u0442\u0440\u0430.",
     "documents": [
       {
-        "hash": "md5:61e774ebcb58257ec99811a89b0438d2",
+        "hash": "md5:a4d3963aea95162c9643b947463d6596",
         "author": "tender_owner",
         "language": "uk",
-        "format": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "url": "https://public.docs.openprocurement.org/get/c2f6cdc4be7b4b49995a34c62ae3f724?KeyID=52462340&Signature=NYdWBkWcwaCwhbF8TdSnmEnj6j5FVe%252Bxfi1jFo8qu7vevSaapmupmnuiQ2O2HQSkVhPtIrQVLC9gnqijONRKCQ%253D%253D",
-        "title": "ТД___№385 перевірено.docx",
+        "format": "text/plain",
+        "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/7a8e160368114d2bb5e43e0686dfb851?KeyID=ce796f2d&Signature=ZQnJIa4bQoFqNVyyiP0Q9L2dm5mkawlDnTF8lQUgqVR4cxjiTLC9ayM4xNrnxV6bIdaj8epBSnzWDXskbl6LBA%253D%253D",
+        "title": "d-622cc57bquamXd4P8x.docx",
         "documentOf": "tender",
-        "datePublished": "2017-12-01T15:50:58.574524+02:00",
-        "dateModified": "2017-12-01T15:50:58.574538+02:00",
-        "id": "eee34046963f42eb992f282c4fa2c0f1"
+        "datePublished": "2018-06-12T11:54:22.264510+03:00",
+        "dateModified": "2018-06-12T11:54:22.264547+03:00",
+        "id": "e3906cfceff043d682fbf093eb2d1b94"
       },
       {
-        "hash": "md5:1101860f88f1784d66f0455a8b651ece",
+        "hash": "md5:158b59bbcad32174c7b26378c434d926",
         "author": "tender_owner",
         "language": "uk",
-        "format": "application/pkcs7-signature",
-        "url": "https://public.docs.openprocurement.org/get/517a75c52e4d445fa0018b2a3e4f13fb?KeyID=52462340&Signature=2ywHTAQbp5bDhIKFHrOHp2fUv3jmy%2FdmLkIPXcycBfUxFyG9VbUX%2FDwd7RA9fMtG6Kb4vwDaTOextj%2Fu6TJxDg%253D%253D",
-        "title": "sign.p7s",
-        "documentOf": "tender",
-        "datePublished": "2017-12-01T15:51:06.949802+02:00",
-        "dateModified": "2017-12-01T15:51:06.949830+02:00",
-        "id": "04178ffe6a164fc7ac30d78623241317"
+        "format": "text/plain",
+        "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/d2723da52b064da4b30998732540411a?KeyID=ce796f2d&Signature=mXeW9BF0zZcbG0KDBgE%2FxYELlaXNkagIRXEieJ%2FG%2FYnvLI8yR%252BFOkbxyP%252BXPU8rfpsflNN9NjS1qNz4e9R35BA%253D%253D",
+        "title": "d-7abf2b39doloribus8sBHmT.doc",
+        "documentOf": "lot",
+        "datePublished": "2018-06-12T11:54:24.493243+03:00",
+        "dateModified": "2018-06-12T11:54:24.493288+03:00",
+        "relatedItem": "dee25308def84ae0be92a84142df2268",
+        "id": "f5c37a9645004bccb4037e4e0914cad8"
       },
       {
-        "hash": "md5:12dcac3c576544c78b53414ea1dcbef4",
-        "author": "auction",
+        "hash": "md5:45090a4140854217d434e26a90ca7edf",
+        "author": "tender_owner",
         "language": "uk",
         "format": "text/plain",
-        "url": "https://public.docs.openprocurement.org/get/0923b8ea47b54440aa3727e51aafb129?KeyID=52462340&Signature=ukimiPpMJePkj2QHxmMN4oG7fuQaGhQnphTX9FXVS%252BRnj%252BDf%252BaF%2FzTNvR1P6Zcp%2FmWm1OsNQDGb%2FsqlwNMDIBQ%253D%253D",
-        "title": "audit_014ae8b741ff49a1bb94b43d198bda22.yaml",
-        "documentOf": "tender",
-        "datePublished": "2018-01-09T16:18:30.358663+02:00",
-        "dateModified": "2018-01-09T16:18:30.358678+02:00",
-        "id": "451072d427d74b318419df4dd4c90161"
+        "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/730defb3e99149a394b16734918d06e7?KeyID=ce796f2d&Signature=MtsRJ81mAanCvJKR5Noqiufapi61zL%252BJdVkjAgCZwMDs3WhPpu4bwy9%2FNUEbJVdXPEMNHPhHcYEBpL2TlO0lAQ%253D%253D",
+        "title": "d-ba5e4decinJmnzu_.doc",
+        "documentOf": "lot",
+        "datePublished": "2018-06-12T11:54:28.161856+03:00",
+        "dateModified": "2018-06-12T11:54:28.161893+03:00",
+        "relatedItem": "445a034c7da2496b83dcc4830e702caa",
+        "id": "142f1a175d9648b1b1e2ed6ea1bbde69"
       },
       {
-        "hash": "md5:4aa8589afdc2b80f4264453863f38e67",
-        "author": "auction",
+        "hash": "md5:1c3d96d2bd23ab6282d36e69a9e057c7",
+        "author": "tender_owner",
         "language": "uk",
         "format": "text/plain",
-        "url": "https://public.docs.openprocurement.org/get/69e57ce0a5ea47288704448286e805d1?KeyID=52462340&Signature=IxyywL6jRXaw%2F4B6bc2elmjwoOlUqVzKtCSCSymEgDvG6vj8cN04nvGJ97ddYWf9eLvIsQqduDrvc%2FPJNHW5Bw%253D%253D",
-        "title": "audit_014ae8b741ff49a1bb94b43d198bda22.yaml",
-        "documentOf": "tender",
-        "datePublished": "2018-01-09T16:18:30.358663+02:00",
-        "dateModified": "2018-01-09T16:18:32.031590+02:00",
-        "id": "451072d427d74b318419df4dd4c90161"
+        "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/d6d280832c5e42ce93996257a5bad597?KeyID=ce796f2d&Signature=EaJGPhTOCQhXUyxZrdR9csxpbPYUjBFiDpnjJ4IvGs42c5kv8tZzY6mm3Os9z0vEIYZw%252BcVkGIZKBuojRr4UBQ%253D%253D",
+        "title": "d-94663223eaqueiRvxSo.docx",
+        "documentOf": "lot",
+        "datePublished": "2018-06-12T11:54:31.106756+03:00",
+        "dateModified": "2018-06-12T11:54:31.106826+03:00",
+        "relatedItem": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "id": "d7514d4edad0441f979a92eb9c90c4c1"
       }
     ],
-    "title": "енергосервіс будівлі ДНЗ №385 за адресою: вул. Сормовська, 5, Дарницького району м. Києва",
-    "qualificationPeriod": {
-      "startDate": "2018-01-02T18:01:33.242610+02:00",
-      "endDate": "2018-01-09T00:00:00+02:00"
-    },
-    "tenderID": "UA-2017-12-01-001181-a",
-    "minimalStepPercentage": 0.02,
-    "NBUdiscountRate": 0.135,
-    "dateModified": "2018-04-13T12:49:01.836273+03:00",
-    "status": "complete",
-    "tenderPeriod": {
-      "startDate": "2017-12-01T15:53:56+02:00",
-      "endDate": "2018-01-02T18:00:00+02:00"
-    },
-    "contracts": [
+    "title": "[\u0422\u0415\u0421\u0422\u0423\u0412\u0410\u041d\u041d\u042f] \u0414\u043e\u043a\u0456\u0440\u043d\u0438\u0439 \u0443\u0437\u0430\u0432\u0442\u0440\u0430 \u0436\u0430\u043b\u0443\u0432\u0430\u0442\u0438\u0441\u044f \u0440\u0443\u0442\u044f\u043d\u0438\u0439 \u0442\u043e\u0441\u043a\u043d\u043e.",
+    "lots": [
       {
-        "status": "cancelled",
-        "items": [
-          {
-            "description": "енергосервіс будівлі ДНЗ №385 за адресою: вул. Сормовська, 5, Дарницького району м. Києва",
-            "classification": {
-              "scheme": "ДК021",
-              "description": "Не відображене в інших розділах",
-              "id": "99999999-9"
-            },
-            "description_en": "Energoservice of the building of the DNR number 385 at the address: st. Sormovskaya, 5, Darnytsky district, Kyiv",
-            "additionalClassifications": [
-              {
-                "scheme": "specialNorms",
-                "id": "000",
-                "description": "Специальные нормы и другое"
-              }
-            ],
-            "deliveryAddress": {
-              "postalCode": "02096",
-              "countryName": "Україна",
-              "streetAddress": " вул. Сормовська, 5",
-              "region": "Київська обл.",
-              "locality": "Київ"
-            },
-            "id": "e842aac38419403fa5b1e8c0890c0319"
-          }
-        ],
-        "suppliers": [
-          {
-            "contactPoint": {
-              "telephone": "+380442536633",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-              "email": "ovp@legalcenter.com.ua"
-            },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "41554727",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\""
-            },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "04080, м.Київ, ВУЛИЦЯ КИРИЛІВСЬКА, будинок 82, офіс 256",
-              "region": "",
-              "locality": ""
-            }
-          }
-        ],
-        "value": {
-          "yearlyPaymentsPercentage": 0.9,
-          "amountPerformance": 266216.38,
+        "status": "complete",
+        "fundingKind": "other",
+        "description": "\u0412\u0430\u0440\u0456\u0432\u043d\u0438\u0439 \u0432\u0430\u0434\u043a\u043e \u043e\u0445\u043e\u0442\u043a\u0430 \u0432\u0456\u0441\u0456\u043c\u043a\u0430 \u0434\u0440\u0430\u0431 \u043d\u0430\u0447\u0443\u0442\u0438\u0441\u044f \u0432\u0456\u0441\u0456\u043c\u043a\u0430 \u043d\u0430\u0447\u0443\u0442\u0438\u0441\u044f \u0447\u0443\u0440\u043a\u0430\u0442\u0438 \u0432\u0438\u043b\u0456\u0447\u043a\u0430 \u0431\u0430\u0440\u0438\u0448\u043e\u043a.",
+        "minimalStepPercentage": 0.02318,
+        "title": "l-2de2785b: \u0412\u0456\u0434\u043c\u0430\u0449\u0443\u0432\u0430\u0442\u0438 \u0433\u0430\u043b\u0438\u0447\u0438\u043d\u0430 \u043d\u0430\u0431\u043b\u044e\u0432\u0430\u0442\u0438 \u043e\u0431\u0433\u0440\u0430\u0432\u0430\u0442\u0438 \u043f\u0440\u0438\u043a\u0440\u0438\u0432\u0430\u0442\u0438\u0441\u044f.",
+        "auctionUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_dee25308def84ae0be92a84142df2268",
+        "auctionPeriod": {
+          "startDate": "2018-06-12T12:34:12.651925+03:00",
+          "endDate": "2018-06-12T12:34:12.651925+03:00"
+        },
+        "title_en": "l-4684e51d: Ex minus explicabo voluptas.",
+        "minValue": {
           "currency": "UAH",
-          "amount": 392596.68,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
-          },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
+          "amount": 0.0,
+          "valueAddedTaxIncluded": true
         },
-        "date": "2018-01-17T15:18:19.669360+02:00",
-        "awardID": "545d81747e65440e9d88c70f5f70bdbf",
-        "id": "7e353ada115a45e089914fa9eaceed49",
-        "contractID": "UA-2017-12-01-001181-a-b1"
-      },
-      {
-        "status": "active",
-        "documents": [
-          {
-            "hash": "md5:72470ee219c6cc403455ea7fadd680e6",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/52d12ae0d518440c803b7663914366f5?KeyID=52462340&Signature=21Fbhcn%252Bf89SAe9QnM67PeiypxMeUKgBLDcf%2FF1X7o9MofLfpdCEARZJ31oJMBmnSdAbrVwMelgP%252BM9JGfvXBQ%253D%253D",
-            "title": "Договір №250 (ДНЗ №385).pdf",
-            "documentOf": "tender",
-            "datePublished": "2018-04-13T12:46:56.328961+03:00",
-            "documentType": "contractSigned",
-            "dateModified": "2018-04-13T12:46:56.328997+03:00",
-            "id": "9f6d7049d38a4e58b5e3e595eb69233a"
-          },
-          {
-            "hash": "md5:ca44678e8c6106b4d3e08e513905f8b9",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/a015ef5ce1a04f659d4775ee5ee87d38?KeyID=52462340&Signature=1J7cXZpaDcKBUPzg4ZlE32v%252BqXSq%252BdhrMqFjIN0lWxIjxEfiE7cjMt3MTicrhNeiZIk8%2FtWiXXCPnXeedMrABA%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-04-13T12:48:58.829220+03:00",
-            "dateModified": "2018-04-13T12:48:58.829239+03:00",
-            "id": "e59dfc814eb447a39414089200583b6a"
-          }
-        ],
-        "description": "",
-        "title": "енергосервіс будівлі ДНЗ №385 за адресою: вул. Сормовська, 5, Дарницького району м. Києва",
-        "items": [
-          {
-            "description": "енергосервіс будівлі ДНЗ №385 за адресою: вул. Сормовська, 5, Дарницького району м. Києва",
-            "classification": {
-              "scheme": "ДК021",
-              "description": "Не відображене в інших розділах",
-              "id": "99999999-9"
-            },
-            "description_en": "Energoservice of the building of the DNR number 385 at the address: st. Sormovskaya, 5, Darnytsky district, Kyiv",
-            "additionalClassifications": [
-              {
-                "scheme": "specialNorms",
-                "id": "000",
-                "description": "Специальные нормы и другое"
-              }
-            ],
-            "deliveryAddress": {
-              "postalCode": "02096",
-              "countryName": "Україна",
-              "streetAddress": " вул. Сормовська, 5",
-              "region": "Київська обл.",
-              "locality": "Київ"
-            },
-            "id": "e842aac38419403fa5b1e8c0890c0319"
-          }
-        ],
-        "suppliers": [
-          {
-            "contactPoint": {
-              "telephone": "+380678294083",
-              "url": "http://kyivesco.com.ua/",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-              "email": "e.kharkovskiy@kyivesco.com.ua"
-            },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "40364772",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\""
-            },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "02090, м.Київ, Дніпровський район, ВУЛИЦЯ ВОЛОДИМИРА СОСЮРИ, будинок 5",
-              "region": "",
-              "locality": ""
-            }
-          }
-        ],
-        "contractNumber": "250",
-        "period": {
-          "endDate": "2023-12-01T00:00:00+02:00"
-        },
-        "dateSigned": "2018-04-13T00:00:00+03:00",
-        "value": {
-          "yearlyPaymentsPercentage": 0.91,
-          "amountPerformance": 263491.22,
-          "currency": "UAH",
-          "amount": 396958.86,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
-          },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
-        },
-        "date": "2018-04-13T12:49:01.836273+03:00",
-        "awardID": "716298def6ec40cd908c8d411067344a",
-        "id": "d366a35b057541538939ef2efbba92a3",
-        "contractID": "UA-2017-12-01-001181-a-b2"
-      }
-    ],
-    "auctionPeriod": {
-      "startDate": "2018-01-09T15:57:30+02:00",
-      "endDate": "2018-01-09T16:18:30.592971+02:00"
-    },
-    "yearlyPaymentsPercentageRange": 0.8,
-    "title_en": "Energoservice of the building of the DNR number 385 at the address: st. Sormovskaya, 5, Darnytsky district, Kyiv",
-    "description_en": "",
-    "awards": [
-      {
-        "status": "cancelled",
-        "documents": [
-          {
-            "hash": "md5:a292c8466f337dd27a61d8df1f84ca11",
-            "author": "bots",
-            "language": "uk",
-            "format": "application/yaml",
-            "url": "https://public.docs.openprocurement.org/get/88031452cb784832bbf2f88c766c11e9?KeyID=52462340&Signature=Jt5OJuji89QtNMjCKu9NAxPFSBr%252BNOCjmcBu2vXa1bw%2FbnzmLp7h8l1CoLn5WEZ9Yqs9vj2kEvOoWETu8KxmBQ%253D%253D",
-            "title": "edr_identification.yaml",
-            "documentOf": "tender",
-            "datePublished": "2018-01-09T16:18:44.368420+02:00",
-            "documentType": "registerExtract",
-            "dateModified": "2018-01-09T16:18:44.368453+02:00",
-            "id": "247a6064570342fcbc3fe49b0c4d51d6"
-          },
-          {
-            "hash": "md5:0b3cdacdcec9058bcffb8cfda658dba7",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/940b8f458bc24abf8dd4b97f77ede14a?KeyID=52462340&Signature=6%2FJ2eJyR1eCXwE3v02N6skJ09PhA2vEEhGLIHglVa39cPwKmLV7B9%2F%252BSNJfMKI78Mj9%2FX82OBHkFKy4CrYfcBw%253D%253D",
-            "title": "Протокол перем.ДНЗ №385.PDF",
-            "documentOf": "tender",
-            "datePublished": "2018-01-11T12:15:13.383919+02:00",
-            "dateModified": "2018-01-11T12:15:13.383946+02:00",
-            "id": "9c648a5d9bf843adb343590557e4dfc0"
-          },
-          {
-            "hash": "md5:bc3ff767dc4cab6edbf0d02c622664d3",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/2c2dc4f524db43589ece73aa9d1a4e8d?KeyID=52462340&Signature=Ut3dJ6Orga7xSBGRWAupAROBVEFldGpDmcIGjYsMc%252BdeCbcLhi2jaZVDQiKAX0Irgo3nTa9kz9HbULUQzYf0Cw%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-01-11T12:15:22.923731+02:00",
-            "dateModified": "2018-01-11T12:15:22.923754+02:00",
-            "id": "af3f79ab477a410a8fa675cbc97edc94"
-          }
-        ],
-        "description": "Визначити переможцем",
-        "title": "Учасник обраний переможцем",
-        "suppliers": [
-          {
-            "contactPoint": {
-              "telephone": "+380442536633",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-              "email": "ovp@legalcenter.com.ua"
-            },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "41554727",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\""
-            },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "04080, м.Київ, ВУЛИЦЯ КИРИЛІВСЬКА, будинок 82, офіс 256",
-              "region": "",
-              "locality": ""
-            }
-          }
-        ],
-        "complaintPeriod": {
-          "startDate": "2018-01-09T16:18:30.626328+02:00",
-          "endDate": "2018-01-17T15:18:19.635119+02:00"
-        },
-        "bid_id": "5537734076d44793b261141ae529a7b9",
-        "value": {
-          "yearlyPaymentsPercentage": 0.9,
-          "amountPerformance": 266216.38,
-          "currency": "UAH",
-          "amount": 392596.68,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
-          },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
-        },
-        "qualified": true,
-        "date": "2018-01-17T15:18:19.669360+02:00",
-        "eligible": true,
-        "id": "545d81747e65440e9d88c70f5f70bdbf"
+        "title_ru": "l-c70ae4c4: \u0424\u044b\u0440\u0440\u0435 \u0444\u0430\u043a\u044d\u0440 \u0430\u043a\u043a\u0443\u0437\u0430\u0442\u0430 \u0430\u0436\u0436\u044e\u043c \u044b\u043b\u043e\u043a\u0432\u044e\u044d\u043d\u0442\u0438\u0430\u043c.",
+        "yearlyPaymentsPercentageRange": 0.8,
+        "date": "2018-06-12T12:52:41.725264+03:00",
+        "id": "dee25308def84ae0be92a84142df2268"
       },
       {
         "status": "unsuccessful",
-        "documents": [
-          {
-            "hash": "md5:865bc9a3b1877d6834c2b90bc483bee7",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/0738a33cbb2043009c09c1b290b2e27e?KeyID=52462340&Signature=RNA4ehDy00mFyb0LZalmAjRE%252BssfB5YEGvw3atka%252BWC2jNanuHz%252BIH6%2Fa9CgueLVg%2FSvFvKSZl9tqj6O87AlAw%253D%253D",
-            "title": "Протокол розгляду 385.PDF",
-            "documentOf": "tender",
-            "datePublished": "2018-01-17T15:18:21.049064+02:00",
-            "dateModified": "2018-01-17T15:18:21.049091+02:00",
-            "id": "7b16988f54f14092a85398d6e1d20552"
-          },
-          {
-            "hash": "md5:ee2875cf5e462f74482d149c6190cb36",
-            "author": "bots",
-            "language": "uk",
-            "format": "application/yaml",
-            "url": "https://public.docs.openprocurement.org/get/449fd7fd0a5f41b7881b5f441edd60ae?KeyID=52462340&Signature=sBM6U6OsWlK6fGSmiIJVXJC4%252BD1D0RMi3wazKKt86dNzaL9%2FQGmKJGHcGVg17DCglPxIwHu4p%2F6%2FOuR7VygIDQ%253D%253D",
-            "title": "edr_identification.yaml",
-            "documentOf": "tender",
-            "datePublished": "2018-01-17T15:18:30.092422+02:00",
-            "documentType": "registerExtract",
-            "dateModified": "2018-01-17T15:18:30.092449+02:00",
-            "id": "6eeeb93feb0d4e869c25a6d14c89ec78"
-          },
-          {
-            "hash": "md5:9f25c7362633da95e4fb4b13639f621d",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/96d4c8b67533466fae503b2fb91fa3d0?KeyID=52462340&Signature=5F5i9jhilIokUltogGk0BdYJkJDaB4dEvcQaEuSPeN2EbvHX7ymD1ht73dbL24ZvxH%252BMgJYTw4OjuRbeCLZiBw%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-01-17T15:18:38.659428+02:00",
-            "dateModified": "2018-01-17T15:18:38.659455+02:00",
-            "id": "a3fad759095944b1b8ec8fef68d16f66"
-          }
-        ],
-        "description": "- відхилити пропозицію Учасника ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\" відповідно до п. 2, ч.1 ст.  30 Закону України \"Про публічні закупівлі». \r\n- визначити переможцем ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО.",
-        "title": "Не надав документи по ст.17",
-        "suppliers": [
-          {
-            "contactPoint": {
-              "telephone": "+380442536633",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-              "email": "ovp@legalcenter.com.ua"
-            },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "41554727",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\""
-            },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "04080, м.Київ, ВУЛИЦЯ КИРИЛІВСЬКА, будинок 82, офіс 256",
-              "region": "",
-              "locality": ""
-            }
-          }
-        ],
-        "complaintPeriod": {
-          "startDate": "2018-01-17T15:18:19.643016+02:00",
-          "endDate": "2018-01-28T00:00:00+02:00"
+        "fundingKind": "other",
+        "description": "\u041f\u0435\u0440\u0435\u043c\u043e\u0432\u043b\u044f\u0442\u0438 \u043d\u043e\u0447\u043d\u0438\u0439 \u043d\u0430\u043a\u043e\u0442\u0438\u0442\u0438 I \u043f\u043e\u0440\u043e\u0441\u043b\u044c \u0447\u0435\u0442\u0432\u0435\u0440\u0433\u043e\u0432\u0438\u0439 \u0434\u043e\u043a\u0443\u043a\u0430 \u043f\u043e\u0444\u0430\u043b\u044c\u0448\u0443\u0432\u0430\u0442\u0438 \u0433\u0443\u0449 \u0433\u0438\u043b\u044c\u0446\u0435 \u043f\u043e\u0432\u043e\u043b\u043e\u0432\u0449\u0438\u043d\u0430 \u043d\u0430\u0441\u0443\u043f\u0435\u0440\u0435\u043a\u0438 \u0434\u043e\u0431\u043e\u0440\u043e\u0442\u0438\u0441\u044f.",
+        "minimalStepPercentage": 0.02298,
+        "title": "l-fb392001: \u041e\u0447\u0438\u0441\u044c\u043a\u0430 \u0437\u043c\u0435\u0440\u043b\u0438\u0439 \u0432\u0438\u043c\u0456\u0440\u044e\u0432\u0430\u0442\u0438 \u0432\u0438\u043f\u0440\u0430\u0432\u0430.",
+        "auctionUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_445a034c7da2496b83dcc4830e702caa",
+        "auctionPeriod": {
+          "startDate": "2018-06-12T12:34:23.075884+03:00",
+          "endDate": "2018-06-12T12:34:23.075884+03:00"
         },
-        "bid_id": "5537734076d44793b261141ae529a7b9",
-        "value": {
-          "yearlyPaymentsPercentage": 0.9,
-          "amountPerformance": 266216.38,
+        "title_en": "l-e290ba77: Impedit repellat officiis cumque ducimus.",
+        "minValue": {
           "currency": "UAH",
-          "amount": 392596.68,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
-          },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
+          "amount": 0.0,
+          "valueAddedTaxIncluded": true
         },
-        "date": "2018-01-17T15:18:43.200424+02:00",
-        "id": "e8e83a7be7ad42d2b16147bd3f24368e"
+        "title_ru": "l-49e91870: \u042b\u0442 \u0440\u044b\u043f\u0440\u044d\u0445\u044d\u043d\u0434\u0443\u043d\u0442 \u043c\u0451\u043d\u0451\u043c \u0430\u043f\u044d\u0440\u0438\u0430\u043c \u0434\u043e\u043b\u043e\u0440\u044d\u0436 \u0430\u043a\u043a\u0443\u0437\u0430\u0442\u0430.",
+        "yearlyPaymentsPercentageRange": 0.8,
+        "date": "2018-06-12T12:48:48.793146+03:00",
+        "id": "445a034c7da2496b83dcc4830e702caa"
       },
+      {
+        "status": "unsuccessful",
+        "fundingKind": "other",
+        "description": "\u0414\u0437\u0443\u0491\u0430 \u0443\u0431\u0440\u0430\u043d\u0438\u0439 \u043f\u043e\u0437\u0430\u0442\u044f\u0433\u0430\u0442\u0438 \u043d\u0430\u0454\u043c\u0435\u0446\u044c \u0437\u0430\u043c\u0456\u0447\u0430\u0442\u0438 \u043f\u043e\u0442\u0440\u0456\u043f\u043a\u0438 \u043f'\u044f\u043d\u043e \u0433\u0430\u043b\u0430\u0441\u043d\u0443\u0442\u0438 \u043e\u043b\u0435\u043d\u044f.",
+        "minimalStepPercentage": 0.02298,
+        "title": "l-c3ffddf5: \u041f\u043e\u0440\u043e\u0441\u043f\u043e\u0440\u044e\u0432\u0430\u0442\u0438\u0441\u044f \u0447\u0435\u043a\u043c\u0430\u043d \u0431\u0456\u043b\u043e\u0448\u043a\u0430.",
+        "auctionUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_87dfa27db6804b4f822ed6b53e4dc9b2",
+        "auctionPeriod": {
+          "startDate": "2018-06-12T12:34:33.337297+03:00",
+          "endDate": "2018-06-12T12:34:33.337297+03:00"
+        },
+        "title_en": "l-eeb6913b: Iure sit ipsam aperiam.",
+        "minValue": {
+          "currency": "UAH",
+          "amount": 0.0,
+          "valueAddedTaxIncluded": true
+        },
+        "title_ru": "l-a57ddc96: \u041c\u044e\u043d\u0434\u0439 \u0440\u044d\u0433\u044f\u043e\u043d\u044d \u0434\u044b\u043b\u044b\u043a\u0442\u0443\u0447 \u044b\u043b\u043e\u043a\u0432\u044e\u044d\u043d\u0442\u0438\u0430\u043c \u043c\u043e\u0434\u043e \u044d\u043b\u0438\u0442\u0440.",
+        "yearlyPaymentsPercentageRange": 0.8,
+        "date": "2018-06-12T12:48:14.093926+03:00",
+        "id": "87dfa27db6804b4f822ed6b53e4dc9b2"
+      }
+    ],
+    "qualificationPeriod": {
+      "startDate": "2018-06-12T12:24:44.886190+03:00",
+      "endDate": "2018-06-12T12:33:29.485315+03:00"
+    },
+    "tenderID": "UA-2018-06-12-000004-a",
+    "minimalStepPercentage": 0.02298,
+    "NBUdiscountRate": 0.34665,
+    "description_ru": "\u0424\u044b\u0440\u0440\u0435 \u0430\u0436\u0436\u044e\u043c \u0432\u0451\u0436\u0438 \u0432\u0435\u043a\u0436 \u043c\u044e\u043d\u0434\u0439 \u0430\u0436\u0436\u044b\u043d\u0442\u0438\u043e\u0440 \u0442\u0430\u043b\u044c\u044d \u043f\u043e\u043f\u044e\u043b\u044c\u043e \u0435\u0434 \u043c\u044e\u0442\u0430\u0442 \u043d\u0430\u043c \u0451\u0443\u0436\u0442\u043e \u043e\u0444\u0444\u0435\u043a\u0439\u044f\u0436.",
+    "dateModified": "2018-06-12T12:52:41.725264+03:00",
+    "status": "complete",
+    "tenderPeriod": {
+      "startDate": "2018-06-12T11:53:17.813141+03:00",
+      "endDate": "2018-06-12T12:24:17.813141+03:00"
+    },
+    "contracts": [
       {
         "status": "active",
         "documents": [
           {
-            "hash": "md5:e8e65a818986aa0ff71b48ff521aceea",
-            "author": "bots",
+            "hash": "md5:6ac249e265a51d62f8f3e055707b65b3",
             "language": "uk",
-            "format": "application/yaml",
-            "url": "https://public.docs.openprocurement.org/get/32fbe841c5eb499e8c6452287601be14?KeyID=52462340&Signature=hW2QVmH%2FAL5VmadLEBs9nKbgZ02L7hdOXz0urOURFSKqz8Jm%2Fvso6oO6ak1%252B147To5MIVRnjaM58qbqwGQuPAQ%253D%253D",
-            "title": "edr_identification.yaml",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/bcaa24ff7e4448c49fabf3e57d859267?KeyID=ce796f2d&Signature=cVZXpKng%2Fnnc1QnYiPQBkcq%2FBDxDDd%252B9Hsbkt1AEarz2u4Jn7qaiaDm5%252Bk5kIjhqMAuc9plgieJRbmpGhfypCw%253D%253D",
+            "title": "d-380fd987fugito91NLV.pdf",
             "documentOf": "tender",
-            "datePublished": "2018-01-17T15:18:59.075714+02:00",
-            "documentType": "registerExtract",
-            "dateModified": "2018-01-17T15:18:59.075728+02:00",
-            "id": "5a4de2eac9164aadb4f24e55fa39b182"
-          },
-          {
-            "hash": "md5:865bc9a3b1877d6834c2b90bc483bee7",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/97cd987c72ae48ae911c4204f6e90885?KeyID=52462340&Signature=%2FnEejGpWKF5KG13B1hum0Gm84UESsa8%2FELrn1H4Luoob49HH1G4orW1hXUTedii4fQtf3Wy1YaGYilNScN%252BuBQ%253D%253D",
-            "title": "Протокол розгляду 385.PDF",
-            "documentOf": "tender",
-            "datePublished": "2018-01-17T15:21:43.235443+02:00",
-            "dateModified": "2018-01-17T15:21:43.235457+02:00",
-            "id": "3fd098022c9f48e582a3d09d759e51f5"
-          },
-          {
-            "hash": "md5:f63b7fd8bf0e39ba3674ddb37f2dbd6f",
-            "author": "tender_owner",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/a67480c1c1a947e0989c54fcb1e4079d?KeyID=52462340&Signature=r3M1H9eHy8KbMmBHI%2FnJMXvQvwUU3NuegSkLbfkgnqEHS2mwcStiZdYFPj1eXvS5gUhKG5nHDtgD8K3nCvcIAg%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2018-01-17T15:21:49.797321+02:00",
-            "dateModified": "2018-01-17T15:21:49.797336+02:00",
-            "id": "014ddb243bea49b0aaea24be166978b8"
+            "datePublished": "2018-06-12T12:51:54.134443+03:00",
+            "dateModified": "2018-06-12T12:51:54.134479+03:00",
+            "id": "fcb122fd9f514702bd140be7bda9393d"
           }
         ],
-        "description": "- відхилити пропозицію Учасника ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\" відповідно до п. 2, ч.1 ст.  30 Закону України \"Про публічні закупівлі». \r\n- визначити переможцем ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО.",
-        "title": "Учасник обраний переможцем",
-        "suppliers": [
+        "items": [
           {
-            "contactPoint": {
-              "telephone": "+380678294083",
-              "url": "http://kyivesco.com.ua/",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-              "email": "e.kharkovskiy@kyivesco.com.ua"
+            "relatedLot": "dee25308def84ae0be92a84142df2268",
+            "description": "i-5393d950: \u0414\u043e\u0441\u043b\u0456\u0434\u0436\u0435\u043d\u043d\u044f \u0442\u0430 \u0440\u043e\u0437\u0440\u043e\u0431\u043a\u0438",
+            "classification": {
+              "scheme": "\u0414\u041a021",
+              "description": "\u041d\u0435 \u0432\u0438\u0437\u043d\u0430\u0447\u0435\u043d\u043e",
+              "id": "99999999-9"
             },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "40364772",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\""
+            "description_en": "Test item #0",
+            "additionalClassifications": [
+              {
+                "scheme": "\u0414\u041a015",
+                "id": "II.2 24.00.02",
+                "description": "\u041f\u0440\u0438\u043a\u043e\u0440\u0434\u043e\u043d\u043d\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430"
+              }
+            ],
+            "deliveryLocation": {
+              "latitude": "50.537702",
+              "longitude": "30.174488"
             },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "02090, м.Київ, Дніпровський район, ВУЛИЦЯ ВОЛОДИМИРА СОСЮРИ, будинок 5",
-              "region": "",
-              "locality": ""
+            "deliveryAddress": {
+              "locality": "\u0412\u043e\u0440\u0437\u0435\u043b\u044c",
+              "region": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u041a\u0443\u0440\u043e\u0440\u0442\u043d\u0430, 22",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "08296"
+            },
+            "description_ru": "i-190c28af: \u0418\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u0438 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438",
+            "id": "8a36dbbbbaf448bdb5f8df28e79f370e",
+            "unit": {
+              "code": "H87",
+              "name": "\u0448\u0442\u0443\u043a\u0438"
             }
           }
         ],
-        "complaintPeriod": {
-          "startDate": "2018-01-17T15:18:43.167769+02:00",
-          "endDate": "2018-01-28T00:00:00+02:00"
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "044-563-99-42---------097-641-99-01",
+              "url": "http://kpbl.org.ua",
+              "faxNumber": "044-563-99-05",
+              "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+              "email": "kpbl@bigmir.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "13313462",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "02121"
+            }
+          }
+        ],
+        "period": {
+          "startDate": "2018-06-12T12:51:03.039328+03:00",
+          "endDate": "2018-06-12T13:41:03.039328+03:00"
         },
-        "bid_id": "a47742f21c9642ba9cc594d02b6360dd",
+        "dateSigned": "2018-06-12T12:50:23.618646+03:00",
         "value": {
-          "yearlyPaymentsPercentage": 0.91,
-          "amountPerformance": 263491.22,
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 57.26,
           "currency": "UAH",
-          "amount": 396958.86,
+          "amount": 407.53,
           "contractDuration": {
-            "days": 0,
-            "years": 6
+            "days": 110,
+            "years": 7
           },
           "valueAddedTaxIncluded": true,
           "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
+            75.12,
+            50.9,
+            81.01,
+            88.23,
+            75.8,
+            84.32,
+            13.67,
+            53.96,
+            96.44,
+            11.7,
+            90.92,
+            8.89,
+            2.5,
+            38.6,
+            33.97,
+            11.69,
+            75.54,
+            51.85,
+            96.57,
+            45.41,
+            82.52
+          ]
+        },
+        "date": "2018-06-12T12:52:41.725264+03:00",
+        "awardID": "cdbebb3666bd4a21bb2d90772e4f4bac",
+        "id": "1becc7ea725342aa9f2361491adc774d",
+        "contractID": "UA-2018-06-12-000004-a-a1"
+      },
+      {
+        "status": "cancelled",
+        "items": [
+          {
+            "relatedLot": "445a034c7da2496b83dcc4830e702caa",
+            "description": "i-629bff9c: \u0411\u0443\u0434\u0456\u0432\u043b\u0456 \u0442\u0430 \u0441\u043f\u043e\u0440\u0443\u0434\u0438",
+            "classification": {
+              "scheme": "\u0414\u041a021",
+              "description": "\u041d\u0435 \u0432\u0438\u0437\u043d\u0430\u0447\u0435\u043d\u043e",
+              "id": "99999999-9"
+            },
+            "description_en": "Test item #1",
+            "additionalClassifications": [
+              {
+                "scheme": "\u0414\u041a018",
+                "id": "1230.5",
+                "description": "\u0411\u0430\u0437\u0438 \u0442\u0430 \u0441\u043a\u043b\u0430\u0434\u0438 \u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0441\u0442\u0432 \u0442\u043e\u0440\u0433\u0456\u0432\u043b\u0456 \u0439 \u0433\u0440\u043e\u043c\u0430\u0434\u0441\u044c\u043a\u043e\u0433\u043e \u0445\u0430\u0440\u0447\u0443\u0432\u0430\u043d\u043d\u044f"
+              }
+            ],
+            "deliveryLocation": {
+              "latitude": "47.6970999",
+              "longitude": "31.3040859"
+            },
+            "deliveryAddress": {
+              "locality": "\u0422\u0440\u0438\u043a\u0440\u0430\u0442\u043d\u0435",
+              "region": "\u041c\u0438\u043a\u043e\u043b\u0430\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "56507"
+            },
+            "description_ru": "i-dd3a31a4: \u0417\u0434\u0430\u043d\u0438\u044f \u0438 \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u044f",
+            "id": "3731db3925f546f29477c3746d4a9fc7",
+            "unit": {
+              "code": "H87",
+              "name": "\u0448\u0442\u0443\u043a\u0438"
+            }
+          }
+        ],
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "426-07-12",
+              "url": "http://skinmedic.com.ua",
+              "faxNumber": "413-41-40",
+              "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+              "email": "kmkshvl@ukr.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "00037256",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "04655"
+            }
+          }
+        ],
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 28.17,
+          "currency": "UAH",
+          "amount": 378.84,
+          "contractDuration": {
+            "days": 124,
+            "years": 10
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            13.81,
+            1.94,
+            3.48,
+            94.32,
+            77.77,
+            82.24,
+            35.37,
+            76.83,
+            40.81,
+            38.93,
+            10.23,
+            92.49,
+            47.86,
+            94.06,
+            61.86,
+            9.11,
+            43.34,
+            86.22,
+            75.87,
+            44.74,
+            57.48
+          ]
+        },
+        "date": "2018-06-12T12:37:41.225408+03:00",
+        "awardID": "30276d5718fe45c4b46336b73b754082",
+        "id": "1f3fd523453747ba89ce802ee98ee884",
+        "contractID": "UA-2018-06-12-000004-a-a2"
+      }
+    ],
+    "procurementMethodDetails": "quick, accelerator=1440",
+    "yearlyPaymentsPercentageRange": 0.8,
+    "procurementMethodType": "esco",
+    "description_en": "Quo dolorum non ratione molestiae accusamus maxime tempora eum esse soluta.",
+    "awards": [
+      {
+        "status": "active",
+        "lotID": "dee25308def84ae0be92a84142df2268",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:34:33.623065+03:00",
+          "endDate": "2018-06-12T12:47:20.030072+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "044-563-99-42---------097-641-99-01",
+              "url": "http://kpbl.org.ua",
+              "faxNumber": "044-563-99-05",
+              "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+              "email": "kpbl@bigmir.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "13313462",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "02121"
+            }
+          }
+        ],
+        "eligible": true,
+        "bid_id": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 57.26,
+          "currency": "UAH",
+          "amount": 407.53,
+          "contractDuration": {
+            "days": 110,
+            "years": 7
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            75.12,
+            50.9,
+            81.01,
+            88.23,
+            75.8,
+            84.32,
+            13.67,
+            53.96,
+            96.44,
+            11.7,
+            90.92,
+            8.89,
+            2.5,
+            38.6,
+            33.97,
+            11.69,
+            75.54,
+            51.85,
+            96.57,
+            45.41,
+            82.52
           ]
         },
         "qualified": true,
-        "date": "2018-01-17T15:21:53.808011+02:00",
+        "documents": [
+          {
+            "hash": "md5:881c6ef0f5a7948cd10e4de041394491",
+            "author": "tender_owner",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/661fff41dc8a4e07a529644b6b25a608?KeyID=ce796f2d&Signature=qdeP%2FpiajXDEh3ZeffbULEElou0hWU7a7tvIe6Ym2RUXWj0PMD47a2bZJnM15Lu%252B%2FNBzBYIdS2Ljtu17MqXzDw%253D%253D",
+            "title": "d-9b7b75f1aperiamx6GRgt.pdf",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:37:13.347453+03:00",
+            "dateModified": "2018-06-12T12:37:13.347500+03:00",
+            "id": "7fe267a0204946c9bee288f4720c6dd4"
+          }
+        ],
+        "date": "2018-06-12T12:37:20.403239+03:00",
+        "id": "cdbebb3666bd4a21bb2d90772e4f4bac"
+      },
+      {
+        "status": "cancelled",
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:34:33.623065+03:00",
+          "endDate": "2018-06-12T12:37:40.824485+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "426-07-12",
+              "url": "http://skinmedic.com.ua",
+              "faxNumber": "413-41-40",
+              "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+              "email": "kmkshvl@ukr.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "00037256",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "04655"
+            }
+          }
+        ],
         "eligible": true,
-        "id": "716298def6ec40cd908c8d411067344a"
+        "bid_id": "1b8da78e65f643c58668d151c577a1cf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 28.17,
+          "currency": "UAH",
+          "amount": 378.84,
+          "contractDuration": {
+            "days": 124,
+            "years": 10
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            13.81,
+            1.94,
+            3.48,
+            94.32,
+            77.77,
+            82.24,
+            35.37,
+            76.83,
+            40.81,
+            38.93,
+            10.23,
+            92.49,
+            47.86,
+            94.06,
+            61.86,
+            9.11,
+            43.34,
+            86.22,
+            75.87,
+            44.74,
+            57.48
+          ]
+        },
+        "qualified": true,
+        "documents": [
+          {
+            "hash": "md5:04ef3dd79ca93a4045a68962506aa0ab",
+            "author": "tender_owner",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/4c537fff1dce47eb94124024082854e2?KeyID=ce796f2d&Signature=bM9hJ%2FayG%2FBXiBU8PtqgGE81yZCYilWh1%252BuOyjQhurkhAK4rObg2X20hjNO%252B%252Bm9SK8BZ5Q9J0x%252BMbnQ5tToIBg%253D%253D",
+            "title": "d-e806f72ateneturZMB2Ct.docx",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:37:28.547858+03:00",
+            "dateModified": "2018-06-12T12:37:28.547895+03:00",
+            "id": "fb7fef92093448a2a0a31b4213f178a9"
+          }
+        ],
+        "date": "2018-06-12T12:37:41.225408+03:00",
+        "id": "30276d5718fe45c4b46336b73b754082"
+      },
+      {
+        "status": "unsuccessful",
+        "lotID": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:34:33.623065+03:00",
+          "endDate": "2018-06-12T12:47:51.208883+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "426-07-12",
+              "url": "http://skinmedic.com.ua",
+              "faxNumber": "413-41-40",
+              "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+              "email": "kmkshvl@ukr.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "00037256",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "04655"
+            }
+          }
+        ],
+        "bid_id": "1b8da78e65f643c58668d151c577a1cf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 40.41,
+          "currency": "UAH",
+          "amount": 419.06,
+          "contractDuration": {
+            "days": 74,
+            "years": 9
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            33.3,
+            41.3,
+            50.23,
+            71.32,
+            62.69,
+            80.87,
+            58.08,
+            45.91,
+            43.32,
+            56.68,
+            31.65,
+            81.07,
+            14.21,
+            92.11,
+            94.95,
+            91.6,
+            55.49,
+            27.95,
+            88.72,
+            31.67,
+            38.26
+          ]
+        },
+        "date": "2018-06-12T12:37:51.613624+03:00",
+        "id": "17f8dbcf99ab4874a53569eb0043211b"
+      },
+      {
+        "status": "unsuccessful",
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:37:40.824549+03:00",
+          "endDate": "2018-06-12T12:47:58.397418+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "426-07-12",
+              "url": "http://skinmedic.com.ua",
+              "faxNumber": "413-41-40",
+              "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+              "email": "kmkshvl@ukr.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "00037256",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "04655"
+            }
+          }
+        ],
+        "bid_id": "1b8da78e65f643c58668d151c577a1cf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 28.17,
+          "currency": "UAH",
+          "amount": 378.84,
+          "contractDuration": {
+            "days": 124,
+            "years": 10
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            13.81,
+            1.94,
+            3.48,
+            94.32,
+            77.77,
+            82.24,
+            35.37,
+            76.83,
+            40.81,
+            38.93,
+            10.23,
+            92.49,
+            47.86,
+            94.06,
+            61.86,
+            9.11,
+            43.34,
+            86.22,
+            75.87,
+            44.74,
+            57.48
+          ]
+        },
+        "date": "2018-06-12T12:37:58.838181+03:00",
+        "id": "d1fe4082084e43df843c4afef4d865a6"
+      },
+      {
+        "status": "unsuccessful",
+        "lotID": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:37:51.209026+03:00",
+          "endDate": "2018-06-12T12:48:08.845626+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "044-563-99-42---------097-641-99-01",
+              "url": "http://kpbl.org.ua",
+              "faxNumber": "044-563-99-05",
+              "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+              "email": "kpbl@bigmir.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "13313462",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "02121"
+            }
+          }
+        ],
+        "bid_id": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 38.91,
+          "currency": "UAH",
+          "amount": 610.73,
+          "contractDuration": {
+            "days": 262,
+            "years": 12
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            37.83,
+            39.88,
+            89.66,
+            65.85,
+            70.44,
+            27.3,
+            90.56,
+            26.44,
+            84.03,
+            56.67,
+            77.46,
+            6.46,
+            76.41,
+            87.7,
+            22.15,
+            78,
+            96.52,
+            98.62,
+            42.63,
+            78.88,
+            23.41
+          ]
+        },
+        "date": "2018-06-12T12:38:09.677541+03:00",
+        "id": "62246d9215c04600b69c5cea5fb31d26"
+      },
+      {
+        "status": "unsuccessful",
+        "lotID": "445a034c7da2496b83dcc4830e702caa",
+        "complaintPeriod": {
+          "startDate": "2018-06-12T12:37:58.397566+03:00",
+          "endDate": "2018-06-12T12:48:18.655280+03:00"
+        },
+        "suppliers": [
+          {
+            "contactPoint": {
+              "telephone": "044-563-99-42---------097-641-99-01",
+              "url": "http://kpbl.org.ua",
+              "faxNumber": "044-563-99-05",
+              "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+              "email": "kpbl@bigmir.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "13313462",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "02121"
+            }
+          }
+        ],
+        "bid_id": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "value": {
+          "yearlyPaymentsPercentage": 0.8,
+          "amountPerformance": 22.86,
+          "currency": "UAH",
+          "amount": 373.73,
+          "contractDuration": {
+            "days": 30,
+            "years": 10
+          },
+          "valueAddedTaxIncluded": true,
+          "annualCostsReduction": [
+            22.21,
+            8.63,
+            7.18,
+            19.84,
+            79.46,
+            49.92,
+            91.07,
+            66.94,
+            25.23,
+            83.48,
+            24.98,
+            37.58,
+            39.81,
+            72.31,
+            12.24,
+            16.17,
+            11.58,
+            15.93,
+            47.92,
+            25.31,
+            7.06
+          ]
+        },
+        "date": "2018-06-12T12:38:19.821523+03:00",
+        "id": "f5474740b8004a868ef78cd100c967ec"
       }
     ],
-    "date": "2018-04-13T12:49:01.836273+03:00",
+    "date": "2018-06-12T12:52:41.725264+03:00",
     "minValue": {
       "currency": "UAH",
-      "amount": 0,
+      "amount": 0.0,
       "valueAddedTaxIncluded": true
     },
     "fundingKind": "other",
+    "submissionMethodDetails": "quick(mode:fast-forward)",
     "items": [
       {
-        "description": "енергосервіс будівлі ДНЗ №385 за адресою: вул. Сормовська, 5, Дарницького району м. Києва",
+        "relatedLot": "dee25308def84ae0be92a84142df2268",
+        "description": "i-5393d950: \u0414\u043e\u0441\u043b\u0456\u0434\u0436\u0435\u043d\u043d\u044f \u0442\u0430 \u0440\u043e\u0437\u0440\u043e\u0431\u043a\u0438",
         "classification": {
-          "scheme": "ДК021",
-          "description": "Не відображене в інших розділах",
+          "scheme": "\u0414\u041a021",
+          "description": "\u041d\u0435 \u0432\u0438\u0437\u043d\u0430\u0447\u0435\u043d\u043e",
           "id": "99999999-9"
         },
-        "description_en": "Energoservice of the building of the DNR number 385 at the address: st. Sormovskaya, 5, Darnytsky district, Kyiv",
+        "description_en": "Test item #0",
         "additionalClassifications": [
           {
-            "scheme": "specialNorms",
-            "id": "000",
-            "description": "Специальные нормы и другое"
+            "scheme": "\u0414\u041a015",
+            "id": "II.2 24.00.02",
+            "description": "\u041f\u0440\u0438\u043a\u043e\u0440\u0434\u043e\u043d\u043d\u0456 \u0432\u0456\u0439\u0441\u044c\u043a\u0430"
           }
         ],
-        "deliveryAddress": {
-          "postalCode": "02096",
-          "countryName": "Україна",
-          "streetAddress": " вул. Сормовська, 5",
-          "region": "Київська обл.",
-          "locality": "Київ"
+        "deliveryLocation": {
+          "latitude": "50.537702",
+          "longitude": "30.174488"
         },
-        "id": "e842aac38419403fa5b1e8c0890c0319"
+        "deliveryAddress": {
+          "locality": "\u0412\u043e\u0440\u0437\u0435\u043b\u044c",
+          "region": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+          "countryName_en": "Ukraine",
+          "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+          "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u041a\u0443\u0440\u043e\u0440\u0442\u043d\u0430, 22",
+          "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+          "postalCode": "08296"
+        },
+        "description_ru": "i-190c28af: \u0418\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u043d\u0438\u044f \u0438 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438",
+        "id": "8a36dbbbbaf448bdb5f8df28e79f370e",
+        "unit": {
+          "code": "H87",
+          "name": "\u0448\u0442\u0443\u043a\u0438"
+        }
+      },
+      {
+        "relatedLot": "445a034c7da2496b83dcc4830e702caa",
+        "description": "i-629bff9c: \u0411\u0443\u0434\u0456\u0432\u043b\u0456 \u0442\u0430 \u0441\u043f\u043e\u0440\u0443\u0434\u0438",
+        "classification": {
+          "scheme": "\u0414\u041a021",
+          "description": "\u041d\u0435 \u0432\u0438\u0437\u043d\u0430\u0447\u0435\u043d\u043e",
+          "id": "99999999-9"
+        },
+        "description_en": "Test item #1",
+        "additionalClassifications": [
+          {
+            "scheme": "\u0414\u041a018",
+            "id": "1230.5",
+            "description": "\u0411\u0430\u0437\u0438 \u0442\u0430 \u0441\u043a\u043b\u0430\u0434\u0438 \u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0441\u0442\u0432 \u0442\u043e\u0440\u0433\u0456\u0432\u043b\u0456 \u0439 \u0433\u0440\u043e\u043c\u0430\u0434\u0441\u044c\u043a\u043e\u0433\u043e \u0445\u0430\u0440\u0447\u0443\u0432\u0430\u043d\u043d\u044f"
+          }
+        ],
+        "deliveryLocation": {
+          "latitude": "47.6970999",
+          "longitude": "31.3040859"
+        },
+        "deliveryAddress": {
+          "locality": "\u0422\u0440\u0438\u043a\u0440\u0430\u0442\u043d\u0435",
+          "region": "\u041c\u0438\u043a\u043e\u043b\u0430\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+          "countryName_en": "Ukraine",
+          "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+          "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430",
+          "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+          "postalCode": "56507"
+        },
+        "description_ru": "i-dd3a31a4: \u0417\u0434\u0430\u043d\u0438\u044f \u0438 \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u044f",
+        "id": "3731db3925f546f29477c3746d4a9fc7",
+        "unit": {
+          "code": "H87",
+          "name": "\u0448\u0442\u0443\u043a\u0438"
+        }
+      },
+      {
+        "relatedLot": "87dfa27db6804b4f822ed6b53e4dc9b2",
+        "description": "i-ae5e6d94: \u0411\u0443\u0434\u0456\u0432\u043b\u0456 \u0442\u0430 \u0441\u043f\u043e\u0440\u0443\u0434\u0438",
+        "classification": {
+          "scheme": "\u0414\u041a021",
+          "description": "\u041d\u0435 \u0432\u0438\u0437\u043d\u0430\u0447\u0435\u043d\u043e",
+          "id": "99999999-9"
+        },
+        "description_en": "Test item #2",
+        "additionalClassifications": [
+          {
+            "scheme": "\u0414\u041a018",
+            "id": "1230.5",
+            "description": "\u0411\u0430\u0437\u0438 \u0442\u0430 \u0441\u043a\u043b\u0430\u0434\u0438 \u043f\u0456\u0434\u043f\u0440\u0438\u0454\u043c\u0441\u0442\u0432 \u0442\u043e\u0440\u0433\u0456\u0432\u043b\u0456 \u0439 \u0433\u0440\u043e\u043c\u0430\u0434\u0441\u044c\u043a\u043e\u0433\u043e \u0445\u0430\u0440\u0447\u0443\u0432\u0430\u043d\u043d\u044f"
+          }
+        ],
+        "deliveryLocation": {
+          "latitude": "48.482133",
+          "longitude": "34.964531"
+        },
+        "deliveryAddress": {
+          "locality": "\u0414\u043d\u0456\u043f\u0440\u043e\u043f\u0435\u0442\u0440\u043e\u0432\u0441\u044c\u043a",
+          "region": "\u0414\u043d\u0456\u043f\u0440\u043e\u043f\u0435\u0442\u0440\u043e\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+          "countryName_en": "Ukraine",
+          "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+          "streetAddress": "\u043f\u0440\u043e\u0441\u043f\u0435\u043a\u0442 \u0421\u0432\u043e\u0431\u043e\u0434\u0438, 69",
+          "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+          "postalCode": "49019"
+        },
+        "description_ru": "i-d21d82c3: \u0417\u0434\u0430\u043d\u0438\u044f \u0438 \u0441\u043e\u043e\u0440\u0443\u0436\u0435\u043d\u0438\u044f",
+        "id": "e83996a8782c4cdf97e13b365f54f8a9",
+        "unit": {
+          "code": "H87",
+          "name": "\u0448\u0442\u0443\u043a\u0438"
+        }
       }
     ],
     "bids": [
       {
-        "status": "active",
-        "documents": [
-          {
-            "hash": "md5:83741226d58e000de91bea1d868513c5",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/3382fb2df72148bd8cb7a2c72aff1fd6?KeyID=52462340&Signature=RS4yBEzGS3sMo2yzuzNgCE0SxptbXxBSnSgxSnSNHJrDKGUoSuKDkix6B8%252BIYHp3fGyiEGzndEkechkZCsdPBA%253D%253D",
-            "title": "ТП Додаток 8 ДНЗ 385 Дарницького р-ну.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:06.744277+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:06.744292+02:00",
-            "id": "46f01de828ea47c79ea1119e152e47e6"
-          },
-          {
-            "hash": "md5:be33743704417917a27aaf9dac51e0d1",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/8dfdcf5ae067405aa7ee39ae2799823c?KeyID=52462340&Signature=qHS9khyZ99BF5CMbIJp3Y5GOWhJoNw9n3pCw8NV6Q1qeNmTchgP7ffyJ5IoZJc3QZWNdArtLMgm5%2FnFAsaQrAA%253D%253D",
-            "title": "Дод_7_п_2_2_Копія_Статуту.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:07.428907+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:07.428922+02:00",
-            "id": "825409d6589c4d69911f71db92e7cd61"
-          },
-          {
-            "hash": "md5:5fac62fdfe293b6b1aff3b0a8c800283",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/d7fa356cc5604fd79a6af5717086b5c6?KeyID=52462340&Signature=uMe1WCu8wcmOSCyzQaok10z1Q3c73ZqzKG2E9gjdxg510pMKWU3EzSQglF354uX1XuwiZpm4IUOBRbVek1MqAw%253D%253D",
-            "title": "Дод_7_п_2_1_Ксерокопія_паспорту_керівника.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:08.229496+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:08.229522+02:00",
-            "id": "61e9a6af2d244da98111e50932545f75"
-          },
-          {
-            "hash": "md5:97af705f8fd854d94816acac4a4d8f2d",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/fb49632ff45f4d90bc3cc6b12d938364?KeyID=52462340&Signature=%252B1IoF8e2oujMP31kvf3zFWQH94%252BoTT2KPDiW4HqtMh6E4ZjZNe7HWdrvJ3xi3u8Upq04EDKni7BrXlROTNGqDg%253D%253D",
-            "title": "Дод_7_п_2_1_Копія_наказу_про_призначення_керівника.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:08.902390+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:08.902416+02:00",
-            "id": "55c5556151f9467ab58245e65ddd7e81"
-          },
-          {
-            "hash": "md5:dde7fa5a4204d56e30cd8d1d82fe4cba",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/2bf6b2e644da41fdbc0775ded9b95e58?KeyID=52462340&Signature=qJfL7Q5W2vm%2FkgyuPVVIPtq8prMz7J6CP7qPNPsWaVNv4Z28GRO3qROGZN2xPZG6vUkWnP1BOr%2FR88GiUqGgDg%253D%253D",
-            "title": "Дод_7_п_2_1_Копія протоколу засновників.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:09.432104+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:09.432130+02:00",
-            "id": "643bdb0a305247fdb27f86c99e924134"
-          },
-          {
-            "hash": "md5:83cf7413dcb987cf0d1e735ec24e39bb",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/200175f2399745fb9186fbc64cb0726a?KeyID=52462340&Signature=gVYRaLxqCS6D1rW8HF02%252BBw9EAIg9Sqa0BL%2F40WFxO7RHS2vs44cLKCwov64%252BMgdkbWXoDzNO2XQLtvT11NZDA%253D%253D",
-            "title": "Довідки Дарницький район.pdf",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:10.027574+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:10.027589+02:00",
-            "id": "5c8c330ce43f44e2b85febaf7eba8e60"
-          },
-          {
-            "hash": "md5:a4faa43efdb921ca92f206abcc0d7c5b",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "url": "https://public.docs.openprocurement.org/get/494611cb1f6f4b35866a3b748017024a?KeyID=52462340&Signature=TYycH8SGyutz0xY0RU8o1knEhnG9bE1mNl3Ffjn4rjuV17t0N5spOZ0N9TIvBAcYWIKikfjb8Y3NyPoxYq8%252BCA%253D%253D",
-            "title": "днз 385 альт.xlsx",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:28:10.485532+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T11:28:10.485547+02:00",
-            "id": "9f72aca5a66546b192f5c8c8ef143b6f"
-          },
-          {
-            "hash": "md5:a1a29c1afbfbe349c78a04bf5102a51f",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/f86139eb85da4721823866d3e683a4b3?KeyID=52462340&Signature=%2Fte3KlLw42YKRXHOf%2FTdVsF1TMWRwhpr6BOfXSvW2VTY75lsg07UV5ep%2FEbXbxK6nPkqulGpgQqpVHRztgrODw%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:29:52.246843+02:00",
-            "dateModified": "2017-12-29T11:29:52.246859+02:00",
-            "id": "f54caa575a7e4398bddfabe15b1028b8"
-          },
-          {
-            "hash": "md5:d2e9cbf8949e29eb6839318d5e02908b",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/9c97a942df124332aba1a529b51cb8bb?KeyID=52462340&Signature=hMq8eVhpp%2FnuJ4tO8BBELUlT4OKICVCfOJny%2FIm5w2qKmu2ZAWDTL17eDrSMt%252BZ94WrmmW%252Bgd2TCVx4BWLT7CQ%253D%253D",
-            "title": "ДНЗ 385 остаточна.pdf",
-            "documentOf": "tender",
-            "datePublished": "2018-01-22T12:04:13.036253+02:00",
-            "dateModified": "2018-01-22T12:04:13.036287+02:00",
-            "id": "125f07e19d794e689f38f279c6b7df8e"
-          },
-          {
-            "hash": "md5:85d5f8eec12d636aaeac4dcc2b83a498",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "url": "https://public.docs.openprocurement.org/get/3802fb1a108a47c8baad5f6716d22a11?KeyID=52462340&Signature=k2RYq1GFNVEgZq9i86zf3sjoTEZFgVAxW6aXSgibDpS2%2FHmuRXC2PfbYJRx%252BB4PDURYpWuApjIcVwdJHiYqiBg%253D%253D",
-            "title": "днз 385.xlsx",
-            "documentOf": "tender",
-            "datePublished": "2018-01-22T12:04:14.625173+02:00",
-            "dateModified": "2018-01-22T12:04:14.625198+02:00",
-            "id": "a4866776f82e4c3d92e3e6f0b7fa2b28"
-          },
-          {
-            "hash": "md5:ec3de83d496b7d2efd32f59107cc1e63",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/2ce2ae5fcce54a1cba94a82f729b9a39?KeyID=52462340&Signature=07iDPNnX%252BPniwtUWsw%2FQ5yepeinE9xa32wUp41W1%252BVaN63konZN3fMilBQiMa%2FJzzXMbHmPL%252BMNXH3wYvOwMDw%253D%253D",
-            "title": "Довідка_податки_Дарницький.pdf",
-            "documentOf": "tender",
-            "datePublished": "2018-01-22T12:04:15.686882+02:00",
-            "dateModified": "2018-01-22T12:04:15.686907+02:00",
-            "id": "f99a0936a1694a1e8e5e815986f419b0"
-          },
-          {
-            "hash": "md5:e47d91368d96b01e4ebb075824f5025f",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/a074cb28bb774b1eacaed06ba9bb6e5f?KeyID=52462340&Signature=4YE3QxAk%252BC736HRhjd0LrVyLOe0ihE1L4BLUYfMU93JZKjr0f1Vpbl1KhrBa3b7A%252BkIkEqniaL%2FVEkV%252B%252BI35DQ%253D%253D",
-            "title": "Довідка_МВД.pdf",
-            "documentOf": "tender",
-            "datePublished": "2018-01-22T12:04:16.981098+02:00",
-            "dateModified": "2018-01-22T12:04:16.981140+02:00",
-            "id": "ba2445d94b5c45f48e2dae3f753f41aa"
-          },
-          {
-            "hash": "md5:9fae1723b659985f4b895e39337f17b4",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/73766d0c6cd64bed94609566103ff417?KeyID=52462340&Signature=X11%252BcaprvOala6A8CM28VYanf84C%2F%2FFgv0zQwkYlDnK8lR86WY0iSKOmgculgc01jBBa65eCHEl0L%2Fa84APWDQ%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T11:29:52.246843+02:00",
-            "dateModified": "2018-01-22T12:05:15.660457+02:00",
-            "id": "f54caa575a7e4398bddfabe15b1028b8"
-          }
-        ],
-        "selfEligible": true,
-        "value": {
-          "yearlyPaymentsPercentage": 0.91,
-          "amountPerformance": 263491.22,
-          "currency": "UAH",
-          "amount": 396958.86,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
-          },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
-        },
-        "selfQualified": true,
-        "tenderers": [
-          {
-            "contactPoint": {
-              "telephone": "+380678294083",
-              "url": "http://kyivesco.com.ua/",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-              "email": "e.kharkovskiy@kyivesco.com.ua"
-            },
-            "identifier": {
-              "scheme": "UA-EDR",
-              "id": "40364772",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\""
-            },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"КИЇВЕСКО\"",
-            "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "02090, м.Київ, Дніпровський район, ВУЛИЦЯ ВОЛОДИМИРА СОСЮРИ, будинок 5",
-              "region": "",
-              "locality": ""
-            }
-          }
-        ],
-        "date": "2018-01-09T16:14:56.652167+02:00",
-        "id": "a47742f21c9642ba9cc594d02b6360dd",
-        "participationUrl": "https://auction.openprocurement.org/esco-tenders/014ae8b741ff49a1bb94b43d198bda22/login?bidder_id=a47742f21c9642ba9cc594d02b6360dd&hash=06a59c252bee316f3ca9f251fbbd2c89c286c1fe"
+        "status": "invalid",
+        "id": "d6c40147010a4994a786a41096d442fd"
       },
       {
         "status": "active",
         "documents": [
           {
-            "hash": "md5:283a4ca58f0c3a48ea122314c14b19eb",
+            "hash": "md5:59a1be133896fd1c926da36d26eceb6e",
             "confidentiality": "public",
             "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/aeb4094615634df8abadd747dc302c3c?KeyID=52462340&Signature=kQzQ5NfhEf2SzYS8zKZwE52wEsnddYComSe5GFGqRYGFANqlXZ9LfatBR7jZDAW3LNFonGIcv6UyLWeTZYyfBQ%253D%253D",
-            "title": "Установч ун..pdf",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/b6f92c1bddf84b058ba28b8afb2b6e25?KeyID=ce796f2d&Signature=%2FbvABXiGDu1ATZ8%2FH7XWF0fiD9rb4X9OF4k5EXrVjnni0%252BwrOPQaVpTvSUke2uxVTiWYC%252BiUiNSJFzFwL9h3Bw%253D%253D",
+            "title": "d-80616d45distinctio0DIvAg.docx",
             "documentOf": "tender",
-            "datePublished": "2017-12-29T16:06:54.630580+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T16:06:54.630595+02:00",
-            "id": "0d0ee4582bfc4c6aac1104d77b832875"
+            "datePublished": "2018-06-12T12:03:33.242120+03:00",
+            "dateModified": "2018-06-12T12:03:33.242174+03:00",
+            "id": "f0b91effb04c45b3a85a194bbfa520c3"
           },
           {
-            "hash": "md5:95d3945c1dfe4a09c1818f2f76af7563",
-            "confidentiality": "public",
+            "hash": "md5:3ffc2937e1536b73376a474dee048f6c",
+            "confidentiality": "buyerOnly",
             "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/aabc69c8073f456aa4e0fcb7ecb924e2?KeyID=52462340&Signature=W5kCuRDeUDnmsOUSeNgwFqk4nSQNw8ucSSPHf1JIAja9OCRZ%2F3Ch%2F4INZ4jLuBpWXutwBMB2kdtIP9osn%2FsIBw%253D%253D",
-            "title": "Док_385.pdf",
+            "format": "text/plain",
+            "url": "https://api-sandbox.prozorro.openprocurement.net/api/dev/tenders/62dea27b3f7147a99c47b6dab9f742c3/bids/1b8da78e65f643c58668d151c577a1cf/documents/f0b91effb04c45b3a85a194bbfa520c3?download=d49a24cbbb2444a0965e35f9408a98f2",
+            "confidentialityRationale": "\u0421\u0430\u043b\u0442\u0430\u043d \u043a\u043e\u0440\u043c\u0438\u0442\u0438\u0441\u044f \u043a\u043e\u0440\u0447\u0438\u0442\u0438 \u0447\u0435\u043a\u043c\u0430\u043d \u0437\u0430\u043f\u0430\u0449\u0435\u043a\u0443\u0432\u0430\u0442\u0438 \u043f\u043e\u0432\u0438\u0432\u043e\u0434\u0438\u0442\u0438 \u043f\u0435\u0440\u0435\u0441\u043e\u043b\u043e\u0434\u0436\u0443\u0432\u0430\u0442\u0438.",
+            "title": "d-8c6bbc7cmodixKitRI.doc",
             "documentOf": "tender",
-            "datePublished": "2017-12-29T16:06:55.409053+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T16:06:55.409067+02:00",
-            "id": "a253a58da49f49a8a840beb4d4b19fc6"
-          },
+            "datePublished": "2018-06-12T12:03:33.242120+03:00",
+            "dateModified": "2018-06-12T12:03:38.711177+03:00",
+            "id": "f0b91effb04c45b3a85a194bbfa520c3"
+          }
+        ],
+        "eligibilityDocuments": [
           {
-            "hash": "md5:38ee2cd5caeb14ff253ba4d74e92ffab",
+            "hash": "md5:91467193f4e581b1a69822a151bc8fc2",
             "confidentiality": "public",
             "language": "uk",
-            "format": "application/pdf",
-            "url": "https://public.docs.openprocurement.org/get/5f1b38f4380a4edf8883147cdd6fb5cb?KeyID=52462340&Signature=xRfDjNgO0oLyXGO7FW8wjD39BSEeXxDT9X8pE71Dj0alfwY5EiTRyBV9bX4AYqB9NIsYMXe9XgCoQLmWWnwFCg%253D%253D",
-            "title": "ТП_385.pdf",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/6d4f1c5e0b7c458c84fb441a2eff86be?KeyID=ce796f2d&Signature=4czoyAUj6cLiaOAb1usQBbNfiQYV31N9XOYyCto2WGovG57si5%252BpaqwA5%2FpgmN6UZSH2ljqzxd7xpPj0ZBXcBw%253D%253D",
+            "title": "d-edc96a27quoZweLdE.doc",
             "documentOf": "tender",
-            "datePublished": "2017-12-29T16:06:55.897768+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T16:06:55.897782+02:00",
-            "id": "9b2fe41390424f4d996664978e0a75b4"
-          },
-          {
-            "hash": "md5:302a6ea87f43922222afac11c320e49b",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            "url": "https://public.docs.openprocurement.org/get/97bb24c907fb4676ad77f1ac712385bd?KeyID=52462340&Signature=l%252BR7ve1Oq7HFW%2FDOSI2gvWr7gyum4u%252BsEPOtAsiIdz592uz1yLumdqK9SHxq076BjECK6fM3k5ceWr9MYjgaCw%253D%253D",
-            "title": "днз 385.xlsx",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T16:06:56.457975+02:00",
-            "documentType": "technicalSpecifications",
-            "dateModified": "2017-12-29T16:06:56.457999+02:00",
-            "id": "2c4878c7bc6146a7b46025348e641e8c"
-          },
-          {
-            "hash": "md5:8aa98555f1f3d41135310a33d6738c67",
-            "confidentiality": "public",
-            "language": "uk",
-            "format": "application/pkcs7-signature",
-            "url": "https://public.docs.openprocurement.org/get/2c79dae96d54490ab810fe2adecd8f9e?KeyID=52462340&Signature=TIWqpUBl0uDbyfDVCjtBiR9v%252BvvHms6NAZUJZUMYXAzPefnDUExUHOnv0eiGiE%2FWiWB%2FSoqLzRClFEiEvwULAg%253D%253D",
-            "title": "sign.p7s",
-            "documentOf": "tender",
-            "datePublished": "2017-12-29T16:07:30.809427+02:00",
-            "dateModified": "2017-12-29T16:07:30.809443+02:00",
-            "id": "f9d0e2a853364989aa95e2f98848a600"
+            "datePublished": "2018-06-12T12:04:25.201016+03:00",
+            "dateModified": "2018-06-12T12:04:25.201052+03:00",
+            "id": "c82fedff42f94e5b9913240500ff0d1d"
           }
         ],
         "selfEligible": true,
-        "value": {
-          "yearlyPaymentsPercentage": 0.9,
-          "amountPerformance": 266216.38,
-          "currency": "UAH",
-          "amount": 392596.68,
-          "contractDuration": {
-            "days": 0,
-            "years": 6
+        "lotValues": [
+          {
+            "relatedLot": "dee25308def84ae0be92a84142df2268",
+            "date": "2018-06-12T12:03:19.330243+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 35.64,
+              "currency": "UAH",
+              "amount": 345.78,
+              "contractDuration": {
+                "days": 165,
+                "years": 7
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                23.3,
+                17.27,
+                90.81,
+                3.77,
+                42.43,
+                77.93,
+                97.01,
+                88.69,
+                6.13,
+                1.15,
+                97.92,
+                47.6,
+                25.01,
+                53.57,
+                61.72,
+                97.87,
+                40.02,
+                29.8,
+                84.16,
+                46.58,
+                23.72
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_dee25308def84ae0be92a84142df2268/login?bidder_id=1b8da78e65f643c58668d151c577a1cf&hash=a4bc05d352465046a01e4e2c87e56cb040af417c"
           },
-          "valueAddedTaxIncluded": true,
-          "annualCostsReduction": [
-            0,
-            27759.15,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2,
-            83057.2
-          ]
-        },
+          {
+            "relatedLot": "445a034c7da2496b83dcc4830e702caa",
+            "date": "2018-06-12T12:03:19.333890+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 28.17,
+              "currency": "UAH",
+              "amount": 378.84,
+              "contractDuration": {
+                "days": 124,
+                "years": 10
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                13.81,
+                1.94,
+                3.48,
+                94.32,
+                77.77,
+                82.24,
+                35.37,
+                76.83,
+                40.81,
+                38.93,
+                10.23,
+                92.49,
+                47.86,
+                94.06,
+                61.86,
+                9.11,
+                43.34,
+                86.22,
+                75.87,
+                44.74,
+                57.48
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_445a034c7da2496b83dcc4830e702caa/login?bidder_id=1b8da78e65f643c58668d151c577a1cf&hash=a4bc05d352465046a01e4e2c87e56cb040af417c"
+          },
+          {
+            "relatedLot": "87dfa27db6804b4f822ed6b53e4dc9b2",
+            "date": "2018-06-12T12:03:19.346512+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 40.41,
+              "currency": "UAH",
+              "amount": 419.06,
+              "contractDuration": {
+                "days": 74,
+                "years": 9
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                33.3,
+                41.3,
+                50.23,
+                71.32,
+                62.69,
+                80.87,
+                58.08,
+                45.91,
+                43.32,
+                56.68,
+                31.65,
+                81.07,
+                14.21,
+                92.11,
+                94.95,
+                91.6,
+                55.49,
+                27.95,
+                88.72,
+                31.67,
+                38.26
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_87dfa27db6804b4f822ed6b53e4dc9b2/login?bidder_id=1b8da78e65f643c58668d151c577a1cf&hash=a4bc05d352465046a01e4e2c87e56cb040af417c"
+          }
+        ],
+        "qualificationDocuments": [
+          {
+            "hash": "md5:f472f53b339ec4fb4006a5b996eccb9b",
+            "confidentiality": "public",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/aa0a4ba2db344719bd3549cc2d8180c3?KeyID=ce796f2d&Signature=ygNRc5EGBKHk8id2qcX9gtp2hTOz0WSxdZzuryllphVnK6nZibJOwNTVBteCWMaoUoAIItge28h54Z6cLvdFCQ%253D%253D",
+            "title": "d-61d1c9b3cumquegG6dkR.pdf",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:04:21.066487+03:00",
+            "dateModified": "2018-06-12T12:04:21.066525+03:00",
+            "id": "7fad7e181b254acb933462f1ce968639"
+          }
+        ],
         "selfQualified": true,
+        "financialDocuments": [
+          {
+            "hash": "md5:706099c2f2ec26d8bab511a9a5195cee",
+            "confidentiality": "public",
+            "language": "uk",
+            "format": "text/plain",
+            "url": "https://public.docs-sandbox.prozorro.openprocurement.net/get/c76989be8aaa4f3492a82271c9e2721a?KeyID=ce796f2d&Signature=DFgspXoXy%252B25jgb6lGJUHB%2F5K8d0Wv3wMClcd8Vay6yyLUlodb%252BDAfPd3Uf0TWTp%252B%252BpSS8rnD%2F%2FkohWifxVkAw%253D%253D",
+            "title": "d-17c8163fnecessitatibusaEVxdD.docx",
+            "documentOf": "tender",
+            "datePublished": "2018-06-12T12:04:16.922331+03:00",
+            "dateModified": "2018-06-12T12:04:16.922406+03:00",
+            "id": "16394cdad75047bfa5768e9c5321a3a4"
+          }
+        ],
         "tenderers": [
           {
             "contactPoint": {
-              "telephone": "+380442536633",
-              "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
-              "email": "ovp@legalcenter.com.ua"
+              "telephone": "426-07-12",
+              "url": "http://skinmedic.com.ua",
+              "faxNumber": "413-41-40",
+              "name": "\u0427\u0435\u0440\u0435\u0434\u043d\u0438\u0447\u0435\u043d\u043a\u043e \u041e\u043b\u0435\u043d\u0430 \u042e\u0440\u0456\u0457\u0432\u043d\u0430",
+              "email": "kmkshvl@ukr.net"
             },
             "identifier": {
               "scheme": "UA-EDR",
-              "id": "41554727",
-              "legalName": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\""
+              "id": "00037256",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f"
             },
-            "name": "ТОВАРИСТВО З ОБМЕЖЕНОЮ ВІДПОВІДАЛЬНІСТЮ \"ЕЛТЕК ЛАЙТ\"",
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043c\u0456\u0441\u044c\u043a\u0430 \u043a\u043b\u0456\u043d\u0456\u0447\u043d\u0430 \u0448\u043a\u0456\u0440\u043d\u043e-\u0432\u0435\u043d\u0435\u0440\u043e\u043b\u043e\u0433\u0456\u0447\u043d\u0430 \u043b\u0456\u043a\u0430\u0440\u043d\u044f",
             "address": {
-              "postalCode": "",
-              "countryName": "Україна",
-              "streetAddress": "04080, м.Київ, ВУЛИЦЯ КИРИЛІВСЬКА, будинок 82, офіс 256",
-              "region": "",
-              "locality": ""
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0411\u043e\u0433\u0430\u0442\u0438\u0440\u0441\u044c\u043a\u0430, 32",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "04655"
             }
           }
         ],
-        "date": "2018-01-09T16:16:35.480650+02:00",
-        "id": "5537734076d44793b261141ae529a7b9",
-        "participationUrl": "https://auction.openprocurement.org/esco-tenders/014ae8b741ff49a1bb94b43d198bda22/login?bidder_id=5537734076d44793b261141ae529a7b9&hash=6ca95b868d397d63e61a68ac3c5bcbc68698c0ac"
+        "date": "2018-06-12T12:03:19.329722+03:00",
+        "id": "1b8da78e65f643c58668d151c577a1cf"
+      },
+      {
+        "status": "active",
+        "selfEligible": true,
+        "lotValues": [
+          {
+            "relatedLot": "dee25308def84ae0be92a84142df2268",
+            "date": "2018-06-12T12:04:01.811279+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 57.26,
+              "currency": "UAH",
+              "amount": 407.53,
+              "contractDuration": {
+                "days": 110,
+                "years": 7
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                75.12,
+                50.9,
+                81.01,
+                88.23,
+                75.8,
+                84.32,
+                13.67,
+                53.96,
+                96.44,
+                11.7,
+                90.92,
+                8.89,
+                2.5,
+                38.6,
+                33.97,
+                11.69,
+                75.54,
+                51.85,
+                96.57,
+                45.41,
+                82.52
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_dee25308def84ae0be92a84142df2268/login?bidder_id=ead8be90514248ecaa161d6a4c7c2bbf&hash=58a2e873ee2e1cec7afe523e0e0cdc53ceebba62"
+          },
+          {
+            "relatedLot": "445a034c7da2496b83dcc4830e702caa",
+            "date": "2018-06-12T12:04:01.825259+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 22.86,
+              "currency": "UAH",
+              "amount": 373.73,
+              "contractDuration": {
+                "days": 30,
+                "years": 10
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                22.21,
+                8.63,
+                7.18,
+                19.84,
+                79.46,
+                49.92,
+                91.07,
+                66.94,
+                25.23,
+                83.48,
+                24.98,
+                37.58,
+                39.81,
+                72.31,
+                12.24,
+                16.17,
+                11.58,
+                15.93,
+                47.92,
+                25.31,
+                7.06
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_445a034c7da2496b83dcc4830e702caa/login?bidder_id=ead8be90514248ecaa161d6a4c7c2bbf&hash=58a2e873ee2e1cec7afe523e0e0cdc53ceebba62"
+          },
+          {
+            "relatedLot": "87dfa27db6804b4f822ed6b53e4dc9b2",
+            "date": "2018-06-12T12:04:01.839073+03:00",
+            "status": "active",
+            "value": {
+              "yearlyPaymentsPercentage": 0.8,
+              "amountPerformance": 38.91,
+              "currency": "UAH",
+              "amount": 610.73,
+              "contractDuration": {
+                "days": 262,
+                "years": 12
+              },
+              "valueAddedTaxIncluded": true,
+              "annualCostsReduction": [
+                37.83,
+                39.88,
+                89.66,
+                65.85,
+                70.44,
+                27.3,
+                90.56,
+                26.44,
+                84.03,
+                56.67,
+                77.46,
+                6.46,
+                76.41,
+                87.7,
+                22.15,
+                78,
+                96.52,
+                98.62,
+                42.63,
+                78.88,
+                23.41
+              ]
+            },
+            "participationUrl": "https://auction-sandbox.prozorro.openprocurement.auction/esco-tenders/62dea27b3f7147a99c47b6dab9f742c3_87dfa27db6804b4f822ed6b53e4dc9b2/login?bidder_id=ead8be90514248ecaa161d6a4c7c2bbf&hash=58a2e873ee2e1cec7afe523e0e0cdc53ceebba62"
+          }
+        ],
+        "id": "ead8be90514248ecaa161d6a4c7c2bbf",
+        "tenderers": [
+          {
+            "contactPoint": {
+              "telephone": "044-563-99-42---------097-641-99-01",
+              "url": "http://kpbl.org.ua",
+              "faxNumber": "044-563-99-05",
+              "name": "\u0425\u0438\u043b\u044c\u0447\u0435\u043d\u043a\u043e \u0406\u043d\u043d\u0430 \u0413\u0440\u0438\u0433\u043e\u0440\u0456\u0432\u043d\u0430",
+              "email": "kpbl@bigmir.net"
+            },
+            "identifier": {
+              "scheme": "UA-EDR",
+              "id": "13313462",
+              "legalName": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439"
+            },
+            "name": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0438\u0439 \u043f\u0440\u043e\u0444\u0435\u0441\u0456\u0439\u043d\u0438\u0439 \u0431\u0443\u0434\u0456\u0432\u0435\u043b\u044c\u043d\u0438\u0439 \u043b\u0456\u0446\u0435\u0439",
+            "address": {
+              "locality": "\u041a\u0438\u0457\u0432",
+              "region": "\u043c\u0456\u0441\u0442\u043e \u041a\u0438\u0457\u0432",
+              "countryName_en": "Ukraine",
+              "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+              "streetAddress": "\u0432\u0443\u043b\u0438\u0446\u044f \u0427\u0435\u0440\u043d\u0456\u0433\u0456\u0432\u0441\u044c\u043a\u0430, 220, 8",
+              "countryName_ru": "\u0423\u043a\u0440\u0430\u0438\u043d\u0430",
+              "postalCode": "02121"
+            }
+          }
+        ],
+        "date": "2018-06-12T12:04:01.810253+03:00",
+        "selfQualified": true
       }
     ],
-    "noticePublicationDate": "2017-12-01T15:50:57.484743+02:00",
-    "awardCriteria": "ratedCriteria"
+    "noticePublicationDate": "2018-06-12T11:53:23.796425+03:00",
+    "mode": "test",
+    "title_ru": "[\u0422\u0415\u0421\u0422\u0418\u0420\u041e\u0412\u0410\u041d\u0418\u0415] Down-sized local database",
+    "procuringEntity": {
+      "kind": "general",
+      "name": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f",
+      "address": {
+        "postalCode": "01030",
+        "countryName": "\u0423\u043a\u0440\u0430\u0457\u043d\u0430",
+        "streetAddress": "\u0411\u043e\u0433\u0434\u0430\u043d\u0430 \u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u043e\u0433\u043e \u0432\u0443\u043b\u0438\u0446\u044f, 21-29",
+        "region": "\u041a\u0438\u0457\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
+        "locality": "\u041f\u0435\u0440\u0435\u044f\u0441\u043b\u0430\u0432-\u0425\u043c\u0435\u043b\u044c\u043d\u0438\u0446\u044c\u043a\u0438\u0439"
+      },
+      "contactPoint": {
+        "name": "\u041b\u0456\u043f\u043e\u0432\u0435\u0446\u044c \u0404\u0432\u0433\u0435\u043d \u0406\u0432\u0430\u043d\u043e\u0432\u0438\u0447",
+        "url": "http://www.shev.gov.ua/",
+        "telephone": "2341170",
+        "faxNumber": "2343591",
+        "name_en": "Jeremy Bailey",
+        "email": "buh510@ukr.net",
+        "availableLanguage": "en"
+      },
+      "identifier": {
+        "scheme": "UA-EDR",
+        "legalName_en": "Sed cum pariatur illo eligendi odit accusamus quod.",
+        "id": "21725150",
+        "legalName": "\u0428\u0435\u0432\u0447\u0435\u043d\u043a\u0456\u0432\u0441\u044c\u043a\u0430 \u0440\u0430\u0439\u043e\u043d\u043d\u0430 \u0432 \u043c\u0456\u0441\u0442\u0456 \u041a\u0438\u0454\u0432\u0456 \u0434\u0435\u0440\u0436\u0430\u0432\u043d\u0430 \u0430\u0434\u043c\u0456\u043d\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u044f"
+      },
+      "name_en": "Corey Glover"
+    }
+  }
 }
