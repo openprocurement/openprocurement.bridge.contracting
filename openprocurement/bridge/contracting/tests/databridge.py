@@ -51,8 +51,8 @@ class TestDatabridge(unittest.TestCase):
         }
         }
         with open(PWD + '/data/tender.json', 'r') as json_file:
-            self.tender = json.load(json_file)
-        self.contract = deepcopy(self.tender['contracts'][1])
+            self.tender = json.load(json_file)['data']
+        self.contract = deepcopy(self.tender['contracts'][0])
         self.TENDER_ID = self.tender['id']
         self.DIRECTION = 'backward'
         self.owner_and_token = {'owner': 'owner', 'tender_token': 'tender_token'}
@@ -624,6 +624,7 @@ class TestDatabridge(unittest.TestCase):
         pending['status'] = 'pending'
         complete = deepcopy(self.tender)
         complete['status'] = 'complete'
+        del complete['lots']
         complete_lots = deepcopy(self.tender)
         complete_lots['status'] = 'complete'
         complete_lots['lots'] = [{'status': 'complete'}]

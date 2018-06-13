@@ -10,7 +10,7 @@ from mock import MagicMock, patch, call
 from pytz import timezone
 from uuid import uuid4
 
-from openprocurement.bridge.contracting.constants import DAYS_PER_YEAR, ACCELERATOR
+from openprocurement.bridge.contracting.constants import DAYS_PER_YEAR, ACCELERATOR_RE
 from openprocurement.bridge.contracting.journal_msg_ids import (
     DATABRIDGE_COPY_CONTRACT_ITEMS,
     DATABRIDGE_EXCEPTION
@@ -37,9 +37,11 @@ class TestUtilsFucntions(unittest.TestCase):
 
     def setUp(self):
         with open(PWD + '/data/tender.json', 'r') as json_file:
-            self.tender = json.load(json_file)
+            self.tender = json.load(json_file)['data']
+        with open(PWD + '/data/not_accelerated_tender.json', 'r') as json_file:
+            self.not_accelerated_tender = json.load(json_file)
 
-        self.contract = self.tender['contracts'][1]
+        self.contract = self.tender['contracts'][0]
         self.assertEquals(self.contract['status'], 'active')
 
         self.keys = ['fundingKind', 'NBUdiscountRate',
@@ -71,8 +73,8 @@ class TestUtilsFucntions(unittest.TestCase):
 
     @patch('openprocurement.bridge.contracting.utils.generate_milestones')
     def test_handle_esco_tenders_multilot(self, mocked_generate_m, *mocks):
-        tender = deepcopy(self.tender)
-        contract = deepcopy(self.contract)
+        tender = deepcopy(self.not_accelerated_tender)
+        contract = deepcopy(self.not_accelerated_tender['contracts'][1])
         self.assertNotIn('contractType', contract)
         self.assertNotIn('yearlyPaymentsPercentageRange', contract)
         self.assertNotIn('fundingKind', contract)
@@ -93,8 +95,8 @@ class TestUtilsFucntions(unittest.TestCase):
                                                          test_lot['id']))])
 
         #  no related awards
-        tender = deepcopy(self.tender)
-        contract = deepcopy(self.contract)
+        tender = deepcopy(self.not_accelerated_tender)
+        contract = deepcopy(self.not_accelerated_tender['contracts'][1])
         tender['lots'] = [test_lot]
         tender['awards'][2]['id'] = 'fake_id'
         self.assertEquals(handle_esco_tenders(contract, tender), None)
@@ -104,8 +106,8 @@ class TestUtilsFucntions(unittest.TestCase):
                 contract['id'], tender['id']))])
 
         # here no related lot found test
-        tender = deepcopy(self.tender)
-        contract = deepcopy(self.contract)
+        tender = deepcopy(self.not_accelerated_tender)
+        contract = deepcopy(self.not_accelerated_tender['contracts'][1])
         tender['lots'] = [test_lot]
         tender['awards'][2]['lotID'] = 'fake_id'
         self.assertEquals(handle_esco_tenders(contract, tender), None)
@@ -225,17 +227,16 @@ class TestUtilsFucntions(unittest.TestCase):
                           {'JOURNAL_test': 'test'})
 
     def test_generate_milestones(self, *mocks):
-        contract = deepcopy(self.contract)
-
+        contract = deepcopy(self.not_accelerated_tender['contracts'][1])
         contract_start_date = parse_date(contract['period']['startDate']) \
             if 'period' in contract and 'startDate' in contract['period'] \
             else parse_date(contract['dateSigned'])
-        announcement_date = parse_date(self.tender['noticePublicationDate'])
+        announcement_date = parse_date(self.not_accelerated_tender['noticePublicationDate'])
         target_milestones_count = 16 + (contract_start_date.year - announcement_date.year)
-        milestones = generate_milestones(contract, self.tender)
+        milestones = generate_milestones(contract, self.not_accelerated_tender)
 
         mocks[0].info.assert_called_with(
-            "Generate milestones for esco tender {}".format(self.tender['id']))
+            "Generate milestones for esco tender {}".format(self.not_accelerated_tender['id']))
         self.assertEqual(len(milestones), target_milestones_count)
         contract_end_date = parse_date(contract['period']['endDate'])
         for seq_number, milestone in enumerate(milestones):
@@ -268,31 +269,35 @@ class TestUtilsFucntions(unittest.TestCase):
         )
 
         #  test if no period in contract
-        contract = deepcopy(self.contract)
+        contract = deepcopy(self.not_accelerated_tender['contracts'][1])
         del contract['period']
-        milestones = generate_milestones(contract, self.tender)
+        milestones = generate_milestones(contract, self.not_accelerated_tender)
         last_scheduled_miles = [m for m in milestones if m['status'] == 'scheduled'][-1]
         self.assertEquals(last_scheduled_miles['period']['endDate'], contract['period']['endDate'])
 
     def test_generate_accelerated_milestones(self, *mocks):
         contract = deepcopy(self.contract)
-        contract['mode'] = 'test'
+        tender = deepcopy(self.tender)
+        handle_esco_tenders(contract, tender)
+
+        # contract['mode'] = 'test'
+        # contract['procurementMethodDetails'] = "quick, accelerator=1440"
+
+        re_obj = ACCELERATOR_RE.search(contract['procurementMethodDetails'])
+        accelerator = int(re_obj.groupdict()['accelerator'])
 
         contract_start_date = parse_date(contract['period']['startDate']) \
             if 'period' in contract and 'startDate' in contract['period'] \
             else parse_date(contract['dateSigned'])
-        announcement_date = parse_date(self.tender['noticePublicationDate'])
-        target_milestones_count = 16 + (contract_start_date.year - announcement_date.year)
-        milestones = generate_milestones(contract, self.tender)
+        # milestones = generate_milestones(contract, tender)
+        milestones = contract['milestones']
         last_scheduled_milestone = [m for m in milestones if m['status'] == 'scheduled'][-1]
 
-        contract_days = timedelta(days=contract['value']['contractDuration']['days'])
-        contract_years = timedelta(days=DAYS_PER_YEAR * contract['value']['contractDuration']['years'])
         contract_start_date = parse_date(contract['period']['startDate'])
         delta = timedelta(days=DAYS_PER_YEAR * 15)
-        max_end_date = contract_start_date + timedelta(seconds=delta.total_seconds() / ACCELERATOR)
+        max_end_date = contract_start_date + timedelta(seconds=delta.total_seconds() / accelerator)
         self.assertEquals(last_scheduled_milestone['period']['endDate'], contract['period']['endDate'])
-        self.assertEqual(milestones[-1]['period']['endDate'][:-8], max_end_date.isoformat()[:-8])
+        self.assertEqual(milestones[-1]['period']['endDate'], max_end_date.isoformat())
 
 
 def suite():
