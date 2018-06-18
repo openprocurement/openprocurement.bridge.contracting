@@ -78,12 +78,12 @@ def generate_milestones(contract, tender):
     )
 
     milestones = []
-    years_before_contract_start = contract_start_date.year - announcement_date.year
-
-    last_milestone_sequence_number = 16 + years_before_contract_start
 
     logger.info("Generate milestones for esco tender {}".format(tender['id']))
-    for sequence_number in xrange(1, last_milestone_sequence_number + 1):
+    max_contract_end_date = contract_start_date + timedelta(days=DAYS_PER_YEAR * 15)
+
+    sequence_number = 1
+    while True:
         date_modified = datetime.now(TZ)
         milestone = {
             'id': uuid4().hex,
@@ -101,34 +101,38 @@ def generate_milestones(contract, tender):
                 "valueAddedTaxIncluded": contract['value']['valueAddedTaxIncluded']
             },
         }
-
         if sequence_number == 1:
             milestone_start_date = announcement_date
             milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
             milestone['status'] = 'pending'
-        elif sequence_number == last_milestone_sequence_number:
-            milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
-            milestone_end_date = contract_start_date + timedelta(days=DAYS_PER_YEAR * 15)
         else:
             milestone_start_date = TZ.localize(datetime(announcement_date.year + sequence_number - 1, 1, 1))
             milestone_end_date = TZ.localize(datetime(announcement_date.year + sequence_number, 1, 1))
+
+        if contract_end_date.year == milestone_start_date.year:
+            milestone_end_date = contract_end_date
+
+        if milestone_start_date > max_contract_end_date:
+            break
+
+        milestone['period'] = {
+            'startDate': milestone_start_date.isoformat(),
+            'endDate': milestone_end_date.isoformat()
+        }
 
         if contract_end_date.year >= milestone_start_date.year and sequence_number != 1:
             milestone['status'] = 'scheduled'
         elif contract_end_date.year < milestone_start_date.year:
             milestone['status'] = 'spare'
 
-        if contract_end_date.year == announcement_date.year + sequence_number - 1:
-            milestone_end_date = contract_end_date
-
-        milestone['period'] = {
-            'startDate': milestone_start_date.isoformat(),
-            'endDate': milestone_end_date.isoformat()
-        }
         title = "Milestone #{} of year {}".format(sequence_number, milestone_start_date.year)
         milestone['title'] = title
         milestone['description'] = title
+
         milestones.append(milestone)
+        sequence_number += 1
+    milestones[-1]['period']['endDate'] = max_contract_end_date.isoformat()
+
     if accelerator:
         accelerate_milestones(milestones, DAYS_PER_YEAR, accelerator)
         # restore accelerated contract.dateSigned

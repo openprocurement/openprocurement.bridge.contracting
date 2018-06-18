@@ -280,16 +280,12 @@ class TestUtilsFucntions(unittest.TestCase):
         tender = deepcopy(self.tender)
         handle_esco_tenders(contract, tender)
 
-        # contract['mode'] = 'test'
-        # contract['procurementMethodDetails'] = "quick, accelerator=1440"
-
         re_obj = ACCELERATOR_RE.search(contract['procurementMethodDetails'])
         accelerator = int(re_obj.groupdict()['accelerator'])
 
         contract_start_date = parse_date(contract['period']['startDate']) \
             if 'period' in contract and 'startDate' in contract['period'] \
             else parse_date(contract['dateSigned'])
-        # milestones = generate_milestones(contract, tender)
         milestones = contract['milestones']
         last_scheduled_milestone = [m for m in milestones if m['status'] == 'scheduled'][-1]
 
