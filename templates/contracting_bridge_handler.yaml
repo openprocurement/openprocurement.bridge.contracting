@@ -1,0 +1,39 @@
+main:
+  app_key: ${options['app_key']}
+  host: localhost
+  port: 8125
+publish_templates:
+  default:
+    - '%(logger)s;%(attr)s;%(metric_name)s'
+  mess_id:
+    - '%(attr)s;%(metric_name)s'
+counters:
+  MESSAGE_ID:
+    publish_template: mess_id
+  BACKWARD_RESPONSE_LENGTH:
+    value_type: value
+  FORWARD_RESPONSE_LENGTH:
+    value_type: value
+histograms:
+  DOCUMENT_TIMESHIFT: {}
+  FEEDER_REQUEST_DURATION: {}
+  SAVE_BULK_DURATION: {}
+  CHECK_BULK_DURATION: {}
+  REQUESTS_TIMEOUT: {}
+gauges:
+  INPUT_THREADS: {}
+  FILTER_THREADS: {}
+  MAIN_THREADS: {}
+  RETRY_THREADS: {}
+  MAIN_QUEUE_SIZE: {}
+  RETRY_QUEUE_SIZE: {}
+  API_CLIENTS: {}
+  REQUESTS_DEV: {}
+  REQUESTS_MIN_AVG: {}
+  REQUESTS_MAX_AVG: {}
+  REQUESTS_AVG: {}
+  FEEDER_QUEUE_SIZE: {}
+  FORWARD_WAIT_SLEEP: {}
+  SAVE_BULK_LEN: {}
+  CHECK_BULK_LEN: {}
+  TEMP_QUEUE_SIZE: {}

@@ -5,20 +5,17 @@ version = '1.1.1'
 
 requires = [
     'setuptools',
-    'PyYAML',
-    'gevent',
-    'openprocurement_client==1.0b2',
+    'openprocurement.bridge.basic',
     'esculator',
     'iso8601',
     'pytz',
+    'tooz',
 ]
 
 test_requires = requires + [
     'webtest',
     'python-coveralls',
     'mock',
-    'redis',
-    'lazydb'
 ]
 
 docs_requires = requires + [
@@ -26,9 +23,10 @@ docs_requires = requires + [
 ]
 
 entry_points = {
-    'console_scripts': [
-        'contracting_data_bridge = openprocurement.bridge.contracting.databridge:main'
-    ],
+    'openprocurement.bridge.basic.handlers': [
+        'common = openprocurement.bridge.contracting.handlers:CommonObjectMaker',
+        'esco = openprocurement.bridge.contracting.handlers:EscoObjectMaker'
+    ]
 }
 
 setup(name='openprocurement.bridge.contracting',
