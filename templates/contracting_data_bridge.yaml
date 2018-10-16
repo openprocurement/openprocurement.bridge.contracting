@@ -1,6 +1,7 @@
 main:
   handlers:
-    - closeFrameworkAgreementUA
+    - common
+    - esco
   worker_config:
     worker_type: ${options['worker_type']}
     client_inc_step_timeout: 0.1
@@ -12,10 +13,14 @@ main:
     queue_timeout: 2
     bulk_save_limit: 1
     bulk_save_interval: 0.5
-    handler_cfaua:
+    handler_common_contracting:
       output_resources_api_server: 'http://localhost:6543'
       output_public_resources_api_server: 'http://localhost:6543'
-      output_resource: 'agreements'
+      output_resource: 'contracts'
+    handler_esco_contracting:
+      output_resources_api_server: 'http://localhost:6543'
+      output_public_resources_api_server: 'http://localhost:6543'
+      output_resource: 'contracts'
   storage_config:
     # required for databridge
     storage_type: "redis"  # possible values ['couchdb', 'elasticsearch', 'redis']
@@ -30,7 +35,6 @@ main:
   filter_config:
     filter_type: jmespath
     filters:
-      - {expression: "contains([`closeFrameworkAgreementUA`], procurementMethodType)"}
       - {expression: "contains([`active.awarded`, `complete`], status)"}
       - {expression: "!lots || lots &&  contains(lots[].status, `active`)"}
     timeout: 3

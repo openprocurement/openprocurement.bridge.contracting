@@ -27,7 +27,6 @@ six==1.11.0
 setuptools==7.0
 systemd-python==234
 tomako==0.1.0
-tooz==1.62.0
 zope.deferredimport==4.2.1
 zope.deprecation==4.3.0
 zope.proxy==4.3.0

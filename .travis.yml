@@ -8,7 +8,10 @@ cache:
   directories:
     - eggs
 before_install:
-  - pip install -r requirements.txt
+  - sudo add-apt-repository ppa:pitti/systemd -y
+  - sudo apt-get -qq update
+  - sudo apt-get -y install systemd libsystemd-{journal,daemon,login,id128}-dev pkg-config
+  - ./bootstrap.sh
 install:
   - bin/buildout -N
 script:
