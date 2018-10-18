@@ -15,7 +15,7 @@ from openprocurement_client.exceptions import (
     ResourceGone
 )
 
-from openprocurement.bridge.contracting.tests.base import AdaptiveCache
+from openprocurement.bridge.basic.tests.base import AdaptiveCache
 from openprocurement.bridge.contracting.handlers import (
     CommonObjectMaker, EscoObjectMaker
 )

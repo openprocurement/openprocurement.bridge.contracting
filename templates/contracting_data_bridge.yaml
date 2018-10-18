@@ -35,6 +35,7 @@ main:
   filter_config:
     filter_type: jmespath
     filters:
+      - {expression: "!contains([`competitiveDialogueUA`, `competitiveDialogueEU`, `closeFrameworkAgreementUA`], procurementMethodType)"}
       - {expression: "contains([`active.awarded`, `complete`], status)"}
       - {expression: "!lots || lots &&  contains(lots[].status, `active`)"}
     timeout: 3
