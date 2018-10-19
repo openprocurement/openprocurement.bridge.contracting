@@ -1,0 +1,100 @@
+main:
+  handlers:
+    - common
+    - esco
+  worker_config:
+    worker_type: ${options['worker_type']}
+    client_inc_step_timeout: 0.1
+    client_dec_step_timeout: 0.02
+    drop_threshold_client_cookies: 2
+    worker_sleep: 3
+    retry_default_timeout: 5
+    retries_count: 10
+    queue_timeout: 2
+    bulk_save_limit: 1
+    bulk_save_interval: 0.5
+    handler_common_contracting:
+      output_resources_api_server: 'http://localhost:6543'
+      output_public_resources_api_server: 'http://localhost:6543'
+      output_resource: 'contracts'
+    handler_esco_contracting:
+      output_resources_api_server: 'http://localhost:6543'
+      output_public_resources_api_server: 'http://localhost:6543'
+      output_resource: 'contracts'
+  storage_config:
+    # required for databridge
+    storage_type: "redis"  # possible values ['couchdb', 'elasticsearch', 'redis']
+    # arguments for storage configuration
+    cache_host: "localhost"
+    cache_port: 6379
+    user: ""
+    password: ""
+    cache_db_name: "0"
+    bulk_query_interval: 3
+    bulk_query_limit: 100
+  filter_config:
+    filter_type: jmespath
+    filters:
+      - {expression: "!contains([`competitiveDialogueUA`, `competitiveDialogueEU`, `closeFrameworkAgreementUA`], procurementMethodType)"}
+      - {expression: "contains([`active.awarded`, `complete`], status)"}
+      - {expression: "!lots || lots &&  contains(lots[].status, `active`)"}
+    timeout: 3
+  retrievers_params:
+    down_requests_sleep: 5
+    up_requests_sleep: 1
+    up_wait_sleep: 30
+    queue_size: 101
+  extra_params:
+      mode: "_all_"
+      limit: 100
+      opt_fields: "status,lots,procurementMethodType"
+  resources_api_server: 'http://localhost:6543'
+  resources_api_version: "2.4"
+  resources_api_token: "contracting"
+  public_resources_api_server: 'http://localhost:6543'
+  resource: 'tenders'
+  workers_inc_threshold: 75
+  workers_dec_threshold: 35
+  workers_min: 1
+  workers_max: 3
+  filter_workers_count: 1
+  retry_workers_min: 1
+  retry_workers_max: 2
+  retry_resource_items_queue_size: -1
+  watch_interval: 10
+  user_agent: 'bridge.contracting'
+  resource_items_queue_size: 100
+  input_queue_size: 100
+  resource_items_limit: 100
+  queues_controller_timeout: 60
+  perfomance_window: 300
+version: 1
+
+
+formatters:
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+
+{% if 'statsd' in options and options['statsd'] %}\
+  statsd:
+    level: DEBUG
+    class: statsdhandler.StatsdHandler
+    config_path: "${options['handler_config']}"
+{% end %}
+
+loggers:
+  openprocurement.bridge.basic.databridge:
+    handlers: [console]
+    propagate: no
+    level: DEBUG
+
+  "":
+    handlers: [console]
+    level: DEBUG

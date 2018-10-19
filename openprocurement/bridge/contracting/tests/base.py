@@ -24,4 +24,3 @@ class AlmostAlwaysTrue(object):
             self.current_iteration += 1
             return bool(1)
         return bool(0)
-
